@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live Pricing Method — Rockwell Metals</title>
+<style>
+  /* Static, full-coverage faces from fonts/ (see scripts/fetch_doc_fonts.py).
+     Loaded locally rather than via @import: the Google Fonts CSS API serves
+     VARIABLE woff2, which Chromium cannot embed in a PDF and instead rasterises
+     into Type 3 fonts — that is what made copied text break mid-word. */
+  @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 400;
+               src: url('fonts/PlusJakartaSans-400.ttf') format('truetype'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 700;
+               src: url('fonts/PlusJakartaSans-700.ttf') format('truetype'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400;
+               src: url('fonts/PlusJakartaSans-400i.ttf') format('truetype'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400;
+               src: url('fonts/JetBrainsMono-400.ttf') format('truetype'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 600;
+               src: url('fonts/JetBrainsMono-600.ttf') format('truetype'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700;
+               src: url('fonts/JetBrainsMono-700.ttf') format('truetype'); }
+  @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 700;
+               src: url('fonts/PlayfairDisplay-700.ttf') format('truetype'); }
+
+  @page { size: letter; margin: 12mm 14mm; }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1A1A1E; background: #FFFFFF;
+    line-height: 1.42; font-size: 9pt;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  .page { height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+  .page-1, .page-2 { page-break-after: always; break-after: page; }
+  .page-3 { page-break-before: always; break-before: page; }
+
+  /* ---------- Header ---------- */
+  .header {
+    border-bottom: 2px solid #D4AF4F;
+    padding-bottom: 9px; margin-bottom: 11px;
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 18px;
+  }
+  .header > div:first-child { min-width: 0; }
+  .brand-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #FAF8F3; border: 1px solid #E6DEC9;
+    padding: 2.5px 8px; border-radius: 5px;
+    font-family: 'JetBrains Mono', monospace; font-size: 7pt; font-weight: 700;
+    color: #7A5E27; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+  }
+  .brand-badge .dot { width: 6px; height: 6px; background: #1B9E57; border-radius: 50%; }
+  .title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 19.5pt; font-weight: 700; color: #111113;
+    line-height: 1.08; margin: 0 0 3px 0; letter-spacing: -0.01em;
+  }
+  .subtitle { font-size: 8.6pt; color: #555760; margin: 0; font-weight: 400; max-width: 95%; }
+  .doc-meta {
+    text-align: right; font-family: 'JetBrains Mono', monospace;
+    font-size: 6.9pt; color: #666872; line-height: 1.5; white-space: nowrap; flex-shrink: 0;
+  }
+  .doc-meta strong { color: #111113; }
+
+  /* ---------- Structure ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin-bottom: 9px; }
+
+  .card { background: #FAF8F5; border: 1px solid #ECE6D8; border-radius: 7px; padding: 8px 11px; }
+  .card--gold { background: linear-gradient(135deg, #FCFAF5 0%, #F7EEDF 100%); border: 1px solid #D9C59A; }
+  .card--dark { background: #18191E; border: 1px solid #2C2D34; color: #E8E9EE; }
+  .card--dark .card-title { color: #E5C365; }
+  .card--dark p { color: #E2E4EA; }
+
+  .card-title {
+    font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    color: #7A5E27; margin: 0 0 4px 0;
+  }
+  .card p { margin: 0; font-size: 8.2pt; line-height: 1.4; color: #46474F; }
+
+  .section-heading {
+    font-size: 10.8pt; font-weight: 700; color: #111113;
+    border-bottom: 1px solid #E6DEC9; padding-bottom: 4px;
+    margin: 9px 0 6px 0; display: flex; align-items: center; justify-content: space-between;
+  }
+  .section-heading .tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 6.6pt; font-weight: 600;
+    background: #EFE9D9; color: #634C1E; padding: 2px 6px; border-radius: 3px; text-transform: uppercase;
+  }
+
+  /* ---------- Formula ---------- */
+  .formula-banner {
+    background: #18191E; color: #FFF; border-radius: 7px;
+    padding: 11px 14px; margin: 8px 0 10px 0; border-left: 4px solid #D4AF4F;
+  }
+  .formula-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 6.9pt; color: #E5C365;
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 5px;
+  }
+  .formula-equation {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.4pt; font-weight: 600;
+    color: #FFF; letter-spacing: -0.01em; line-height: 1.35;
+  }
+  .formula-equation .hl { color: #F3D27C; }
+  .formula-equation .op { color: #8C8E98; margin: 0 3px; }
+  .formula-explainer { font-size: 8pt; color: #ABADB7; line-height: 1.42; margin: 6px 0 0 0; }
+
+  /* ---------- Tables ---------- */
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 6px 0; font-size: 8.2pt; }
+  th {
+    background: #F2ECE0; color: #523E15; text-align: left; padding: 6px 8px;
+    font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 6.9pt;
+    text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #D9CEB8;
+  }
+  td { padding: 5.5px 8px; border-bottom: 1px solid #EBE7DE; color: #27282D; vertical-align: top; line-height: 1.38; }
+  tr:nth-child(even) td { background: #FAF9F6; }
+  .num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+
+  .pill { display: inline-block; padding: 1.5px 6px; border-radius: 3px;
+          font-family: 'JetBrains Mono', monospace; font-size: 6.7pt; font-weight: 600; white-space: nowrap; }
+  .pill--gold  { background: #F7EECD; color: #73551B; border: 1px solid #E0CE99; }
+  .pill--green { background: #E2F5EA; color: #116B3B; border: 1px solid #B8E4CB; }
+  .pill--blue  { background: #E5EEFC; color: #1A54B8; border: 1px solid #C1D8F8; }
+  .pill--red   { background: #FDEAEA; color: #A32020; border: 1px solid #F2C4C4; }
+
+  /* ---------- Worked example ---------- */
+  .calc-strip {
+    display: flex; align-items: stretch;
+    border: 1px solid #E0D6BF; border-radius: 7px; overflow: hidden; margin: 5px 0 8px 0;
+  }
+  .calc-cell { flex: 1; padding: 7px 10px; background: #FFF; }
+  .calc-cell + .calc-cell { border-left: 1px solid #EDE7DA; }
+  .calc-cell--result { background: #FBF5E7; flex: 1.15; }
+  .calc-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 6.6pt; font-weight: 700;
+    color: #8C6A24; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px;
+  }
+  .calc-value { font-family: 'JetBrains Mono', monospace; font-size: 11.5pt; font-weight: 700; color: #111113; letter-spacing: -0.02em; }
+  .calc-cell--result .calc-value { color: #6B4F16; }
+  .calc-note { font-size: 7.1pt; color: #74767F; margin: 2px 0 0 0; line-height: 1.28; }
+
+  /* ---------- Flow ---------- */
+  .flow-container { display: flex; gap: 8px; margin: 6px 0 9px 0; }
+  .flow-step { flex: 1; background: #FAF8F4; border: 1px solid #E4DCC8; border-radius: 6px; padding: 8px 9px; }
+  .flow-step-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 6.6pt; font-weight: 700;
+    color: #8C6A24; text-transform: uppercase; margin-bottom: 2px;
+  }
+  .flow-step-title { font-size: 8.4pt; font-weight: 700; color: #161618; margin-bottom: 3px; }
+  .flow-step-desc { font-size: 7.4pt; color: #5C5E68; line-height: 1.35; margin: 0; }
+
+  /* ---------- Q&A ---------- */
+  .qa { border-left: 3px solid #D4AF4F; padding: 1px 0 1px 10px; margin-bottom: 6px; }
+  .qa-q { font-size: 8.4pt; font-weight: 700; color: #111113; margin: 0 0 2px 0; }
+  .qa-a { font-size: 8.1pt; color: #4A4C55; line-height: 1.4; margin: 0; }
+
+  .inset { background: #FFF; border: 1px solid #E6E0D2; border-radius: 5px; padding: 5px 8px; font-size: 7.8pt; line-height: 1.5; }
+
+  .page-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #E6DEC9; padding-top: 5px; margin-top: 5px;
+    font-family: 'JetBrains Mono', monospace; font-size: 6.7pt; color: #888A94;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ PAGE 1 ══════════════════ -->
+<div class="page page-1">
+  <div>
+    <div class="header">
+      <div>
+        <div class="brand-badge"><span class="dot"></span> Rockwell Metals · Live Pricing Method</div>
+        <h1 class="title">How Live Pricing Works</h1>
+        <p class="subtitle">How 25,000+ products reprice themselves every second — and why nobody on staff ever touches a price tag.</p>
+      </div>
+      <div class="doc-meta">
+        <strong>DOC:</strong> Live Pricing Method<br>
+        <strong>DATE:</strong> August 2026<br>
+        <strong>READ TIME:</strong> 6 minutes<br>
+        <strong>PAGE:</strong> 01 of 03
+      </div>
+    </div>
+
+    <!-- THE ONE IDEA -->
+    <div class="card card--gold" style="margin-bottom: 9px;">
+      <div class="card-title">The One Idea · If You Read Nothing Else</div>
+      <p style="font-size: 9pt; color: #2C2D33; line-height: 1.45;">
+        <strong>We do not set prices. We set markups — and the market sets the rest.</strong>
+        Our catalog today holds 25,000+ fixed dollar amounts that go stale the moment gold moves. We are replacing
+        every one of them with a small piece of arithmetic that runs the instant a customer looks at a product.
+        Gold moves, and all 25,000 prices move with it, to the penny, with no one lifting a finger.
+      </p>
+    </div>
+
+    <!-- ANALOGY -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">The Analogy That Makes It Click</div>
+        <p>
+          An airport currency booth doesn't reprint its board when the euro moves. It posts one rule —
+          <em>"market rate, plus our cut"</em> — and the board redraws itself all day.
+          <strong>We are building that board for metal.</strong> The rule is stored once; the number on screen is
+          calculated fresh, every time, from live market data.
+        </p>
+      </div>
+      <div class="card card--dark">
+        <div class="card-title">What We Are Replacing</div>
+        <p>
+          Today a price is a number sitting in a file, written when the product was loaded. Gold rallies 3% and every
+          gold item in the store is <strong>underpriced by 3%</strong> until someone notices. Gold drops 3% and we're
+          above market and stop selling. Neither failure is visible until it has already cost us.
+        </p>
+      </div>
+    </div>
+
+    <!-- FORMULA -->
+    <div class="formula-banner">
+      <div class="formula-label">The Entire System, In One Line</div>
+      <div class="formula-equation">
+        <span class="hl">Price</span> <span class="op">=</span> (<span class="hl">Live Market Price</span>
+        <span class="op">×</span> <span class="hl">Metal In The Coin</span>) <span class="op">+</span>
+        <span class="hl">Our Markup</span>
+      </div>
+      <p class="formula-explainer">
+        Three inputs. The first changes every few seconds and we don't control it. The second is a fixed physical fact
+        about the product. <strong style="color:#F3D27C;">The third is ours alone — and it is where 100% of our profit lives.</strong>
+      </p>
+    </div>
+
+    <!-- THREE INPUTS -->
+    <div class="section-heading">
+      <span>1. The Three Inputs · Who Controls What</span>
+      <span class="tag">Foundation</span>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">1 · Live Market Price</div>
+        <p style="margin-bottom:6px;">What an ounce of metal trades for right now on the world market. Arrives from a data feed, updates continuously.</p>
+        <div class="inset num">
+          <span style="font-size:7.2pt;color:#777;">Gold</span> <strong style="font-size:8.6pt;">$2,400.00 / oz</strong><br>
+          <span style="font-size:7.2pt;color:#777;">Silver</span> <strong style="font-size:8.6pt;">$30.00 / oz</strong>
+        </div>
+        <p style="margin-top:5px;"><span class="pill pill--red">Market controls</span></p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">2 · Metal In The Coin</div>
+        <p style="margin-bottom:6px;">How much pure metal the physical item contains. A permanent fact — it never changes for a given product.</p>
+        <div class="inset num">
+          <span style="font-size:7.2pt;color:#777;">1 oz Buffalo</span> <strong style="font-size:8.6pt;">1.000 oz</strong><br>
+          <span style="font-size:7.2pt;color:#777;">½ oz Eagle</span> <strong style="font-size:8.6pt;">0.500 oz</strong>
+        </div>
+        <p style="margin-top:5px;"><span class="pill pill--blue">Physics controls</span></p>
+      </div>
+
+      <div class="card card--gold">
+        <div class="card-title">3 · Our Markup</div>
+        <p style="margin-bottom:6px;">What we add on top — sourcing, shipping, insurance, overhead and profit. Set by us, per product.</p>
+        <div class="inset num" style="border-color:#E0CE99;">
+          <span style="font-size:7.2pt;color:#777;">Standard gold</span> <strong style="font-size:8.6pt;color:#7A5E27;">+5.5%</strong><br>
+          <span style="font-size:7.2pt;color:#777;">100 oz silver bar</span> <strong style="font-size:8.6pt;color:#7A5E27;">+$1.80/oz</strong>
+        </div>
+        <p style="margin-top:5px;"><span class="pill pill--green">We control · the business</span></p>
+      </div>
+    </div>
+
+    <!-- WORKED EXAMPLE -->
+    <div class="section-heading">
+      <span>2. One Product, Followed All The Way Through</span>
+      <span class="tag">The Math</span>
+    </div>
+
+    <p style="margin:0 0 3px 0; font-size:8.6pt; color:#46474F;">
+      <strong>American Gold Buffalo, 1 oz.</strong> Gold is trading at $2,400. Our markup on standard gold is 5.5%.
+    </p>
+
+    <div class="calc-strip">
+      <div class="calc-cell">
+        <div class="calc-label">Metal Value</div>
+        <div class="calc-value">$2,400.00</div>
+        <p class="calc-note">$2,400 × 1.000 oz</p>
+      </div>
+      <div class="calc-cell">
+        <div class="calc-label">+ Our Markup</div>
+        <div class="calc-value">$132.00</div>
+        <p class="calc-note">5.5% of metal value</p>
+      </div>
+      <div class="calc-cell calc-cell--result">
+        <div class="calc-label">= Price Shown</div>
+        <div class="calc-value">$2,532.00</div>
+        <p class="calc-note">Gross margin: $132.00</p>
+      </div>
+    </div>
+
+    <p style="margin:0 0 3px 0; font-size:8.6pt; color:#46474F;">
+      <strong>Gold now rallies $50 to $2,450.</strong> Nobody is notified. Nobody edits anything. The next customer to load the page sees:
+    </p>
+
+    <div class="calc-strip">
+      <div class="calc-cell">
+        <div class="calc-label">Metal Value</div>
+        <div class="calc-value">$2,450.00</div>
+        <p class="calc-note">$2,450 × 1.000 oz</p>
+      </div>
+      <div class="calc-cell">
+        <div class="calc-label">+ Our Markup</div>
+        <div class="calc-value">$134.75</div>
+        <p class="calc-note">Still 5.5% — scales automatically</p>
+      </div>
+      <div class="calc-cell calc-cell--result">
+        <div class="calc-label">= Price Shown</div>
+        <div class="calc-value">$2,584.75</div>
+        <p class="calc-note">Margin held. Zero human effort.</p>
+      </div>
+    </div>
+
+    <p style="margin:3px 0 0 0; font-size:8.4pt; color:#46474F;">
+      That is the whole system. Everything on the next two pages is about <strong>controlling the markup</strong> and
+      <strong>making sure it can never go wrong.</strong>
+    </p>
+  </div>
+
+  <div class="page-footer">
+    <div><strong>Rockwell Metals</strong> · Live Pricing Method</div>
+    <div>Page 01 · The Core Idea</div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 2 ══════════════════ -->
+<div class="page page-2">
+  <div>
+    <div class="header">
+      <div>
+        <div class="brand-badge"><span class="dot"></span> Rockwell Metals · Live Pricing Method</div>
+        <h2 class="title" style="font-size:19.5pt;">The Dials and the Safety Nets</h2>
+        <p class="subtitle">Four levers we can turn on demand — and three automatic guardrails that make mistakes structurally impossible.</p>
+      </div>
+      <div class="doc-meta">
+        <strong>DOC:</strong> Live Pricing Method<br>
+        <strong>DATE:</strong> August 2026<br>
+        <strong>SECTION:</strong> Controls &amp; Risk<br>
+        <strong>PAGE:</strong> 02 of 03
+      </div>
+    </div>
+
+    <!-- FOUR DIALS -->
+    <div class="section-heading">
+      <span>3. The Four Dials We Turn</span>
+      <span class="tag">Commercial Levers</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">A · Markup, By Product</div>
+        <p style="margin-bottom:5px;">
+          Change one number in the admin panel and every affected product reprices instantly — one product, a whole
+          mint, or all gold at once. A promotion becomes a 10-second change, not a data project.
+        </p>
+        <div class="inset num">
+          Gold Buffalo <strong>+5.5%</strong> &nbsp;·&nbsp; ½ oz Eagle <strong>+7.5%</strong><br>
+          <span style="font-size:7.1pt;color:#777;">Smaller coins carry higher markup — minting cost per ounce is higher.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">B · Volume Discounts</div>
+        <p style="margin-bottom:5px;">
+          Bulk buyers get a better price — but the discount comes <strong>only out of our markup</strong>, never out of
+          the metal cost. The system cannot discount into a loss.
+        </p>
+        <div class="inset num">
+          1–4 coins &nbsp;→&nbsp; +5.5% &nbsp;→&nbsp; <strong>$2,532.00</strong><br>
+          5–19 coins &nbsp;→&nbsp; +4.5% &nbsp;→&nbsp; <strong>$2,508.00</strong><br>
+          20+ coins &nbsp;&nbsp;→&nbsp; +3.5% &nbsp;→&nbsp; <strong>$2,484.00</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">C · Payment Method Pricing</div>
+        <p style="margin-bottom:5px;">
+          Card processing costs us roughly 3%. Rather than absorb it on every sale, the price shown adjusts by payment method — the industry norm, and it steers customers to cheaper rails.
+        </p>
+        <div class="inset num">
+          Crypto / USDC &nbsp;+0.0% &nbsp;→&nbsp; <strong>$2,532.00</strong><br>
+          Bank wire / ACH &nbsp;+0.4% &nbsp;→&nbsp; <strong>$2,542.13</strong><br>
+          Credit card &nbsp;&nbsp;&nbsp;&nbsp;+3.9% &nbsp;→&nbsp; <strong>$2,630.75</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">D · Buyback Pricing</div>
+        <p style="margin-bottom:5px;">
+          The same engine run in reverse quotes what we'll <em>pay</em> a customer for metal. The gap between our buy
+          and sell price is a dial we set — and a second, independent profit line.
+        </p>
+        <div class="inset num">
+          Customer sells 1 oz gold &nbsp;·&nbsp; market bid $2,390<br>
+          Less our 2.5% spread &nbsp;→&nbsp; we pay <strong>$2,330.25</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAFETY NETS -->
+    <div class="section-heading">
+      <span>4. The Three Safety Nets</span>
+      <span class="tag">Why This Can't Go Wrong</span>
+    </div>
+
+    <p style="margin:0 0 5px 0; font-size:8.6pt; color:#46474F;">
+      The obvious worry with automatic pricing is an automatic mistake. Three guardrails sit under every quote, and none depend on a person noticing anything.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:18%;">Guardrail</th>
+          <th style="width:28%;">The Risk It Removes</th>
+          <th style="width:31%;">How It Works</th>
+          <th style="width:23%;">In Practice</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Margin Floor</strong><br><span class="pill pill--green">Always on</span></td>
+          <td>Selling below what we paid, after stacked discounts or a sharp market drop.</td>
+          <td>Every quote is checked against our acquisition cost. If it lands under the minimum margin, it is raised to the floor before display.</td>
+          <td class="num">Cost $2,470<br>Floor +1.5% → <strong>$2,507.05</strong><br><span style="font-size:7.2pt;color:#777;">Never quotes below this.</span></td>
+        </tr>
+        <tr>
+          <td><strong>Circuit Breaker</strong><br><span class="pill pill--gold">Automatic</span></td>
+          <td>A glitched market feed printing an absurd price and draining inventory in minutes.</td>
+          <td>If the market appears to jump more than 3% in under a minute, or the feed goes quiet, quoting freezes and Ops is alerted.</td>
+          <td>The site shows an indicative price and pauses checkout rather than sell at a wrong number.</td>
+        </tr>
+        <tr>
+          <td><strong>120-Second Lock</strong><br><span class="pill pill--blue">Per order</span></td>
+          <td>The market moving against us between "Add to cart" and payment.</td>
+          <td>Clicking Buy freezes that exact price for two minutes, recorded on our server. Past two minutes it re-quotes.</td>
+          <td>Our exposure on any single order is <strong>two minutes</strong> of market movement — not two days.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- CUSTOMER JOURNEY -->
+    <div class="section-heading">
+      <span>5. What The Customer Actually Experiences</span>
+      <span class="tag">Front of House</span>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-step">
+        <div class="flow-step-num">Step 01</div>
+        <div class="flow-step-title">Browse</div>
+        <p class="flow-step-desc">Every price is the live market price of that second. A spot ticker lets the customer verify our markup themselves.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">Step 02</div>
+        <div class="flow-step-title">Lock</div>
+        <p class="flow-step-desc">"Buy Now" freezes the price for 120 seconds with a visible countdown, so the customer knows what they'll pay.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">Step 03</div>
+        <div class="flow-step-title">Pay</div>
+        <p class="flow-step-desc">Crypto, wire or card — each showing its own price up front. No surprise fees on the last screen.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">Step 04</div>
+        <div class="flow-step-title">Allocate</div>
+        <p class="flow-step-desc">Order confirms, metal is allocated to the vault, and net exposure is logged so it can be hedged.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div><strong>Rockwell Metals</strong> · Live Pricing Method</div>
+    <div>Page 02 · Controls &amp; Risk · Confidential</div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 3 ══════════════════ -->
+<div class="page page-3">
+  <div>
+    <div class="header">
+      <div>
+        <div class="brand-badge"><span class="dot"></span> Rockwell Metals · Live Pricing Method</div>
+        <h2 class="title" style="font-size:19.5pt;">What It Changes, and What We Need</h2>
+        <p class="subtitle">The business case, the three inputs still needed from the company, and the questions that come up most.</p>
+      </div>
+      <div class="doc-meta">
+        <strong>DOC:</strong> Live Pricing Method<br>
+        <strong>DATE:</strong> August 2026<br>
+        <strong>SECTION:</strong> Open Decisions<br>
+        <strong>PAGE:</strong> 03 of 03
+      </div>
+    </div>
+
+    <!-- BUSINESS IMPACT -->
+    <div class="section-heading">
+      <span>6. What Changes For The Business</span>
+      <span class="tag">The Case</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card card--gold">
+        <div class="card-title">Margin Stops Leaking</div>
+        <p>Every hour between a market move and a manual price edit is an hour we're either selling too cheap or not selling at all. That gap goes to zero, permanently, across all 25,000+ products.</p>
+      </div>
+      <div class="card card--gold">
+        <div class="card-title">Headcount Doesn't Scale With Catalog</div>
+        <p>Adding 10,000 more products adds no pricing work. Today the catalog is only as current as the person maintaining it; after this, catalog size and staffing are unrelated.</p>
+      </div>
+      <div class="card card--gold">
+        <div class="card-title">Margin Becomes Visible</div>
+        <p>Because cost and markup are stored separately, we can see live gross margin per product, per category, per order. That reporting simply doesn't exist with fixed prices.</p>
+      </div>
+      <div class="card card--gold">
+        <div class="card-title">We Look Like The Majors</div>
+        <p>APMEX and JM Bullion both price this way. Buyers in this market compare premiums over spot, and a static price signals an amateur operation. This is table stakes for credibility.</p>
+      </div>
+    </div>
+
+    <!-- WHAT WE NEED -->
+    <div class="section-heading">
+      <span>7. Three Things We Need From The Company</span>
+      <span class="tag">Open Items</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:23%;">Input</th>
+          <th style="width:44%;">What It Is</th>
+          <th style="width:33%;">Why It Can't Be Guessed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1 · Market Data Feed</strong><br><span class="pill pill--blue">Vendor decision</span></td>
+          <td>A paid subscription to a real-time gold, silver, platinum and palladium price feed. Typically a few hundred dollars a month.</td>
+          <td>This is the input the entire system runs on. A free or delayed feed means we quote stale prices.</td>
+        </tr>
+        <tr>
+          <td><strong>2 · Our Cost Basis</strong><br><span class="pill pill--red">Blocking</span></td>
+          <td>What we actually pay our suppliers, per product or per category.</td>
+          <td>The margin floor is only as good as the cost number behind it. Without real costs, the safety net that stops us selling at a loss cannot be armed.</td>
+        </tr>
+        <tr>
+          <td><strong>3 · The Markup Table</strong><br><span class="pill pill--gold">Commercial call</span></td>
+          <td>Target markup by metal, by product family, plus the volume discount tiers.</td>
+          <td>A pricing-strategy decision, not an engineering one. It sets where we sit against APMEX and JM on every product.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- FAQ -->
+    <div class="section-heading">
+      <span>8. Common Questions</span>
+      <span class="tag">Straight Answers</span>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="qa">
+          <p class="qa-q">Can the price change while a customer is shopping?</p>
+          <p class="qa-a">Yes, until they click Buy — exactly as it works at APMEX and JM Bullion. After that click the price is locked for 120 seconds and cannot move under them.</p>
+        </div>
+        <div class="qa">
+          <p class="qa-q">What if the market feed goes down?</p>
+          <p class="qa-a">Quoting freezes automatically and Ops is alerted. We show an indicative price and pause checkout. We never guess a price and never fall back to a stale one.</p>
+        </div>
+        <div class="qa">
+          <p class="qa-q">Can we still run sales and promo codes?</p>
+          <p class="qa-a">Yes — they come out of the markup, and the margin floor stops any stacked combination from cutting into cost. A discount can never produce a loss-making order.</p>
+        </div>
+      </div>
+      <div>
+        <div class="qa">
+          <p class="qa-q">Does this work for rare and collectible coins?</p>
+          <p class="qa-a">Differently, and deliberately. Collectibles carry a set collector price; metal value acts only as a floor beneath it, so a rare coin never sells for less than the gold inside it.</p>
+        </div>
+        <div class="qa">
+          <p class="qa-q">Will recalculating 25,000 prices slow the site down?</p>
+          <p class="qa-a">No. It is one multiplication and one addition per product as the page loads, with popular items briefly cached. It is faster than reading a stored price from disk.</p>
+        </div>
+        <div class="qa">
+          <p class="qa-q">Who can change a markup, and is it tracked?</p>
+          <p class="qa-a">Admin users only, through a controls panel with a live preview of the effect before publishing. Every change is logged with the user and timestamp.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLOSING -->
+    <div class="card card--dark" style="margin-top:2px;">
+      <div class="card-title">The Bottom Line</div>
+      <p style="font-size:8.8pt; line-height:1.45;">
+        We are replacing 25,000 numbers that go stale with <strong style="color:#F3D27C;">one rule that never does</strong>. The market moves, our prices move with it, our margin holds — and the safety nets mean the system cannot sell below cost or act on bad data. The engineering work is scoped; what we need from the business is the cost data and the markup strategy.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div><strong>Rockwell Metals</strong> · Live Pricing Method</div>
+    <div>Page 03 · Business Case &amp; Decisions · Confidential</div>
+  </div>
+</div>
+
+</body>
+</html>

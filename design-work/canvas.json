@@ -1,0 +1,14 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "A — Bullion Index", "x": 0, "y": 0, "w": 1060, "h": 760 },
+    { "file": "Assay.dc.html", "title": "B — Assay Dial", "x": 1160, "y": 0, "w": 1060, "h": 760 },
+    { "file": "Hallmark.dc.html", "title": "C — Hallmark", "x": 2320, "y": 0, "w": 1060, "h": 760 }
+  ],
+  "annotations": [
+    { "id": "intro", "x": 0, "y": -200, "w": 460, "text": "Three logo directions for Rockwell Gold, all set in the site's own system: Space Grotesk wordmark, JetBrains Mono descriptor, and the RM-STD gold tokens on the day-mode bone canvas. The GOLD descriptor swaps to SILVER / PLATINUM / METALS across verticals." },
+    { "id": "tradeoff-a", "x": 560, "y": -160, "w": 300, "text": "A — Bullion Index\nStrongest at tiny sizes; the ingot-stack-as-rising-chart says \"hard asset, traded live\" in one shape. Tradeoff: most abstract — reads \"market\" before \"metal\" to some eyes." },
+    { "id": "tradeoff-b", "x": 1720, "y": -160, "w": 300, "text": "B — Assay Dial\nMost literal coin / bullion read; reeded edge doubles as market ticks. Tradeoff: fine reeding needs the stepped-down tick counts at small sizes (28 → 20 → 16 reeds)." },
+    { "id": "tradeoff-c", "x": 2880, "y": -160, "w": 300, "text": "C — Hallmark\nBest provenance story (assay, serials, verification) — a mark you could literally strike into a bar. Tradeoff: quietest in a nav bar; less distinctive as a standalone symbol." }
+  ],
+  "launch": { "view": "canvas" }
+}
