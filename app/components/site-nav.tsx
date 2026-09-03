@@ -495,7 +495,7 @@ export default function SiteNav({
               { sym: "XPT", label: "XPT/USD" },
             ].map((t) => (
               <span className="tick num" key={t.sym} data-tick={`${t.sym}/USD`}>
-                <span className="tick__sym">{t.label}</span>
+                <span className="tick__sym" data-sym={t.sym}>{t.label}</span>
                 <b className="tick__val">{fmtSpot(spot, t.sym)}</b>
                 {spot?.live && (
                   <i className="tick__chg chg" data-dir={spotDir(spot, t.sym)}>{fmtChange(spot, t.sym)}</i>

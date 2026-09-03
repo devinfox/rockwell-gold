@@ -2440,7 +2440,11 @@ code { overflow-wrap: anywhere; }
    pill and the ⌘K hint go behind the menu; buttons grow to 44px targets. */
 @media (max-width: 760px) {
   .nav__inner { gap: 8px; height: 60px; }
-  .nav__right { gap: 8px; }
+  /* The desktop rule that zeroes this margin (to keep the centred link row
+     symmetric) also applied on phones, where the links are hidden — so the
+     search / theme / menu cluster sat against the wordmark instead of the
+     right edge. */
+  .nav__right { gap: 8px; margin-left: auto; }
   .nav__cta-verify { display: none; }
   .nav__cmd-trigger { width: 40px; height: 40px; padding: 0; justify-content: center; border-radius: var(--radius-pill); }
   .nav__cmd-trigger span, .nav__cmd-trigger kbd { display: none; }
@@ -2546,4 +2550,14 @@ code { overflow-wrap: anywhere; }
   .fin-tier-pill { padding: 8px 6px; }
   .fin-lock-bar { flex-wrap: wrap; gap: 8px; }
 }
+
+  /* The base sheet hides the metal codes below 860px, which leaves three bare
+     numbers with no way to tell gold from silver. Show the three-letter code
+     (the full "XAU/USD" label does not fit on a phone). */
+  .tick__sym { display: inline-block; font-size: 0; margin-right: 2px; }
+  .tick__sym::before {
+    content: attr(data-sym);
+    font-size: 9.5px; letter-spacing: 0.1em; font-weight: 600;
+    color: var(--text-muted);
+  }
 }
