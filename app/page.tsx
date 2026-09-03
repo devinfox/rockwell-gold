@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import HomeClient from "./home-client";
 
 export const metadata: Metadata = {
-  title: "Rockwell Metals — The hard asset, traded like a digital one",
+  title: "Rockwell Metals — Physical gold, traded like a digital asset",
   description:
-    "A live marketplace for buying physical gold — coins, bars, and rare collectibles. Live prices, limited drops, verified authenticity. The hard asset, traded like a digital one.",
+    "Buy physical gold, silver and platinum at live spot-linked prices. 120-second price lock, allocated and insured vault custody, serial-level custody passports, and instant sell-back liquidity. Settle in USDC, wire or card.",
+  alternates: { canonical: "/" },
 };
 
 export default function Page() {
