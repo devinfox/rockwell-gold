@@ -8,7 +8,7 @@ import "server-only";
 //
 //   file      data/db.json. Version = the file's mtime. Fine for one local
 //             process; a second writer is detected and rejected, not clobbered.
-//   postgres  one row in public.rm_store (Supabase) through PostgREST with the
+//   postgres  one row in public.rockwell_store (Supabase) through PostgREST with the
 //             service-role key. Version = a bigint the UPDATE is conditioned
 //             on, so N serverless instances share one ledger safely.
 //
@@ -141,7 +141,7 @@ export class PostgrestStore implements StoreAdapter {
         "RM_STORE_DRIVER=postgres needs NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
       );
     }
-    this.base = `${url.replace(/\/$/, "")}/rest/v1/rm_store`;
+    this.base = `${url.replace(/\/$/, "")}/rest/v1/rockwell_store`;
     this.headers = {
       apikey: key,
       Authorization: `Bearer ${key}`,
@@ -158,9 +158,9 @@ export class PostgrestStore implements StoreAdapter {
     } catch (e) {
       throw new StoreUnavailable(`rm_store unreachable: ${e instanceof Error ? e.message : String(e)}`);
     }
-    if (res.status === 404 || (res.status === 400 && (await res.clone().text()).includes("rm_store"))) {
+    if (res.status === 404 || (res.status === 400 && (await res.clone().text()).includes("rockwell_store"))) {
       throw new StoreUnavailable(
-        "Table public.rm_store is missing. Apply supabase/migrations/20260903_rm_store.sql.",
+        "Table public.rockwell_store is missing. Apply supabase/migrations/20260903_rockwell_catalog.sql.",
       );
     }
     return res;

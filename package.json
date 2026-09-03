@@ -12,7 +12,9 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "prebuild": "node scripts/check-build-inputs.mjs",
-    "check:inputs": "node scripts/check-build-inputs.mjs --strict"
+    "check:inputs": "node scripts/check-build-inputs.mjs --strict",
+    "catalog:push": "tsx scripts/catalog-push.mts",
+    "catalog:pull": "tsx scripts/catalog-pull.mts"
   },
   "dependencies": {
     "next": "16.3.1",
@@ -28,6 +30,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5",
     "vitest": "^4.1.11"
   }

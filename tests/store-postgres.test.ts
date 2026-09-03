@@ -18,7 +18,7 @@ describe.skipIf(!enabled)("postgres store (live Supabase)", () => {
     const s = new PostgrestStore();
     // Point this instance at a throwaway row.
     (s as unknown as { base: string }).base = (s as unknown as { base: string }).base; // keep base
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(/\/$/, "") + "/rest/v1/rm_store";
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(/\/$/, "") + "/rest/v1/rockwell_store";
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
     const h = { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
 
@@ -68,7 +68,7 @@ describe.skipIf(!enabled)("postgres store (live Supabase)", () => {
     await expect(s.save({ ...doc, seededAt: "stale" }, created.version)).rejects.toBeInstanceOf(StoreConflict);
     expect((await s.load())!.doc.seededAt).toBe("v2");
     // leave the store empty again so the app seeds a real document on first use
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(/\/$/, "") + "/rest/v1/rm_store?id=eq.main";
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(/\/$/, "") + "/rest/v1/rockwell_store?id=eq.main";
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
     await fetch(url, { method: "DELETE", headers: { apikey: key, Authorization: `Bearer ${key}` } });
     expect(await s.load()).toBeNull();

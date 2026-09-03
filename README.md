@@ -77,9 +77,26 @@ Every route from `Rockwell_Metals_Master_User_Roles_Pages_and_Flows.docx` is imp
 `POST/GET /api/rm`, over one ledger document persisted through `app/lib/rm-store.ts`:
 
 - `RM_STORE_DRIVER=file` (default) — `data/db.json`, one local process.
-- `RM_STORE_DRIVER=postgres` — the `public.rm_store` row in Supabase via the service-role key, with
+- `RM_STORE_DRIVER=postgres` — the `public.rockwell_store` row in Supabase via the service-role key, with
   optimistic concurrency, for Vercel/serverless or any multi-instance host. Apply
-  `supabase/migrations/20260903_rm_store.sql` once (`psql "$DATABASE_URL" -f …`).
+  `supabase/migrations/20260903_rockwell_catalog.sql` once (`psql "$DATABASE_URL" -f …`).
+
+## Catalog (system of record: Supabase)
+
+The launch catalog lives in the shared Supabase project as `rockwell_products`,
+`rockwell_pricing_rules` and `rockwell_catalog_meta` (every Rockwell table carries the
+`rockwell_` prefix — see [`supabase/README.md`](supabase/README.md) for the schema and the
+one-command extraction). The app reads a JSON snapshot at startup:
+
+```bash
+npm run catalog:pull            # tables → app/data/products.json + launch-pricing.json
+npm run catalog:push            # local JSON → tables (upsert; removes rows no longer present)
+npm run catalog:pull -- --check # exit 1 if the local snapshot differs from the database
+```
+
+With `RM_CATALOG_SOURCE=supabase`, `npm run build` pulls automatically first, so every deploy
+builds from the database. Product images are served from the `rockwell-products` storage bucket
+in the same project.
 
 **Environment** — copy `.env.example` to `.env.local`. `RM_SESSION_SECRET` (32+ random chars) is
 required; the server refuses to start in production without it.
