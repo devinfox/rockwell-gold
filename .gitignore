@@ -67,3 +67,7 @@ next-env.d.ts
 /archive/**/*.json
 /archive/**/*.bak
 /archive/**/products.json.backup_*
+
+# Vercel env handoff — contains live keys, never commit
+Rockwell_Vercel_Env.docx
+.env.vercel
