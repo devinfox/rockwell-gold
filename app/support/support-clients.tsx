@@ -150,7 +150,7 @@ export function TicketThreadClient({ ticketId }: { ticketId: string }) {
       title={t.subject}
       right={<span className="st" data-tone={t.status === "RESOLVED" ? "ok" : t.status === "IN_PROGRESS" ? "live" : "warn"} style={{ fontSize: 12 }}>{t.status.replace("_", " ")} · {t.priority}</span>}
     >
-      <div className="rm-grid2" style={{ gridTemplateColumns: "1.4fr 0.6fr" }}>
+      <div className="rm-grid2 rm-grid2--wide">
         <div className="rm-panel">
           <div className="thread" aria-live="polite">
             {t.messages.map((m, i) => (
