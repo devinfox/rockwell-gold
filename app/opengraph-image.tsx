@@ -10,8 +10,9 @@ import { OG, OG_SIZE, assetDataUrl, ogFonts, BrandRow, Chip, SpotStrip } from ".
 export const alt = "Rockwell Metals — physical gold, silver and platinum, traded like a digital asset";
 export const size = OG_SIZE;
 export const contentType = "image/png";
-// Spot moves; the card follows it every few minutes.
-export const revalidate = 300;
+// The card carries live spot, and getSpot() reads uncached, so the route is
+// rendered per request rather than baked at build time with fallback marks.
+export const dynamic = "force-dynamic";
 
 export default async function Image() {
   const [fonts, spot, buffalo, maple, eagle] = await Promise.all([

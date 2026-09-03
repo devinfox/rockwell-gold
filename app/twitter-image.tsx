@@ -1,2 +1,7 @@
 // X / Twitter uses the same card as Open Graph.
-export { default, alt, size, contentType, revalidate } from "./opengraph-image";
+//
+// Route segment config is declared here, never re-exported: Next cannot read
+// a re-exported config field and fails the production build.
+export { default, alt, size, contentType } from "./opengraph-image";
+
+export const dynamic = "force-dynamic";

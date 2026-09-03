@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Rockwell Metals">
+  <!-- Bullion Index mark on a cream medallion: three ingots rising like a bar
+       chart, the brand lockup's mark (app/components/brand-logo.tsx), inside a
+       bone disc with a thin ink rim. Reads at 16px and on any browser chrome. -->
+  <circle cx="24" cy="24" r="22.4" fill="#F4EFE3" />
+  <circle cx="24" cy="24" r="22.4" fill="none" stroke="#14161A" stroke-width="1.6" />
+  <g transform="translate(24 24) scale(0.74) translate(-24 -24)">
+    <polygon points="6,41 16,41 14.6,27 7.4,27" fill="#8A6B2C" />
+    <polygon points="19,41 29,41 27.6,17 20.4,17" fill="#B98F35" />
+    <polygon points="32,41 42,41 40.6,7 33.4,7" fill="#D4AF4F" />
+  </g>
+</svg>
