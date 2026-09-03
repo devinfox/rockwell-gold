@@ -52,6 +52,11 @@ const nextConfig: NextConfig = {
     // launch-pricing.json is the live rule book; without it the engine refuses
     // to start (app/lib/pricing/live.ts), so it must ship with every function.
     "/**": ["./app/data/products.json", "./app/data/launch-pricing.json"],
+    // Open Graph cards are drawn from local fonts and coin artwork (app/lib/og.tsx).
+    "/opengraph-image": ["./fonts/*.ttf", "./public/assets/coin-*.png"],
+    "/twitter-image": ["./fonts/*.ttf", "./public/assets/coin-*.png"],
+    "/product/[id]/opengraph-image": ["./fonts/*.ttf"],
+    "/product/[id]/twitter-image": ["./fonts/*.ttf"],
     "/api/catalog-batch": ["./app/data/unprocessed_jmbullion_remaining.json"],
   },
 

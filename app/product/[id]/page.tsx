@@ -20,11 +20,26 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }: PageProps<"/product/[id]">): Promise<Metadata> {
   const { id } = await params;
   const p = findProduct(id);
+  if (!p) return { title: "Product — Rockwell Metals" };
+
+  // The live price is in the card image (opengraph-image.tsx); the text stays
+  // price-free so a cached description never contradicts the mark.
+  const metalWord = p.metal.charAt(0).toUpperCase() + p.metal.slice(1);
+  const title = `${p.title} — Rockwell Metals`;
+  const description = `Buy the ${p.title} at a live spot-linked price. ${p.mint} · SKU ${p.sku}${p.metalContent ? ` · ${p.metalContent}` : ""}. 120-second price lock, allocated vault custody or insured armored delivery, serial-level custody passport, instant sell-back.`;
   return {
-    title: p ? `${p.title} — Rockwell Metals` : "Product — Rockwell Metals",
-    description: p
-      ? `${p.title}. ${p.mint} · SKU ${p.sku}. Verified custody, serial-tracked Vault Passport, allocated storage or insured delivery.`
-      : undefined,
+    title,
+    description,
+    alternates: { canonical: `/product/${p.id}` },
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url: `/product/${p.id}`,
+      siteName: "Rockwell Metals",
+    },
+    twitter: { card: "summary_large_image", title, description },
+    other: { "product:category": `${metalWord} bullion` },
   };
 }
 

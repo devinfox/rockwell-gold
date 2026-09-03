@@ -4,18 +4,47 @@ import "./rm.css";
 import GlobalFintechProvider from "./components/global-fintech-provider";
 import { readSession } from "./lib/session";
 
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://rockwellmetals.com";
+const DESCRIPTION =
+  "Buy physical gold, silver and platinum at live spot-linked prices. 120-second price lock, allocated and insured vault custody, serial-level custody passports, and instant sell-back liquidity. Settle in USDC, wire or card.";
+
+// The Open Graph / Twitter images are generated server-side from the repo's
+// own assets by app/opengraph-image.tsx and app/product/[id]/opengraph-image.tsx
+// (Next's file convention attaches them automatically).
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://rockwellmetals.com"),
+  metadataBase: new URL(SITE),
+  applicationName: "Rockwell Metals",
   title: {
-    default: "Rockwell Metals — The hard asset, traded like a digital one",
+    default: "Rockwell Metals — Physical gold, traded like a digital asset",
     template: "%s",
   },
-  description:
-    "A marketplace for physical gold, silver and platinum — allocated vault custody, serial-level custody passports, and instant sell-back liquidity.",
+  description: DESCRIPTION,
+  keywords: [
+    "buy gold", "buy silver", "buy platinum", "gold bullion", "silver bullion", "gold coins", "silver coins",
+    "American Gold Eagle", "Gold Buffalo", "Gold Maple Leaf", "Britannia", "gold price", "spot price", "live gold price",
+    "allocated vault storage", "precious metals IRA", "sell gold", "bullion dealer",
+  ],
+  category: "finance",
   openGraph: {
     type: "website",
     siteName: "Rockwell Metals",
+    locale: "en_US",
+    url: SITE,
+    title: "Rockwell Metals — Physical gold, traded like a digital asset",
+    description: DESCRIPTION,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rockwell Metals — Physical gold, traded like a digital asset",
+    description: "Live spot-linked bullion. 120-second price lock, allocated vault custody, serial passports, instant sell-back.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  alternates: { canonical: "/" },
+  formatDetection: { telephone: false },
 };
 
 // Restores the visitor's saved theme before first paint. This previously *wrote*
