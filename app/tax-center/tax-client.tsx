@@ -93,7 +93,7 @@ export default function TaxClient() {
         </div>
       }
     >
-      <div className="kpis" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+      <div className="kpis">
         <div className="kpi"><p className="kpi__k">Realized gain · YTD</p><p className="kpi__v num gain">+{usd(realized)}</p><p className="kpi__sub num">across {rows.filter((r) => r.kind === "SELL").length} disposals</p></div>
         <div className="kpi"><p className="kpi__k">Total proceeds</p><p className="kpi__v num">{usd(proceeds)}</p><p className="kpi__sub num">sell-backs · disbursed</p></div>
         <div className="kpi"><p className="kpi__k">Cost basis on book</p><p className="kpi__v num">{usd(basis)}</p><p className="kpi__sub num">settled acquisitions</p></div>

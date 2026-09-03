@@ -469,7 +469,7 @@ export function AdminSupportClient() {
 
   return (
     <OpsShell rm={rm} current="/admin/support" title="Staff support desk.">
-      <div className="rm-grid2" style={{ gridTemplateColumns: "0.85fr 1.15fr" }}>
+      <div className="rm-grid2 rm-grid2--narrow">
         <div className="rm-tablewrap">
           <table className="rm-table">
             <thead><tr><th>Ticket</th><th>Priority</th><th>Status</th></tr></thead>

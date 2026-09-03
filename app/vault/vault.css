@@ -279,3 +279,36 @@
 @media (prefers-reduced-motion: reduce) {
   .alloc__seg { transition: none; }
 }
+
+/* ————— mobile polish (vault) ————— */
+.vhero > *, .vault__two > *, .vsum > *, .hold > *, .act > * { min-width: 0; }
+.hold__serials, .hold__id span, .act__what { overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .vault__wrap { padding-top: 18px; }
+  .vhero { padding-bottom: 20px; gap: 22px; }
+  .vhero__hello { font-size: clamp(24px, 6.6vw, 30px); margin: 8px 0 14px; }
+  .vhero__val { font-size: clamp(36px, 11vw, 48px); }
+  .vsum { padding: 18px 0; gap: 16px 14px; margin-bottom: 20px; }
+  .vsum__v { font-size: 18px; }
+  .vhero__cta .btn { min-height: 44px; }
+  .vchart__plot { min-height: 180px; }
+  /* the live holdings list uses .holds, the prototype used .holdings — both become cards */
+  .holds { border: 0; background: transparent; display: grid; gap: 12px; }
+  .holds .hold { grid-template-columns: 1fr 1fr; gap: 14px; border: 1px solid var(--hairline); border-radius: var(--radius); padding: 16px; }
+  .hold__coin img { width: 40px; height: 40px; }
+  .hold__act { flex-wrap: wrap; }
+  .hold__act .hold__sell { min-height: 40px; }
+  .sellback, .autoinvest, .delivery, .alloc, .passport--vault { padding: 16px; }
+  .passport--vault .passport__rows { grid-template-columns: 1fr; gap: 10px; }
+  .passport__input { min-width: 0; flex-basis: 100%; }
+  .passport__btn { flex: 1 1 auto; min-height: 44px; }
+  .sellback__qty .rm-input, .sellback__qty input { flex: 1 1 120px; }
+  .section--v { padding-block: 28px; }
+  .block__head--row { flex-wrap: wrap; align-items: flex-start; gap: 10px; }
+  .act { padding: 12px 14px; gap: 12px; }
+  .alloc__legend { gap: 8px 16px; }
+}
+@media (max-width: 460px) {
+  .vsum { grid-template-columns: 1fr 1fr; } /* two-up reads better than a tall single column */
+  .vsum__v { font-size: 17px; }
+}
