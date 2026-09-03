@@ -327,43 +327,6 @@ export default function SiteNav({
           <Link href="/on-sale" {...here("/on-sale")}>On sale</Link>
           <Link href="/drops" {...here("/drops")}>Drops</Link>
           <Link href="/vault" {...here("/vault")}>Vault</Link>
-
-          {/* Account entries for the stacked mobile menu: the header chip,
-              "Sign in" and "Instant Buy" are hidden under 760px, so the
-              signed-in / signed-out surfaces need a home in the panel. */}
-          <div className="nav__mobile-only">
-            {session ? (
-              <>
-                <Link href={staff ? "/admin" : "/vault"}>
-                  <span className="acct__av" aria-hidden="true">
-                    {session.name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase()}
-                  </span>
-                  {session.name.split(" ")[0]} · {staff ? ROLE_LABEL[session.role] : maskedAccountId(session.userId)}
-                </Link>
-                <Link href="/orders">Orders</Link>
-                <Link href="/tax-center">Tax center</Link>
-                <Link href="/support">Support</Link>
-                <Link
-                  href="/"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    await signOut();
-                    setSession(null);
-                    setMenuOpen(false);
-                    router.push("/");
-                    router.refresh();
-                  }}
-                >
-                  Sign out
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href="/auth/sign-in">Sign in</Link>
-                <Link href="/auth/sign-up">Open an account</Link>
-              </>
-            )}
-          </div>
         </nav>
 
         <div className="nav__right">

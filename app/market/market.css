@@ -257,24 +257,3 @@
 @media (prefers-reduced-motion: reduce) {
   .fopt, .search__input, .toolbar__filters { transition: none; }
 }
-
-/* ————— mobile polish (catalog) ————— */
-.mkt__head > *, .mkt__layout > *, .toolbar > *, .mkt-strip > * { min-width: 0; }
-@media (max-width: 760px) {
-  .mkt__wrap { padding-top: 16px; }
-  .crumbs { margin-bottom: 14px; }
-  .mkt__head { gap: 16px; margin-bottom: 18px; }
-  .mkt-strip li { padding: 12px 14px; }
-  .mkt-strip__v { font-size: 16px; }
-  .toolbar { padding: 10px 0; margin-bottom: 16px; }
-  .toolbar__filters { min-height: 44px; }
-  .sort__select { min-height: 44px; }
-  .sort__label { display: none; }
-  .filters { padding: 16px; gap: 18px; }
-  .filters__clear { min-height: 32px; }
-  .active-filters { margin-bottom: 14px; }
-  .pill { min-height: 36px; }
-  .pill__x { width: 28px; height: 28px; }
-  .empty { padding: 36px 16px; }
-  .pager { gap: 8px; }
-}
