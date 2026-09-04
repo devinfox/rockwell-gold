@@ -619,10 +619,15 @@ export default function HomeClient() {
       <footer className="footer">
         <div className="footer__ticker" aria-hidden="true">
           <div className="footer__track">
-            {["XAU", "XAG", "XPT", "XAU"].map((sym, i) => (
+            {[
+              { sym: "XAU", label: "Gold" },
+              { sym: "XAG", label: "Silver" },
+              { sym: "XPT", label: "Platinum" },
+              { sym: "XAU", label: "Gold" },
+            ].map((t, i) => (
               <span className="num" key={i}>
-                {sym}/USD <b>{fmtSpot(spot, sym)}</b>{" "}
-                {spot?.live && <i className="chg" data-dir={spotDir(spot, sym)}>{fmtChange(spot, sym)}</i>}
+                {t.label} <b>{fmtSpot(spot, t.sym)}</b>{" "}
+                {spot?.live && <i className="chg" data-dir={spotDir(spot, t.sym)}>{fmtChange(spot, t.sym)}</i>}
               </span>
             ))}
           </div>

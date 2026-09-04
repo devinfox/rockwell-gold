@@ -429,11 +429,13 @@ export function initHome() {
   (function tape() {
     var track = document.querySelector("[data-tape]");
     if (!track) return;
+    // sym is the key the nav tick bar is addressed by (data-tick); label is
+    // what the tape shows — the metal's name, not its FX code.
     var items = [
-      { sym: "XAU/USD", metal: "XAU" },
-      { sym: "XAG/USD", metal: "XAG", cents: true },
-      { sym: "XPT/USD", metal: "XPT" },
-      { sym: "XPD/USD", metal: "XPD" },
+      { sym: "XAU/USD", label: "Gold", metal: "XAU" },
+      { sym: "XAG/USD", label: "Silver", metal: "XAG", cents: true },
+      { sym: "XPT/USD", label: "Platinum", metal: "XPT" },
+      { sym: "XPD/USD", label: "Palladium", metal: "XPD" },
       { sym: "GOLD EAGLE", id: "49", metal: "XAU" },
       { sym: "BUFFALO", id: "561", metal: "XAU" },
       { sym: "BRITANNIA", id: "25", metal: "XAU" },
@@ -442,7 +444,7 @@ export function initHome() {
     function makeNode(it) {
       var el = document.createElement("span");
       el.className = "tape-item";
-      el.innerHTML = '<span class="tape-item__sym">' + it.sym + "</span>" +
+      el.innerHTML = '<span class="tape-item__sym">' + (it.label || it.sym) + "</span>" +
         '<span class="tape-item__val num">—</span>' +
         '<span class="tape-item__chg num chg" data-dir="up"></span>';
       return el;
