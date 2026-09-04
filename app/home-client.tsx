@@ -630,7 +630,7 @@ export default function HomeClient() {
 
         <div className="wrap footer__inner">
           <div className="footer__brand">
-            <span className="footer__brand"><BrandLogo descriptor="METALS" size={28} /></span>
+            <span className="footer__brand"><BrandLogo descriptor="GOLD" size={28} /></span>
             <p className="footer__line">The hard asset, traded like a digital one.</p>
           </div>
 

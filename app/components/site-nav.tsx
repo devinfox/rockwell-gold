@@ -253,7 +253,7 @@ export default function SiteNav({
     <header className={`nav${menuOpen ? " nav--open" : ""}`} id="top" data-nav-react="1">
       <div className="nav__inner wrap">
         <Link className="nav__brand" href="/" aria-label="Rockwell Metals home">
-          <BrandLogo descriptor="METALS" size={32} />
+          <BrandLogo descriptor="GOLD" size={32} />
         </Link>
 
         <nav className="nav__links" id="primary-nav" aria-label="Primary">

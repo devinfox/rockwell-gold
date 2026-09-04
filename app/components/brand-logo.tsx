@@ -1,8 +1,8 @@
 // Rockwell brand lockup — concept A "Bullion Index" from the approved logo
 // canvas (artifact "Rockwell Gold Logo Concepts", 2026-08-25): three ingots
 // rising like a bar chart, set beside the Space Grotesk wordmark and a
-// JetBrains Mono descriptor that swaps per vertical (GOLD / SILVER / PLATINUM /
-// METALS). Inline SVG so it stays crisp at every size and follows the theme.
+// JetBrains Mono descriptor: GOLD on the storefront lockup, OPS on the admin
+// shell. Inline SVG so it stays crisp at every size and follows the theme.
 
 export type BrandVariant = "day" | "night" | "auto";
 
@@ -33,11 +33,11 @@ export function BullionIndexMark({ size = 30, variant = "auto", className }: { s
 }
 
 export default function BrandLogo({
-  descriptor = "METALS",
+  descriptor = "GOLD",
   size = 30,
   variant = "auto",
 }: {
-  /** GOLD · SILVER · PLATINUM · METALS (parent brand) */
+  /** GOLD (house brand) · SILVER · PLATINUM · OPS */
   descriptor?: string;
   size?: number;
   variant?: BrandVariant;
