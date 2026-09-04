@@ -76,10 +76,10 @@ describe("KYC tier limits", () => {
 
   it("enforces rails, custody and the order ceiling per tier", () => {
     const t1 = { kycTier: "TIER_1" as const, kycStatus: "UNVERIFIED" as const };
-    expect(tierViolation(t1, { totalUsd: 9_999, payMethod: "CRYPTO", custody: "VAULT" })).toBeNull();
-    expect(tierViolation(t1, { totalUsd: 10_001, payMethod: "CRYPTO", custody: "VAULT" })).toMatch(/limit/i);
-    expect(tierViolation(t1, { totalUsd: 100, payMethod: "CARD", custody: "VAULT" })).toMatch(/verification/i);
-    expect(tierViolation(t1, { totalUsd: 100, payMethod: "CRYPTO", custody: "DELIVERY" })).toMatch(/delivery/i);
+    expect(tierViolation(t1, { totalUsd: 9_999, payMethod: "CARD", custody: "VAULT" })).toBeNull();
+    expect(tierViolation(t1, { totalUsd: 10_001, payMethod: "CARD", custody: "VAULT" })).toMatch(/limit/i);
+    expect(tierViolation(t1, { totalUsd: 100, payMethod: "WIRE", custody: "VAULT" })).toMatch(/verification/i);
+    expect(tierViolation(t1, { totalUsd: 100, payMethod: "CARD", custody: "DELIVERY" })).toMatch(/delivery/i);
 
     const t2 = { kycTier: "TIER_2" as const, kycStatus: "CLEARED" as const };
     expect(tierViolation(t2, { totalUsd: 99_000, payMethod: "CARD", custody: "DELIVERY" })).toBeNull();
@@ -89,7 +89,7 @@ describe("KYC tier limits", () => {
     expect(tierViolation(t3, { totalUsd: 5_000_000, payMethod: "WIRE", custody: "DELIVERY" })).toBeNull();
     expect(TIER_RULES.TIER_3.maxOrderUsd).toBe(Number.POSITIVE_INFINITY);
 
-    expect(tierViolation({ kycTier: "TIER_3", kycStatus: "FLAGGED" }, { totalUsd: 1, payMethod: "CRYPTO", custody: "VAULT" })).toMatch(/paused/i);
+    expect(tierViolation({ kycTier: "TIER_3", kycStatus: "FLAGGED" }, { totalUsd: 1, payMethod: "CARD", custody: "VAULT" })).toMatch(/paused/i);
   });
 });
 

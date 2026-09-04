@@ -17,7 +17,7 @@ import { railSurcharge } from "../../lib/pricing/rules";
 import { TIER_RULES, effectiveTier, tierViolation } from "../../lib/kyc-limits";
 
 // Payment transform shared with the quote engine: card = cash ÷ 0.96, cash rails at par.
-const SURCHARGE: Record<PayMethod, number> = { CRYPTO: railSurcharge("crypto"), WIRE: railSurcharge("wire"), CARD: railSurcharge("card") };
+const SURCHARGE: Record<PayMethod, number> = { WIRE: railSurcharge("wire"), CARD: railSurcharge("card") };
 
 type LiveQuote = {
   mode: string; cashPrice: number; spotUsed: number; tiers: { minQty: number; unitCash: number }[];
@@ -63,7 +63,7 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
   const [now, setNow] = useState(0);
   const [custody, setCustody] = useState<Custody>("VAULT");
   const [ship, setShip] = useState<ShipForm>(EMPTY_SHIP);
-  const [pay, setPay] = useState<PayMethod>("CRYPTO");
+  const [pay, setPay] = useState<PayMethod>("WIRE");
   const [qty, setQty] = useState(1);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -278,7 +278,7 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
               {tierRules && (
                 <p className="rm-note" style={{ marginTop: 10 }}>
                   {tierRules.label}: single orders to {tierRules.maxOrderUsd === Number.POSITIVE_INFINITY ? "any size" : usd(tierRules.maxOrderUsd, 0)}
-                  {tier === "TIER_1" ? " · crypto settlement · vault custody" : ""}.
+                  {tier === "TIER_1" ? " · card settlement · vault custody" : ""}.
                   {tier !== "TIER_3" && <> <a href={verifyHref} style={{ color: "var(--gold-ink)" }}>Verify identity to raise limits →</a></>}
                 </p>
               )}
@@ -339,9 +339,6 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
             <div className="rm-panel">
               <p className="rm-panel__k">2. Settlement Payment Method</p>
               <div className="seg" role="group" aria-label="Settlement rail">
-                <button type="button" className={`seg__opt${pay === "CRYPTO" ? " is-on" : ""}`} onClick={() => setPay("CRYPTO")}>
-                  Crypto · USDC/USDT <small>0% fee · ~15s settlement</small>
-                </button>
                 <button type="button" className={`seg__opt${pay === "WIRE" ? " is-on" : ""}`} onClick={() => setPay("WIRE")} aria-disabled={railLocked("WIRE")} style={railLocked("WIRE") ? { opacity: 0.55 } : undefined}>
                   Bank Wire <small>{railLocked("WIRE") ? "Locked · verify identity" : "Cash price · Same-day Fedwire"}</small>
                 </button>
@@ -351,18 +348,6 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
               </div>
 
               <div style={{ marginTop: 14 }}>
-                {pay === "CRYPTO" && (
-                  <div className="rm-panel rm-panel--well">
-                    <div className="rm-kv num">
-                      <div><span>Amount</span><b>{usd(total)} in USDC</b></div>
-                      <div><span>Settlement address</span><b>Issued on execution</b></div>
-                    </div>
-                    <p className="rm-note" style={{ marginTop: 10 }}>
-                      A payment address and QR code are issued when you execute. No crypto payment
-                      processor is connected on this environment yet, so nothing is charged.
-                    </p>
-                  </div>
-                )}
                 {pay === "WIRE" && (
                   <div className="rm-panel rm-panel--well">
                     <div className="rm-kv num">
@@ -429,7 +414,7 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
                 </div>
                 <div><span>Unit price (incl. rail)</span><b>{usd(unit)}</b></div>
                 <div><span>Volume discount</span><b>{tierMult === 1 ? "None" : `−${((1 - tierMult) * 100).toFixed(0)}%`}</b></div>
-                <div><span>Payment surcharge</span><b>{SURCHARGE[pay] === 0 ? "0% (Crypto)" : `+${(SURCHARGE[pay] * 100).toFixed(1)}%`}</b></div>
+                <div><span>Payment surcharge</span><b>{SURCHARGE[pay] === 0 ? "0% (Wire)" : `+${(SURCHARGE[pay] * 100).toFixed(1)}%`}</b></div>
                 <div><span>Custody</span><b>{custody === "VAULT" ? "Allocated vault · Yr 1 free" : "Armored delivery"}</b></div>
                 <div style={{ paddingTop: 8, borderTop: "1px solid var(--hairline)" }}>
                   <span style={{ color: "var(--text)", fontWeight: 600 }}>Total settlement</span>

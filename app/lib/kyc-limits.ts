@@ -15,9 +15,9 @@ export interface TierRules {
 }
 
 export const TIER_RULES: Record<KycTier, TierRules> = {
-  TIER_1: { label: "Tier 1 · Instant", maxOrderUsd: 10_000, rails: ["CRYPTO"], custody: ["VAULT"] },
-  TIER_2: { label: "Tier 2 · Verified", maxOrderUsd: 100_000, rails: ["CRYPTO", "WIRE", "CARD"], custody: ["VAULT", "DELIVERY"] },
-  TIER_3: { label: "Tier 3 · Institutional", maxOrderUsd: Number.POSITIVE_INFINITY, rails: ["CRYPTO", "WIRE", "CARD"], custody: ["VAULT", "DELIVERY"] },
+  TIER_1: { label: "Tier 1 · Instant", maxOrderUsd: 10_000, rails: ["CARD"], custody: ["VAULT"] },
+  TIER_2: { label: "Tier 2 · Verified", maxOrderUsd: 100_000, rails: ["WIRE", "CARD"], custody: ["VAULT", "DELIVERY"] },
+  TIER_3: { label: "Tier 3 · Institutional", maxOrderUsd: Number.POSITIVE_INFINITY, rails: ["WIRE", "CARD"], custody: ["VAULT", "DELIVERY"] },
 };
 
 /**
@@ -48,7 +48,7 @@ export function tierViolation(u: Pick<User, "kycTier" | "kycStatus">, o: OrderSh
   const tier = effectiveTier(u);
   const r = TIER_RULES[tier];
   if (!r.rails.includes(o.payMethod)) {
-    return `${railLabel(o.payMethod)} settlement needs identity verification (Tier 2). Verify your identity or settle in crypto.`;
+    return `${railLabel(o.payMethod)} settlement needs identity verification (Tier 2). Verify your identity or settle by card.`;
   }
   if (!r.custody.includes(o.custody)) {
     return "Insured delivery needs identity verification (Tier 2). Verify your identity or store in the allocated vault.";
@@ -59,6 +59,6 @@ export function tierViolation(u: Pick<User, "kycTier" | "kycStatus">, o: OrderSh
   return null;
 }
 
-export const railLabel = (m: PayMethod) => (m === "CRYPTO" ? "Crypto" : m === "WIRE" ? "Bank wire" : "Card");
+export const railLabel = (m: PayMethod) => (m === "WIRE" ? "Bank wire" : "Card");
 
 const usd0 = (v: number) => "$" + v.toLocaleString("en-US", { maximumFractionDigits: 0 });

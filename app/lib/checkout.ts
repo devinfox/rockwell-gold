@@ -28,7 +28,7 @@ export interface CheckoutLock {
    * Settlement rail and custody chosen on the product page. Optional: older
    * locks and the nav/palette "Instant Buy" path do not carry them. The
    * checkout page should initialise its `pay` / `custody` state from these
-   * (falling back to CRYPTO / VAULT) so the choice made on the PDP is not
+   * (falling back to WIRE / VAULT) so the choice made on the PDP is not
    * silently discarded (audit: Medium).
    */
   payMethod?: PayMethod;

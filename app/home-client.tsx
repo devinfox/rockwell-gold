@@ -261,7 +261,7 @@ export default function HomeClient() {
                 </div>
                 <h3 className="quote__title">Instant spot-linked execution</h3>
                 <p className="quote__sub">
-                  Zero slippage on orders up to $500,000. 120-second price freeze on checkout. Settle in USDC, Fedwire, or card.
+                  Zero slippage on orders up to $500,000. 120-second price freeze on checkout. Settle by Fedwire or card.
                 </p>
                 <div className="quote__grid num">
                   <div>
@@ -607,7 +607,7 @@ export default function HomeClient() {
                 </span>
                 <h3 className="trust__name">Instant 90s locked bid</h3>
                 <p className="trust__copy">
-                  Liquidate your holdings in 1 click at tight market spreads with instant cryptocurrency or same-day Fedwire payout.
+                  Liquidate your holdings in 1 click at tight market spreads with a same-day Fedwire payout.
                 </p>
               </article>
             </div>

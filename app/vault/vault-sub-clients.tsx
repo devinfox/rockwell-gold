@@ -120,7 +120,6 @@ export function SellBackTerminalClient() {
   const router = useRouter();
   const vaulted = holdings.filter((h) => h.status === "VAULTED");
   const [selected, setSelected] = useState<string[]>([]);
-  const [payout, setPayout] = useState<"USDC" | "WIRE">("USDC");
   const [busy, setBusy] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -154,7 +153,7 @@ export function SellBackTerminalClient() {
     try {
       await act<SellBackRequest>("requestSellback", {
         serials: selected, title: chosen[0]?.title,
-        lockedBidUsd: +(net / Math.max(1, chosen.length)).toFixed(2), payout,
+        lockedBidUsd: +(net / Math.max(1, chosen.length)).toFixed(2), payout: "WIRE",
       });
       setSelected([]);
       addToast("Sell-back submitted", `Liquidation of ${usd(net)} submitted · funds disburse in ~3 minutes.`, "gain");
@@ -170,7 +169,7 @@ export function SellBackTerminalClient() {
       current="/vault/sell-back"
       index="V2 / Liquidity"
       title="Instant sell-back terminal."
-      sub="Freeze a 90-second live bid at a 0.5% spread, execute in one click, and receive USDC or bank wire in minutes."
+      sub="Freeze a 90-second live bid at a 0.5% spread, execute in one click, and receive a same-day bank wire."
     >
       <div className="rm-grid2">
         <div className="rm-tablewrap">
@@ -225,15 +224,11 @@ export function SellBackTerminalClient() {
               <div><span>Selected items</span><b>{chosen.length} piece{chosen.length === 1 ? "" : "s"}</b></div>
               <div><span>Gross value at spot</span><b>{usd(gross)}</b></div>
               <div><span>Spread vs. spot</span><b>{(spread * 100).toFixed(2)}%</b></div>
-              <div><span>Settlement time</span><b>~3 min · {payout === "USDC" ? "USDC on-chain" : "Same-day Fedwire"}</b></div>
+              <div><span>Settlement time</span><b>Same-day Fedwire</b></div>
               <div style={{ paddingTop: 8, borderTop: "1px solid var(--hairline)" }}>
                 <span style={{ color: "var(--text)", fontWeight: 600 }}>Total payout</span>
                 <b style={{ color: "var(--gold-ink)", fontSize: 20 }}>{usd(net)}</b>
               </div>
-            </div>
-            <div className="seg" role="group" aria-label="Payout rail" style={{ marginTop: 14 }}>
-              <button type="button" className={`seg__opt${payout === "USDC" ? " is-on" : ""}`} onClick={() => setPayout("USDC")}>USDC wallet <small className="num">&lt;3 min</small></button>
-              <button type="button" className={`seg__opt${payout === "WIRE" ? " is-on" : ""}`} onClick={() => setPayout("WIRE")}>Bank wire <small className="num">same day</small></button>
             </div>
             <button className="btn btn--gold btn--lg btn--block" style={{ marginTop: 14 }} type="button" disabled={busy || chosen.length === 0} onClick={handleExecuteClick}>
               {busy ? "Processing liquidation…" : chosen.length === 0 ? "Select holdings to liquidate" : `Execute sell-back · ${usd(net)}`}
@@ -264,7 +259,7 @@ export function SellBackTerminalClient() {
           <div style={{ background: "var(--surface)", border: "1px solid var(--hairline)", borderRadius: 12, padding: 24, maxWidth: 440, width: "100%" }}>
             <h3 style={{ fontSize: 18, marginBottom: 8 }}>Confirm Sell-Back Liquidation</h3>
             <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 16 }}>
-              You are about to sell back <b>{chosen.length} piece(s)</b> for an immediate locked payout of <b style={{ color: "var(--gold-ink)" }}>{usd(net)}</b> via <b>{payout}</b>.
+              You are about to sell back <b>{chosen.length} piece(s)</b> for an immediate locked payout of <b style={{ color: "var(--gold-ink)" }}>{usd(net)}</b> via <b>bank wire</b>.
             </p>
             <div className="rm-actions" style={{ justifyContent: "flex-end" }}>
               <button className="btn btn--ghost" type="button" onClick={() => setConfirmOpen(false)}>Cancel</button>
@@ -503,7 +498,7 @@ export function VaultPlanClient() {
             <div><span>Projected / year</span><b>{usd0(amount * 52)} · ≈ {(oz * 52).toFixed(2)} oz</b></div>
             <div><span>Default target</span><b>American Gold Buffalo · 1 oz</b></div>
             <div><span>Volume tier</span><b className="ok">Retained across schedule</b></div>
-            <div><span>Payment rail</span><b>USDC wallet on file · Card fallback</b></div>
+            <div><span>Payment rail</span><b>Bank account on file · Card fallback</b></div>
             {plan && <div><span>Next allocation</span><b>{fmtDate(plan.nextRunAt)} · 9:00 AM EST</b></div>}
             {plan && <div><span>Invested to date</span><b>{usd0(plan.totalInvestedUsd)}</b></div>}
           </div>

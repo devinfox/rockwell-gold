@@ -64,7 +64,7 @@ export function AdminSellbacksClient() {
                       )}
                       {s.status === "APPROVED" && (
                         <button className="btn btn--gold" style={{ padding: "5px 12px", fontSize: 12 }} {...gate} onClick={() => move(s.id, "DISBURSED", { title: "Confirm disbursement", body: <>Pay <b>{usd(totalPayout)}</b> to <b>{u?.fullName}</b> via <b>{s.payout}</b> and reclaim {s.serials.length} serial(s) to treasury. This cannot be undone.</> })}>
-                          {s.payout === "USDC" ? "1-click crypto payout" : "Fedwire export · pay"}
+                          Fedwire export · pay
                         </button>
                       )}
                     </div>
@@ -154,7 +154,7 @@ export function AdminCustomerDossierClient({ userId }: { userId: string }) {
                 <div><span>Type</span><b>{u.accountType}</b></div>
                 <div><span>KYC tier</span><b>{u.kycTier.replace("_", " ")} · {TIER_LIMIT[u.kycTier]}</b></div>
                 <div><span>ID documents</span><b className="ok">encrypted viewer · 2 on file</b></div>
-                <div><span>Linked rails</span><b>USDC wallet (whitelisted) · Chase ****4417</b></div>
+                <div><span>Linked rails</span><b>Chase ****4417 · Visa ****8802</b></div>
                 <div><span>Lifetime GMV</span><b style={{ color: "var(--gold-ink)" }}>{usd0(gmv)}</b></div>
               </div>
               <div className="rm-actions" style={{ marginTop: 14 }}>
@@ -308,7 +308,7 @@ export function PricingEngineClient() {
         settings: {
           basePremiumPct: { gold: val("gold", p.basePremiumPct.gold), silver: val("silver", p.basePremiumPct.silver), platinum: val("platinum", p.basePremiumPct.platinum) },
           tierDiscounts: { qty5: val("qty5", p.tierDiscounts.qty5 * 100) / 100, qty20: val("qty20", p.tierDiscounts.qty20 * 100) / 100 },
-          surcharges: { crypto: 0, wire: val("wire", p.surcharges.wire * 100) / 100, card: val("card", p.surcharges.card * 100) / 100 },
+          surcharges: { wire: val("wire", p.surcharges.wire * 100) / 100, card: val("card", p.surcharges.card * 100) / 100 },
           sellbackSpreadPct: val("spread", p.sellbackSpreadPct),
           loyaltyDiscountPct: val("loyalty", p.loyaltyDiscountPct),
         },
@@ -354,7 +354,6 @@ export function PricingEngineClient() {
               <p className="rm-panel__k">Feed configuration</p>
               <div className="rm-kv num">
                 <div><span>Spot feed</span><b>{p.spotFeed}</b></div>
-                <div><span>Crypto surcharge</span><b className="ok">0% · locked by charter</b></div>
                 <div><span>Last publish</span><b>{fmtDateTime(p.updatedAt)} · {p.updatedBy}</b></div>
               </div>
             </div>
@@ -383,7 +382,7 @@ export function ComplianceClient() {
   const [busy, setBusy] = useState<string | null>(null);
 
   const queue = (db?.users ?? []).filter((u) => u.role === "CUSTOMER" && u.kycStatus !== "CLEARED");
-  const big = (db?.orders ?? []).filter((o) => o.totalUsd > 10_000 && (o.payMethod === "CRYPTO" || o.payMethod === "WIRE") && o.status !== "CANCELLED");
+  const big = (db?.orders ?? []).filter((o) => o.totalUsd > 10_000 && o.payMethod === "WIRE" && o.status !== "CANCELLED");
 
   const setKyc = async (userId: string, kycStatus: KycStatus, kycTier?: KycTier) => {
     setBusy(userId);
@@ -413,7 +412,7 @@ export function ComplianceClient() {
         </div>
 
         <div className="rm-panel">
-          <p className="rm-panel__k">FinCEN Form 8300 monitor <span className="num">cash/crypto &gt; $10k</span></p>
+          <p className="rm-panel__k">FinCEN Form 8300 monitor <span className="num">cash &gt; $10k</span></p>
           <div className="rm-kv num">
             {big.map((o) => (
               <div key={o.id}>

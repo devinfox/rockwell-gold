@@ -14,11 +14,11 @@ import type { SupportTicket, OtcQuote } from "../lib/rm-types";
 
 const KB = [
   { k: "CUSTODY", t: "How allocated custody works", d: "Segregated, serial-matched, never lent. Your metal is your metal — audited monthly." },
-  { k: "SELL-BACK", t: "Instant sell-back mechanics", d: "90-second bid locks at a 0.5% spread; USDC settles in ~3 minutes, wire same day." },
+  { k: "SELL-BACK", t: "Instant sell-back mechanics", d: "90-second bid locks at a 0.5% spread; wire settles same day." },
   { k: "DELIVERY", t: "Armored delivery & signatures", d: "Tamper-evident bags, direct signature with photo ID match, Lloyd's cover to your door." },
   { k: "VERIFY", t: "Verifying a serial", d: "Every passport re-verifies against the ledger — assay record, bay location, chain of custody." },
   { k: "KYC", t: "Tiers & limits", d: "Tier 1 instant under $10k, Tier 2 to $100k with ID + liveness, Tier 3 institutional." },
-  { k: "TAX", t: "1099-B and Form 8300", d: "Realized ledger exports for Schedule D; >$10k cash/crypto events auto-file 8300." },
+  { k: "TAX", t: "1099-B and Form 8300", d: "Realized ledger exports for Schedule D; >$10k cash events auto-file 8300." },
 ];
 
 // ————— /support —————

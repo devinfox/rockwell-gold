@@ -38,7 +38,6 @@ export default function SellBackModal({
   const serials = item.serials ?? [];
   const maxQty = Math.max(0, Math.min(item.qtyOwned, serials.length));
   const [qty, setQty] = useState(maxQty > 0 ? 1 : 0);
-  const [payoutRail, setPayoutRail] = useState<"USDC" | "WIRE">("USDC");
   const [timeLeft, setTimeLeft] = useState(BID_HOLD_S);
   const [step, setStep] = useState<"review" | "submitting" | "submitted">("review");
   const [request, setRequest] = useState<SellBackRequest | null>(null);
@@ -71,13 +70,13 @@ export default function SellBackModal({
         serials: serials.slice(0, qty),
         title: item.name,
         lockedBidUsd: +item.bidPrice.toFixed(2),
-        payout: payoutRail,
+        payout: "WIRE",
       });
       setRequest(sb);
       setStep("submitted");
       addToast(
         "Sell-back submitted",
-        `${sb.id} · ${usd(sb.lockedBidUsd * sb.quantity)} to your ${payoutRail === "USDC" ? "USDC wallet" : "bank wire"} once the desk approves.`,
+        `${sb.id} · ${usd(sb.lockedBidUsd * sb.quantity)} to your bank wire once the desk approves.`,
         "gain",
       );
     } catch (e) {
@@ -183,29 +182,13 @@ export default function SellBackModal({
 
             <div className="fin-form-group">
               <div className="fin-form-group__label">
-                <span>Payout Destination Rail</span>
+                <span>Payout Destination</span>
               </div>
-              <div className="fin-rail-cards" role="radiogroup" aria-label="Payout rail">
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={payoutRail === "USDC"}
-                  className={`fin-rail-card ${payoutRail === "USDC" ? "is-active" : ""}`}
-                  onClick={() => setPayoutRail("USDC")}
-                >
-                  <b className="fin-rail-card__name">Crypto (USDC)</b>
-                  <p className="fin-rail-card__desc num">On-chain once the desk disburses</p>
-                </button>
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={payoutRail === "WIRE"}
-                  className={`fin-rail-card ${payoutRail === "WIRE" ? "is-active" : ""}`}
-                  onClick={() => setPayoutRail("WIRE")}
-                >
+              <div className="fin-rail-cards">
+                <div className="fin-rail-card is-active">
                   <b className="fin-rail-card__name">Fedwire</b>
                   <p className="fin-rail-card__desc num">To your linked bank account</p>
-                </button>
+                </div>
               </div>
             </div>
 
@@ -272,7 +255,7 @@ export default function SellBackModal({
               </div>
               <div className="fin-receipt__row">
                 <span>Payout</span>
-                <b>{request.payout === "USDC" ? "USDC" : "Fedwire"} · reference assigned at disbursement</b>
+                <b>Fedwire · reference assigned at disbursement</b>
               </div>
             </div>
 

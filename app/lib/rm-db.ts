@@ -81,12 +81,12 @@ function seedUsers(now: string): User[] {
     {
       id: "u-adrian", email: "customer@rockwell.demo", phone: "+1 (415) 555-7741", fullName: "Adrian Reyes",
       role: "CUSTOMER", accountType: "INDIVIDUAL", kycTier: "TIER_2", kycStatus: "CLEARED",
-      riskRating: "LOW", ...base, staffNotes: ["Sovereign-tier stacker since Mar 2025. Prefers crypto settlement."],
+      riskRating: "LOW", ...base, staffNotes: ["Sovereign-tier stacker since Mar 2025. Prefers wire settlement."],
     },
     {
       id: "u-adrian-alias", email: "adrian@rockwell.demo", phone: "+1 (415) 555-7741", fullName: "Adrian Reyes",
       role: "CUSTOMER", accountType: "INDIVIDUAL", kycTier: "TIER_2", kycStatus: "CLEARED",
-      riskRating: "LOW", ...base, staffNotes: ["Sovereign-tier stacker since Mar 2025. Prefers crypto settlement."],
+      riskRating: "LOW", ...base, staffNotes: ["Sovereign-tier stacker since Mar 2025. Prefers wire settlement."],
     },
     {
       id: "s-admin", email: "admin@rockwell.demo", phone: "ext. 100", fullName: "Victoria Cross",
@@ -191,7 +191,7 @@ function seed(): RmDb {
     return {
       id: `RM-ORD-${ordinal(1000 + n)}`, userId, status, items: [item],
       totalUsd: +(unit * qty).toFixed(2), spotAtLock: SPOT.XAU, lockedUntil: created,
-      payMethod: pay, payRef: pay === "CRYPTO" ? "0x" + Math.random().toString(16).slice(2, 10) + "…f3a1" : pay === "WIRE" ? "FW-2026-" + (81000 + n) : "ch_3PqK" + n + "vX",
+      payMethod: pay, payRef: pay === "WIRE" ? "FW-2026-" + (81000 + n) : "ch_3PqK" + n + "vX",
       custody, address: custody === "DELIVERY" ? "2847 Sutter St, San Francisco, CA 94115" : null,
       shipmentId, history, createdAt: created,
     };
@@ -226,12 +226,12 @@ function seed(): RmDb {
   ];
 
   const orders: Order[] = [
-    mkOrder(1, "u-adrian", COINS.buffalo, 3, "DELIVERED", "CRYPTO", "VAULT", 148, ["RM-AU-BUF-7741", "RM-AU-BUF-7802", "RM-AU-BUF-8119"]),
+    mkOrder(1, "u-adrian", COINS.buffalo, 3, "DELIVERED", "WIRE", "VAULT", 148, ["RM-AU-BUF-7741", "RM-AU-BUF-7802", "RM-AU-BUF-8119"]),
     mkOrder(2, "u-adrian", COINS.eagle, 2, "ALLOCATED", "WIRE", "VAULT", 97, ["RM-AU-EGL-3306", "RM-AU-EGL-3411"]),
     mkOrder(3, "u-priya", COINS.britannia, 2, "DELIVERED", "CARD", "DELIVERY", 9, ["RM-AU-BRT-1201", "RM-AU-BRT-1202"], "RM-SHP-0201"),
-    mkOrder(4, "u-adrian", COINS.maple, 2, "ALLOCATED", "CRYPTO", "VAULT", 2, ["RM-AU-MPL-6102", "RM-AU-MPL-6103"]),
+    mkOrder(4, "u-adrian", COINS.maple, 2, "ALLOCATED", "CARD", "VAULT", 2, ["RM-AU-MPL-6102", "RM-AU-MPL-6103"]),
     mkOrder(5, "u-mei", COINS.kangaroo, 20, "IN_ASSAY", "WIRE", "VAULT", 1),
-    mkOrder(6, "u-adrian", COINS.proofEagle, 1, "DISPATCHED", "CRYPTO", "DELIVERY", 2, ["RM-AU-PEG-0114"], "RM-SHP-0207"),
+    mkOrder(6, "u-adrian", COINS.proofEagle, 1, "DISPATCHED", "CARD", "DELIVERY", 2, ["RM-AU-PEG-0114"], "RM-SHP-0207"),
     mkOrder(7, "u-jonas", COINS.maple, 1, "PENDING_PAYMENT", "WIRE", "VAULT", 0.2),
     mkOrder(8, "u-priya", COINS.buffalo, 5, "PAID", "CARD", "DELIVERY", 0.4),
     mkOrder(9, "u-mei", COINS.britannia, 40, "PAID", "WIRE", "VAULT", 0.6),
@@ -243,8 +243,8 @@ function seed(): RmDb {
   const sellbacks: SellBackRequest[] = [
     {
       id: "RM-SB-0088", userId: "u-adrian", serials: ["RM-AU-EGL-3299"], title: COINS.eagle.title, quantity: 1,
-      lockedBidUsd: 2531, spreadPct: 0.5, payout: "USDC", status: "DISBURSED",
-      payoutRef: "0x8ff2…41ce", createdAt: iso(-7 * DAY),
+      lockedBidUsd: 2531, spreadPct: 0.5, payout: "WIRE", status: "DISBURSED",
+      payoutRef: "FW-2026-80714", createdAt: iso(-7 * DAY),
     },
     {
       id: "RM-SB-0091", userId: "u-mei", serials: ["RM-AU-BRT-1150"], title: COINS.britannia.title, quantity: 1,
@@ -347,7 +347,7 @@ function seed(): RmDb {
     spotFeed: "Composite XAU/XAG/XPT · 250ms ticks",
     basePremiumPct: { gold: 5.5, silver: 12.0, platinum: 7.5 },
     tierDiscounts: { qty5: 0.01, qty20: 0.02 },
-    surcharges: { crypto: 0, wire: 0.004, card: 0.039 },
+    surcharges: { wire: 0.004, card: 0.039 },
     sellbackSpreadPct: 0.5,
     loyaltyDiscountPct: 0.5,
     updatedAt: now, updatedBy: "s-victoria",
@@ -973,8 +973,7 @@ export async function runAction(action: string, p: Payload, actor: Actor = null)
         totalUsd: priced.totalUsd, spotAtLock: priced.spotAtLock, lockedUntil: priced.lockedUntil,
         payMethod: priced.payMethod, custody: priced.custody, address: priced.address, shipTo: priced.shipTo, shipmentId: null,
         payRef:
-          priced.payMethod === "CRYPTO" ? "0x" + Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join("") + "…" + Math.random().toString(16).slice(2, 6)
-          : priced.payMethod === "WIRE" ? "FW-2026-" + Math.floor(80000 + Math.random() * 19999)
+          priced.payMethod === "WIRE" ? "FW-2026-" + Math.floor(80000 + Math.random() * 19999)
           : "ch_3" + Math.random().toString(36).slice(2, 10),
         history: [
           { status: "LOCK_INITIATED", at: now, by: p.userId },
@@ -1103,7 +1102,7 @@ export async function runAction(action: string, p: Payload, actor: Actor = null)
         title: p.title || holdings[0]?.title || "Holding",
         quantity: ownedSerials.length,
         lockedBidUsd: p.lockedBidUsd, spreadPct: db.pricing.sellbackSpreadPct,
-        payout: p.payout === "WIRE" ? "WIRE" : "USDC", status: "REQUESTED", payoutRef: null, createdAt: iso(),
+        payout: "WIRE", status: "REQUESTED", payoutRef: null, createdAt: iso(),
       };
       for (const h of holdings) h.status = "DELIVERY_REQUESTED";
       db.sellbacks.unshift(sb);
@@ -1117,7 +1116,7 @@ export async function runAction(action: string, p: Payload, actor: Actor = null)
       const before = sb.status;
       sb.status = p.status;
       if (p.status === "DISBURSED") {
-        sb.payoutRef = sb.payout === "USDC" ? "0x" + Math.random().toString(16).slice(2, 10) + "…" + Math.random().toString(16).slice(2, 6) : "FW-2026-" + Math.floor(80000 + Math.random() * 19999);
+        sb.payoutRef = "FW-2026-" + Math.floor(80000 + Math.random() * 19999);
         for (const h of db.holdings) if (sb.serials.includes(h.serialNumber)) h.status = "SOLD_BACK";
       }
       if (p.status === "REJECTED") {

@@ -65,7 +65,7 @@ FLOW_STEPS = [
         "desc": "Clear breakdown of active trading capabilities, transaction thresholds, and 2FA security status.",
         "highlights": [
             "Tier 2 clearance badge & active limits ($100,000)",
-            "Instant permission checklist across crypto, wire, card, and delivery",
+            "Instant permission checklist across wire, card, and delivery",
             "Direct institutional Tier 3 application pathway"
         ]
     },
@@ -114,10 +114,10 @@ FLOW_STEPS = [
         "title": "8. 120-Second Price Lock & Multi-Rail Settlement",
         "route": "/checkout/RM-LCK-DEMO",
         "role": "customer",
-        "desc": "4-step settlement terminal: live countdown timer, custody choice (Allocated Vault vs. Armored Delivery), and multi-rail payment (USDC QR, Fedwire, Card).",
+        "desc": "4-step settlement terminal: live countdown timer, custody choice (Allocated Vault vs. Armored Delivery), and multi-rail payment (Fedwire, Card).",
         "highlights": [
             "120s guaranteed price lock against live market ticks",
-            "Zero-fee instant crypto QR settlement",
+            "Cash-price Fedwire settlement instructions",
             "Free 1st-year allocated vault custody vs. discreet armored transit"
         ]
     },
@@ -166,7 +166,7 @@ FLOW_STEPS = [
         "title": "12. Instant Sell-Back Liquidity Terminal",
         "route": "/vault/sell-back",
         "role": "customer",
-        "desc": "Instant liquidation interface allowing customers to select vaulted pieces, lock a 90-second bid at a 0.5% spread, and receive USDC or Fedwire payouts in under 3 minutes.",
+        "desc": "Instant liquidation interface allowing customers to select vaulted pieces, lock a 90-second bid at a 0.5% spread, and receive a same-day Fedwire payout.",
         "highlights": [
             "Select All toggle across all vaulted holdings",
             "Instant 90-second live bid lock",
@@ -428,9 +428,9 @@ FLOW_STEPS = [
         "title": "32. Inbound Liquidity Desk & Payouts",
         "route": "/admin/sell-backs",
         "role": "admin",
-        "desc": "Treasury console reviewing customer sell-back requests, verifying KYC clearance, and executing 1-click USDC or Fedwire disbursements.",
+        "desc": "Treasury console reviewing customer sell-back requests, verifying KYC clearance, and executing 1-click Fedwire disbursements.",
         "highlights": [
-            "1-click crypto and wire disbursement with confirmation modal",
+            "1-click wire disbursement with confirmation modal",
             "Instant treasury stock reclamation upon payout",
             "KYC clearance status verification check"
         ]
@@ -470,7 +470,7 @@ FLOW_STEPS = [
         "desc": "Live pricing parameters: spot composite feed configuration, base metal markup percentages, volume discounts, payment surcharges, and sell-back spreads.",
         "highlights": [
             "Live metal premium basis controls (Gold, Silver, Platinum)",
-            "Rail surcharge management (Crypto, Wire, Card)",
+            "Rail surcharge management (Wire, Card)",
             "Sell-back spread adjustments (0.50% default)"
         ]
     },
@@ -1009,7 +1009,7 @@ def build_html_report(items):
         <div class="role-card">
             <b>1. Customer User Journey</b>
             <code>customer@rockwell.demo</code>
-            <p>Experience full customer trading: market catalog, 120s price lock checkout, crypto &amp; wire settlement, live Vault Passport minting, allocated holding management, instant sell-back liquidity, and armored withdrawal tracking.</p>
+            <p>Experience full customer trading: market catalog, 120s price lock checkout, wire &amp; card settlement, live Vault Passport minting, allocated holding management, instant sell-back liquidity, and armored withdrawal tracking.</p>
         </div>
         <div class="role-card">
             <b>2. Staff Operations Command</b>

@@ -56,7 +56,7 @@ export interface LivePrice {
   id: string;
   mode: LiveMode;
   pricingType: PricingType;
-  /** Cash (wire / ACH / crypto) unit price at qty 1. */
+  /** Cash (wire / ACH / check) unit price at qty 1. */
   cashPrice: number;
   railPrices: Record<Rail, number>;
   meltValue: number;
@@ -110,7 +110,7 @@ export function priceWithSpot(p: LivePriceInput, spot: SpotQuote, qty = 1): Live
 
   const enquire = (why: string, type: PricingType = rule.pricingType): LivePrice => ({
     id: p.id, mode: "enquire", pricingType: type, cashPrice: 0,
-    railPrices: { crypto: 0, wire: 0, card: 0 }, meltValue: 0, premiumUsd: 0, premiumPct: 0,
+    railPrices: { wire: 0, card: 0 }, meltValue: 0, premiumUsd: 0, premiumPct: 0,
     spotUsed: 0, fineOz: rule.fineOz, tiers: [], asOf: spot.live ? spot.asOf : null, spotAgeSeconds: spot.ageSeconds,
     indicative: true, meltFloorBinding: false, needsReview: true, calibration: rule.calibration.source,
     explain: why, warnings: [why],

@@ -14,7 +14,7 @@ import { safeNext, withNext } from "../lib/safe-next";
 function BrandHighlights({ items }: { items?: { t: string; d: string }[] }) {
   const highlights = items ?? [
     { t: "100% Allocated & Segregated", d: "Your physical bullion is held in high-security private vaults, fully insured by Lloyd's of London up to $250M." },
-    { t: "Live Price Lock Settlement", d: "Freeze spot prices with a 120-second guarantee and settle instantly via bank wire, crypto, or card." },
+    { t: "Live Price Lock Settlement", d: "Freeze spot prices with a 120-second guarantee and settle instantly via bank wire or card." },
     { t: "Direct Armored Delivery", d: "Withdraw your physical coins and bars anytime with tracked, tamper-evident armored carrier delivery." },
   ];
   return (
@@ -275,7 +275,7 @@ export function KycVerifyClient() {
           items={[
             { t: "Reviewed by a person", d: "A compliance officer checks every submission against sanctions and PEP lists." },
             { t: "Tier 2 Limits ($100,000)", d: "Unlocks Fedwire settlement, card checkout, and armored door-to-door transit." },
-            { t: "You keep Tier 1 meanwhile", d: "Crypto spot buys with allocated vault storage stay available while you wait." },
+            { t: "You keep Tier 1 meanwhile", d: "Card spot buys with allocated vault storage stay available while you wait." },
           ]}
         />
       }
@@ -336,9 +336,8 @@ export function KycStatusClient() {
   const cleared = user?.kycStatus === "CLEARED";
 
   const features: { k: string; on: boolean }[] = [
-    { k: "Spot buys via USDC/USDT with instant vault allocation", on: true },
+    { k: "Card & Apple Pay checkout with instant vault allocation", on: true },
     { k: "Same-day bank wire settlement (Fedwire)", on: tier !== "TIER_1" },
-    { k: "Card & Apple Pay checkout", on: tier !== "TIER_1" },
     { k: "Insured armored home delivery", on: tier !== "TIER_1" },
     { k: "Institutional OTC desk ($100k+ allocations)", on: tier === "TIER_3" },
     { k: "Dedicated account manager & custom quotes", on: tier === "TIER_3" },
@@ -353,11 +352,11 @@ export function KycStatusClient() {
         <div className="auth__tiers">
           <div className={`auth__tier${tier === "TIER_1" ? " is-on" : ""}`}>
             <b>Tier 1 · Instant <i>≤ $10,000</i></b>
-            <span>Instant crypto spot buys with allocated vault storage.</span>
+            <span>Instant card spot buys with allocated vault storage.</span>
           </div>
           <div className={`auth__tier${tier === "TIER_2" ? " is-on" : ""}`}>
             <b>Tier 2 · Verified <i>$10,000–$100,000</i></b>
-            <span>Photo ID verified. Unlocks bank wire, cards, and insured delivery.</span>
+            <span>Photo ID verified. Unlocks bank wire and insured delivery.</span>
           </div>
           <div className={`auth__tier${tier === "TIER_3" ? " is-on" : ""}`}>
             <b>Tier 3 · Institutional <i>$100,000+</i></b>

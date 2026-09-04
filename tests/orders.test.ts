@@ -21,6 +21,8 @@ const price = async (p: Product, qty: number) => {
   return lp;
 };
 const round2 = (n: number) => Math.round(n * 100) / 100;
+/** Card unit: the server prices cash ÷ 0.96 on the card rail. */
+const cardUnit = (cash: number) => round2(cash / 0.96);
 
 beforeAll(async () => {
   process.env.RM_SESSION_SECRET = "test-secret-that-is-definitely-long-enough-32";
@@ -54,19 +56,20 @@ describe("placeOrder pricing", () => {
   it("prices from the catalog against the locked marks and settles a vault order end to end", async () => {
     const { runAction, getDb } = await load();
     const lp = await price(silver, 2);
-    const expected = round2(lp.cashPrice * 2);
+    const unit = cardUnit(lp.cashPrice);
+    const expected = round2(unit * 2);
 
     const res = await runAction("placeOrder", {
       items: [{ productId: silver.id, quantity: 2 }],
-      totalUsd: expected, payMethod: "CRYPTO", custody: "VAULT", lockToken: token,
+      totalUsd: expected, payMethod: "CARD", custody: "VAULT", lockToken: token,
     }, jonas);
     const o = res.result as Order;
 
     expect(o.userId).toBe("u-jonas");
     expect(o.totalUsd).toBe(expected);
-    expect(o.items[0].unitPriceUsd).toBe(lp.cashPrice);
+    expect(o.items[0].unitPriceUsd).toBe(unit);
     expect(o.spotAtLock).toBe(67);
-    // Paid instantly on a crypto rail → assay → allocation, all server-side.
+    // Paid on the card rail → assay → allocation, all server-side.
     expect(o.status).toBe("ALLOCATED");
     expect(o.items[0].allocatedSerials).toHaveLength(2);
     expect(o.history.map((h) => h.status)).toEqual(["LOCK_INITIATED", "PENDING_PAYMENT", "PAID", "IN_ASSAY", "ALLOCATED"]);
@@ -82,7 +85,7 @@ describe("placeOrder pricing", () => {
     const { runAction } = await load();
     await expect(runAction("placeOrder", {
       items: [{ productId: silver.id, quantity: 100 }],
-      totalUsd: 0.01, payMethod: "CRYPTO", custody: "VAULT", lockToken: token,
+      totalUsd: 0.01, payMethod: "CARD", custody: "VAULT", lockToken: token,
     }, jonas)).rejects.toMatchObject({ code: "PRICE_CHANGED" });
   });
 
@@ -91,17 +94,17 @@ describe("placeOrder pricing", () => {
     const lp = await price(silver, 1);
     const res = await runAction("placeOrder", {
       items: [{ productId: silver.id, quantity: 1, unitPriceUsd: 0.0001, sku: "FAKE", title: "Fake" }],
-      totalUsd: lp.cashPrice, payMethod: "CRYPTO", custody: "VAULT", lockToken: token,
+      totalUsd: cardUnit(lp.cashPrice), payMethod: "CARD", custody: "VAULT", lockToken: token,
     }, jonas);
     const o = res.result as Order;
-    expect(o.items[0].unitPriceUsd).toBe(lp.cashPrice);
+    expect(o.items[0].unitPriceUsd).toBe(cardUnit(lp.cashPrice));
     expect(o.items[0].sku).toBe(silver.sku);
     expect(o.items[0].title).toBe(silver.title);
   });
 
   it("refuses unknown, out-of-stock, and malformed lines", async () => {
     const { runAction } = await load();
-    const base = { payMethod: "CRYPTO", custody: "VAULT", lockToken: token };
+    const base = { payMethod: "CARD", custody: "VAULT", lockToken: token };
     await expect(runAction("placeOrder", { ...base, items: [{ productId: "nope", quantity: 1 }], totalUsd: 1 }, jonas))
       .rejects.toMatchObject({ code: "UNKNOWN_PRODUCT" });
     await expect(runAction("placeOrder", { ...base, items: [{ productId: outOfStock.id, quantity: 1 }], totalUsd: 1 }, jonas))
@@ -144,7 +147,7 @@ describe("placeOrder pricing", () => {
     const lp = await price(silver, 1);
     const res = await runAction("placeOrder", {
       items: [{ productId: silver.id, quantity: 1 }],
-      totalUsd: lp.cashPrice, payMethod: "CRYPTO", custody: "DELIVERY",
+      totalUsd: cardUnit(lp.cashPrice), payMethod: "CARD", custody: "DELIVERY",
       address: "2847 Sutter St, San Francisco, CA 94115", lockToken: token,
     }, adrian);
     const o = res.result as Order;
@@ -158,7 +161,7 @@ describe("placeOrder pricing", () => {
     const lp = await price(silver, 1);
     await expect(runAction("placeOrder", {
       items: [{ productId: silver.id, quantity: 1 }],
-      totalUsd: lp.cashPrice, payMethod: "CRYPTO", custody: "DELIVERY", address: "my house", lockToken: token,
+      totalUsd: lp.cashPrice, payMethod: "WIRE", custody: "DELIVERY", address: "my house", lockToken: token,
     }, adrian)).rejects.toMatchObject({ code: "BAD_ADDRESS" });
   });
 
@@ -168,29 +171,27 @@ describe("placeOrder pricing", () => {
     await runAction("claimDrop", { dropId: drop.id }, adrian);
     const res = await runAction("placeOrder", {
       items: [{ productId: drop.id, quantity: 1 }],
-      totalUsd: drop.priceUsd, payMethod: "CRYPTO", custody: "VAULT", lockToken: token,
+      totalUsd: cardUnit(drop.priceUsd), payMethod: "CARD", custody: "VAULT", lockToken: token,
     }, adrian);
     const o = res.result as Order;
-    expect(o.items[0].unitPriceUsd).toBe(drop.priceUsd);
+    expect(o.items[0].unitPriceUsd).toBe(cardUnit(drop.priceUsd));
     expect(o.status).toBe("ALLOCATED");
   });
 });
 
 describe("placeOrder KYC tier limits", () => {
-  it("keeps an unverified account to crypto + vault under $10,000", async () => {
+  it("keeps an unverified account to card + vault under $10,000", async () => {
     const { runAction } = await load();
     const lp = await price(silver, 1);
     const base = { items: [{ productId: silver.id, quantity: 1 }], lockToken: token };
 
-    await expect(runAction("placeOrder", { ...base, totalUsd: round2(lp.cashPrice / 0.96), payMethod: "CARD", custody: "VAULT" }, jonas))
-      .rejects.toMatchObject({ code: "KYC_LIMIT" });
     await expect(runAction("placeOrder", { ...base, totalUsd: lp.cashPrice, payMethod: "WIRE", custody: "VAULT" }, jonas))
       .rejects.toMatchObject({ code: "KYC_LIMIT" });
-    await expect(runAction("placeOrder", { ...base, totalUsd: lp.cashPrice, payMethod: "CRYPTO", custody: "DELIVERY", address: "1 Market St, San Francisco, CA 94105" }, jonas))
+    await expect(runAction("placeOrder", { ...base, totalUsd: cardUnit(lp.cashPrice), payMethod: "CARD", custody: "DELIVERY", address: "1 Market St, San Francisco, CA 94105" }, jonas))
       .rejects.toMatchObject({ code: "KYC_LIMIT" });
 
     const big = await price(gold, 3);
-    await expect(runAction("placeOrder", { items: [{ productId: gold.id, quantity: 3 }], totalUsd: round2(big.cashPrice * 3), payMethod: "CRYPTO", custody: "VAULT", lockToken: token }, jonas))
+    await expect(runAction("placeOrder", { items: [{ productId: gold.id, quantity: 3 }], totalUsd: round2(cardUnit(big.cashPrice) * 3), payMethod: "CARD", custody: "VAULT", lockToken: token }, jonas))
       .rejects.toMatchObject({ code: "KYC_LIMIT" });
   });
 
@@ -199,12 +200,16 @@ describe("placeOrder KYC tier limits", () => {
     const compliance = getDb().users.find((u) => u.role === "COMPLIANCE")!;
     await runAction("kycSet", { userId: "u-jonas", kycTier: "TIER_2", kycStatus: "IN_REVIEW" }, { userId: compliance.id, role: "COMPLIANCE" });
     const lp = await price(silver, 1);
-    await expect(runAction("placeOrder", { items: [{ productId: silver.id, quantity: 1 }], totalUsd: round2(lp.cashPrice / 0.96), payMethod: "CARD", custody: "VAULT", lockToken: token }, jonas))
-      .rejects.toMatchObject({ code: "KYC_LIMIT" });
+    // Delivery is the Tier 2 privilege: refused while the tier is unreviewed.
+    const order = {
+      items: [{ productId: silver.id, quantity: 1 }], totalUsd: cardUnit(lp.cashPrice),
+      payMethod: "CARD", custody: "DELIVERY", address: "2847 Sutter St, San Francisco, CA 94115", lockToken: token,
+    };
+    await expect(runAction("placeOrder", order, jonas)).rejects.toMatchObject({ code: "KYC_LIMIT" });
 
     await runAction("kycSet", { userId: "u-jonas", kycTier: "TIER_2", kycStatus: "CLEARED" }, { userId: compliance.id, role: "COMPLIANCE" });
-    const ok = await runAction("placeOrder", { items: [{ productId: silver.id, quantity: 1 }], totalUsd: round2(lp.cashPrice / 0.96), payMethod: "CARD", custody: "VAULT", lockToken: token }, jonas);
-    expect((ok.result as Order).status).toBe("ALLOCATED");
+    const ok = await runAction("placeOrder", order, jonas);
+    expect((ok.result as Order).status).toBe("FULFILLMENT_QUEUE");
   });
 });
 
@@ -220,7 +225,7 @@ describe("placeOrder stock", () => {
       totalUnits: 1, allocatedUnits: 0, reorderAt: 0, intakeAt: new Date().toISOString(),
     });
     await expect(runAction("placeOrder", {
-      items: [{ productId: drop.id, quantity: 2 }], totalUsd: drop.priceUsd * 2, payMethod: "CRYPTO", custody: "VAULT", lockToken: token,
+      items: [{ productId: drop.id, quantity: 2 }], totalUsd: drop.priceUsd * 2, payMethod: "WIRE", custody: "VAULT", lockToken: token,
     }, adrian)).rejects.toMatchObject({ code: "NO_STOCK" });
   });
 });
@@ -230,7 +235,7 @@ describe("placeOrder delivery address", () => {
     const { runAction } = await load();
     const lp = await price(silver, 1);
     const res = await runAction("placeOrder", {
-      items: [{ productId: silver.id, quantity: 1 }], totalUsd: lp.cashPrice, payMethod: "CRYPTO", custody: "DELIVERY", lockToken: token,
+      items: [{ productId: silver.id, quantity: 1 }], totalUsd: lp.cashPrice, payMethod: "WIRE", custody: "DELIVERY", lockToken: token,
       shipTo: { recipient: "Adrian Reyes", street: "2847 Sutter St", unit: "Apt 4", city: "San Francisco", state: "ca", postalCode: "94115", country: "US", phone: "(415) 555-7741" },
     }, adrian);
     const o = res.result as Order & { shipTo?: { state: string; unit?: string } };
@@ -242,7 +247,7 @@ describe("placeOrder delivery address", () => {
   it("rejects P.O. boxes, bad ZIPs and unreachable phones with the offending field", async () => {
     const { runAction } = await load();
     const lp = await price(silver, 1);
-    const base = { items: [{ productId: silver.id, quantity: 1 }], totalUsd: lp.cashPrice, payMethod: "CRYPTO", custody: "DELIVERY", lockToken: token };
+    const base = { items: [{ productId: silver.id, quantity: 1 }], totalUsd: lp.cashPrice, payMethod: "WIRE", custody: "DELIVERY", lockToken: token };
     const good = { recipient: "Adrian Reyes", street: "2847 Sutter St", city: "San Francisco", state: "CA", postalCode: "94115", country: "US", phone: "4155557741" };
     await expect(runAction("placeOrder", { ...base, shipTo: { ...good, street: "PO Box 12" } }, adrian)).rejects.toMatchObject({ code: "BAD_ADDRESS", detail: { field: "street" } });
     await expect(runAction("placeOrder", { ...base, shipTo: { ...good, postalCode: "9411" } }, adrian)).rejects.toMatchObject({ code: "BAD_ADDRESS", detail: { field: "postalCode" } });
@@ -258,9 +263,9 @@ describe("drops", () => {
     const before = drop.remaining;
     await runAction("claimDrop", { dropId: drop.id }, adrian);
     expect(getDb().drops.find((d) => d.id === drop.id)!.remaining).toBe(before);
-    await runAction("placeOrder", { items: [{ productId: drop.id, quantity: 2 }], totalUsd: drop.priceUsd * 2, payMethod: "CRYPTO", custody: "VAULT", lockToken: token }, adrian);
+    await runAction("placeOrder", { items: [{ productId: drop.id, quantity: 2 }], totalUsd: drop.priceUsd * 2, payMethod: "WIRE", custody: "VAULT", lockToken: token }, adrian);
     expect(getDb().drops.find((d) => d.id === drop.id)!.remaining).toBe(before - 2);
-    await expect(runAction("placeOrder", { items: [{ productId: drop.id, quantity: before }], totalUsd: drop.priceUsd * before, payMethod: "CRYPTO", custody: "VAULT", lockToken: token }, adrian))
+    await expect(runAction("placeOrder", { items: [{ productId: drop.id, quantity: before }], totalUsd: drop.priceUsd * before, payMethod: "WIRE", custody: "VAULT", lockToken: token }, adrian))
       .rejects.toMatchObject({ code: "NO_STOCK" });
   });
 });

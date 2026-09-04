@@ -332,17 +332,14 @@ export default async function Page({ params }: PageProps<"/product/[id]">) {
               <legend className="opt__label">Settlement method</legend>
               <div className="pays" role="radiogroup" aria-label="Payment method">
                 {/* data-rail is the PayMethod enum the checkout lock carries. */}
-                <button type="button" className="pay pay--on" data-pay="crypto" data-rail="CRYPTO" data-fee={railSurcharge("crypto")} aria-checked="true" role="radio" tabIndex={0}>
-                  <span className="pay__k">Crypto / USDC</span>
-                  <span className="pay__fee num">cash price · instant</span></button>
-                <button type="button" className="pay" data-pay="wire" data-rail="WIRE" data-fee={railSurcharge("wire")} aria-checked="false" role="radio" tabIndex={-1}>
+                <button type="button" className="pay pay--on" data-pay="wire" data-rail="WIRE" data-fee={railSurcharge("wire")} aria-checked="true" role="radio" tabIndex={0}>
                   <span className="pay__k">Fedwire / ACH</span>
                   <span className="pay__fee num">cash price</span></button>
                 <button type="button" className="pay" data-pay="card" data-rail="CARD" data-fee={cardFee} aria-checked="false" role="radio" tabIndex={-1}>
                   <span className="pay__k">Card</span>
                   <span className="pay__fee num">+{(cardFee * 100).toFixed(1)}% · list price</span></button>
               </div>
-              <p className="pay__note num" data-pay-note="">Crypto settlement — best available price. Card price is the cash price ÷ 0.96.</p>
+              <p className="pay__note num" data-pay-note="">Wire settlement — best available price. Card price is the cash price ÷ 0.96.</p>
             </fieldset>
 
             <fieldset className="opt">

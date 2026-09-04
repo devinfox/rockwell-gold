@@ -110,12 +110,11 @@ export function tierFor(rule: PricingRule, qty: number): VolumeTier {
  *
  * Both APMEX and JM publish the cash (wire / ACH / check) price and derive the
  * card / PayPal column as cash ÷ 0.96 — the storefront math reconciles to the
- * cent ($75.11 ÷ 0.96 = $78.24). Rockwell settles crypto at the cash price.
+ * cent ($75.11 ÷ 0.96 = $78.24). Rockwell settles wire at the cash price.
  */
 export const CASH_DISCOUNT = 0.04;
 
 export const PAYMENT_RAILS = {
-  crypto: { label: "Crypto / USDC", multiplier: 1, note: "cash price" },
   wire: { label: "Wire / ACH", multiplier: 1, note: "cash price" },
   card: { label: "Credit card", multiplier: 1 / (1 - CASH_DISCOUNT), note: "list price" },
 } as const;

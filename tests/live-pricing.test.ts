@@ -17,11 +17,10 @@ const rule = (over: Partial<LaunchRule>): LaunchRule => ({
 });
 
 describe("payment transform (APMEX / JM reconstruction)", () => {
-  it("derives the card column as cash ÷ 0.96 and settles crypto at cash", () => {
+  it("derives the card column as cash ÷ 0.96 and settles wire at cash", () => {
     // Deep dive: $75.11 cash → $78.24 card/PayPal.
     const r = railPricesFor(75.11);
     expect(r.card).toBe(78.24);
-    expect(r.crypto).toBe(75.11);
     expect(r.wire).toBe(75.11);
     expect(railSurcharge("card")).toBeCloseTo(0.041667, 5);
     expect(PAYMENT_RAILS.card.multiplier).toBeCloseTo(1 / 0.96, 9);

@@ -6,7 +6,7 @@ import { readSession } from "./lib/session";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://rockwellmetals.com";
 const DESCRIPTION =
-  "Buy physical gold, silver and platinum at live spot-linked prices. 120-second price lock, allocated and insured vault custody, serial-level custody passports, and instant sell-back liquidity. Settle in USDC, wire or card.";
+  "Buy physical gold, silver and platinum at live spot-linked prices. 120-second price lock, allocated and insured vault custody, serial-level custody passports, and instant sell-back liquidity. Settle by wire or card.";
 
 // The Open Graph / Twitter images are generated server-side from the repo's
 // own assets by app/opengraph-image.tsx and app/product/[id]/opengraph-image.tsx

@@ -101,7 +101,7 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
 /**
  * Payment-method transform. Both APMEX and JM publish a cash (wire/ACH/check)
  * price and derive the card/PayPal column as cash / 0.96 — a 4% cash discount
- * expressed the other way round. Crypto settles at the cash price on Rockwell.
+ * expressed the other way round. Wire settles at the cash price on Rockwell.
  */
 export function railPricesFor(cashPrice: number): Record<Rail, number> {
   return Object.fromEntries(

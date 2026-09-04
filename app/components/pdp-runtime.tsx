@@ -25,7 +25,7 @@ type QuoteResponse = {
   lockToken: string | null;
 };
 
-const PAY_METHODS: readonly PayMethod[] = ["CRYPTO", "WIRE", "CARD"];
+const PAY_METHODS: readonly PayMethod[] = ["WIRE", "CARD"];
 const CUSTODIES: readonly Custody[] = ["VAULT", "DELIVERY"];
 
 /**

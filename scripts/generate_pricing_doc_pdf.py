@@ -527,7 +527,6 @@ html_content = """<!DOCTYPE html>
             Card and payment processing fees are transparently accounted for at checkout. Instant settlement methods enjoy cash-equivalent pricing without merchant fee penalties.
           </p>
           <div style="background: #FFF; border: 1px solid #E6E0D2; border-radius: 5px; padding: 4px 8px; font-size: 7.2pt;" class="num">
-            • <strong>Crypto / USDC:</strong> 0.0% Surcharge (Best Cash Price)<br>
             • <strong>Fedwire / ACH:</strong> +0.4% Surcharge (Direct bank wire)<br>
             • <strong>Credit Card:</strong> +3.9% Surcharge (Card processing fee)
           </div>
@@ -576,7 +575,7 @@ html_content = """<!DOCTYPE html>
         <div class="flow-step">
           <div class="flow-step-num">Step 03</div>
           <div class="flow-step-title">Multi-Rail Settle</div>
-          <p class="flow-step-desc">Settlement via Crypto (0%), Wire (+0.4%), or Card (+3.9%) with transparent fee display.</p>
+          <p class="flow-step-desc">Settlement via Wire (+0.4%) or Card (+3.9%) with transparent fee display.</p>
         </div>
         <div class="flow-step">
           <div class="flow-step-num">Step 04</div>

@@ -24,7 +24,7 @@ export type OrderStatus =
   | "DELIVERED"
   | "CANCELLED";
 
-export type PayMethod = "CRYPTO" | "WIRE" | "CARD";
+export type PayMethod = "WIRE" | "CARD";
 export type Custody = "VAULT" | "DELIVERY";
 export type Carrier = "BRINKS" | "FEDEX_PRIORITY" | "MALCA_AMIT";
 
@@ -160,7 +160,7 @@ export interface SellBackRequest {
   quantity: number;
   lockedBidUsd: number;
   spreadPct: number;
-  payout: "USDC" | "WIRE";
+  payout: "WIRE";
   status: SellBackStatus;
   payoutRef: string | null;
   createdAt: string;
@@ -253,7 +253,7 @@ export interface PricingSettings {
   spotFeed: string;
   basePremiumPct: { gold: number; silver: number; platinum: number };
   tierDiscounts: { qty5: number; qty20: number }; // fraction, e.g. 0.01
-  surcharges: { crypto: number; wire: number; card: number };
+  surcharges: { wire: number; card: number };
   sellbackSpreadPct: number;
   loyaltyDiscountPct: number;
   updatedAt: string;
@@ -347,7 +347,7 @@ export const ROLE_LABEL: Record<Role, string> = {
 };
 
 export const TIER_LIMIT: Record<KycTier, string> = {
-  TIER_1: "to $10,000 · crypto rails",
+  TIER_1: "to $10,000 · card rail",
   TIER_2: "to $100,000 · wire, card, delivery",
   TIER_3: "$100,000+ · OTC desk, dedicated manager",
 };

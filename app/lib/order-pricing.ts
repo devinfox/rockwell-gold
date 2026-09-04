@@ -26,7 +26,7 @@ export class OrderError extends Error {
   }
 }
 
-export const PAY_METHODS: readonly PayMethod[] = ["CRYPTO", "WIRE", "CARD"];
+export const PAY_METHODS: readonly PayMethod[] = ["WIRE", "CARD"];
 export const CUSTODIES: readonly Custody[] = ["VAULT", "DELIVERY"];
 export const MAX_LINES = 10;
 export const MAX_QTY = 999;
@@ -144,7 +144,7 @@ function metalSymbol(metal: string): keyof SpotQuote["prices"] {
 
 export async function priceOrder(input: PriceOrderInput): Promise<PricedOrder> {
   const payMethod = String(input.payMethod ?? "").toUpperCase() as PayMethod;
-  if (!PAY_METHODS.includes(payMethod)) throw new OrderError("BAD_RAIL", "Choose crypto, bank wire, or card settlement.");
+  if (!PAY_METHODS.includes(payMethod)) throw new OrderError("BAD_RAIL", "Choose bank wire or card settlement.");
   const custody = String(input.custody ?? "").toUpperCase() as Custody;
   if (!CUSTODIES.includes(custody)) throw new OrderError("BAD_CUSTODY", "Choose vault storage or insured delivery.");
 

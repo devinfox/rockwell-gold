@@ -164,11 +164,11 @@ export function initPdp() {
       var cardUnit = PRICE * tierMult * (1 + CARD_SURCHARGE);
       var save = (cardUnit - unit) * qty;
       if (paySurcharge >= CARD_SURCHARGE) {
-        payNote.innerHTML = "Card adds <b>" + usdExact(PRICE * tierMult * CARD_SURCHARGE * qty) + "</b> over crypto on this order.";
+        payNote.innerHTML = "Card adds <b>" + usdExact(PRICE * tierMult * CARD_SURCHARGE * qty) + "</b> over wire on this order.";
       } else if (save > 0) {
-        payNote.innerHTML = "You save <b>" + usdExact(save) + "</b> vs. card by settling in crypto.";
+        payNote.innerHTML = "You save <b>" + usdExact(save) + "</b> vs. card by settling by wire.";
       } else {
-        payNote.innerHTML = "Crypto settlement — best available price.";
+        payNote.innerHTML = "Wire settlement — best available price.";
       }
     }
     if (up !== undefined) pdpPriceEls.forEach(function (el) { flash(el, up); });
