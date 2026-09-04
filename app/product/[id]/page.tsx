@@ -628,7 +628,7 @@ export default async function Page({ params }: PageProps<"/product/[id]">) {
                         <TilePrice p={r} lp={relatedLive.get(r.id)} />
                         <span className={`tag num ${ra.cls}`}>{ra.label}</span>
                       </div>
-                      <div className="tile__sub num"><span>SKU {r.sku}</span><span>{r.metal}</span></div>
+                      <div className="tile__sub num"><span className="tile__sku">SKU {r.sku}</span><span className="tile__class">{r.metal}</span></div>
                     </div>
                   </Link>
                 );

@@ -490,12 +490,12 @@ export default function SiteNav({
           </span>
           <span className="spot--bar__ticks">
             {[
-              { sym: "XAU", label: "XAU/USD" },
-              { sym: "XAG", label: "XAG/USD" },
-              { sym: "XPT", label: "XPT/USD" },
+              { sym: "XAU", label: "Gold" },
+              { sym: "XAG", label: "Silver" },
+              { sym: "XPT", label: "Platinum" },
             ].map((t) => (
               <span className="tick num" key={t.sym} data-tick={`${t.sym}/USD`}>
-                <span className="tick__sym" data-sym={t.sym}>{t.label}</span>
+                <span className="tick__sym" data-sym={t.label}>{t.label}</span>
                 <b className="tick__val">{fmtSpot(spot, t.sym)}</b>
                 {spot?.live && (
                   <i className="tick__chg chg" data-dir={spotDir(spot, t.sym)}>{fmtChange(spot, t.sym)}</i>

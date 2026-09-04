@@ -399,6 +399,7 @@ button { font-family: inherit; cursor: pointer; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
   font-size: 11px;
   font-weight: 600;
   padding: 4px 9px;
@@ -478,8 +479,12 @@ button { font-family: inherit; cursor: pointer; }
 .tile__meta { margin: 0; font-size: 12px; color: var(--text-muted); }
 .tile__foot {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  row-gap: 6px; flex-wrap: wrap;
   margin-top: 12px;
 }
+/* The pill keeps its own words together; when the row is too narrow for price,
+   live badge and pill, the whole pill drops to the next line. */
+.tile__foot .tag { flex: 0 0 auto; }
 .tile__price { font-size: 15px; font-weight: 600; color: var(--gold-ink); }
 
 /* vault feature */
@@ -987,6 +992,10 @@ button { font-family: inherit; cursor: pointer; }
   display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
   margin-top: 9px; font-size: 11px; color: var(--text-muted);
 }
+/* The SKU is the only thing in the row allowed to wrap; the metal word beside
+   it is short and must stay whole. */
+.tile__sku { min-width: 0; }
+.tile__class { flex: 0 0 auto; white-space: nowrap; }
 .tile__reveal {
   overflow: hidden; max-height: 0; opacity: 0; margin-top: 0;
   font-size: 11px; color: var(--gold-ink); white-space: nowrap;
@@ -2268,7 +2277,7 @@ body { padding-bottom: 38px; }
 
 
 /* ————— Live pricing (launch set) ————— */
-.tile__price { display: inline-flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.tile__price { display: inline-flex; align-items: baseline; gap: 6px; flex-wrap: nowrap; min-width: 0; }
 .tile__live { font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted, #8a8f98); display: inline-flex; align-items: center; gap: 4px; }
 .tile__live--live { color: var(--ok, #2e9e6b); }
 .tile__price--indicative { opacity: .82; }
@@ -2531,7 +2540,8 @@ code { overflow-wrap: anywhere; }
   /* Long identifiers (SKUs, serials, tx refs, addresses) wrap instead of
      pushing the layout; scrolling ledgers and tickers keep their own rules. */
   main, .footer { overflow-wrap: anywhere; }
-  .rm-table, .fills, .tape-bar, .footer__track, .drops, .spot--bar { overflow-wrap: normal; }
+  .rm-table, .fills, .tape-bar, .footer__track, .drops, .spot--bar,
+  .tag, .tile__flag, .tile__class, .tile__live, .tile__price { overflow-wrap: normal; }
 }
 
 @media (max-width: 440px) {
@@ -2551,13 +2561,31 @@ code { overflow-wrap: anywhere; }
   .fin-lock-bar { flex-wrap: wrap; gap: 8px; }
 }
 
-  /* The base sheet hides the metal codes below 860px, which leaves three bare
-     numbers with no way to tell gold from silver. Show the three-letter code
-     (the full "XAU/USD" label does not fit on a phone). */
+  /* The base sheet hides the metal names below 860px, which leaves three bare
+     numbers with no way to tell gold from silver. Show the name back, tracked
+     tighter so "Platinum" still fits beside its price on a phone. */
   .tick__sym { display: inline-block; font-size: 0; margin-right: 2px; }
   .tick__sym::before {
     content: attr(data-sym);
-    font-size: 9.5px; letter-spacing: 0.1em; font-weight: 600;
+    font-size: 9.5px; letter-spacing: 0.04em; font-weight: 600;
     color: var(--text-muted);
+  }
+
+  /* Tile price row and SKU row. The corner flag already names a Top pick or a
+     Sale, so the pill repeating it in the price row is dropped — that is what
+     leaves the price, its live badge and any real pill room to share a line. */
+  .tile__foot .tag--dupe { display: none; }
+  .tile__sub { gap: 10px; }
+  .tile__sku { overflow-wrap: anywhere; }
+
+  @media (max-width: 440px) {
+    .tile__live { font-size: 9px; }
+    .tile__foot .tag { font-size: 9.5px; padding: 3px 7px; }
+    /* Two columns on a 390px screen leave ~150px of tile: a 30-character SKU
+       and the metal word cannot share a line, so they stack. */
+    .tile__sub {
+      flex-direction: column; align-items: flex-start;
+      gap: 2px; font-size: 10px; line-height: 1.4;
+    }
   }
 }

@@ -302,6 +302,9 @@ export default async function CatalogPage({
               {rows.map((p) => {
                 const avail = availOf(p);
                 const klass = classOf(p);
+                // "Top Pick" and "Sale" already fly as a corner flag on the
+                // image; the pill in the price row repeats them word for word.
+                const flagged = p.badge === "Top Pick" || p.badge === "Sale";
                 return (
                   <a key={p.id} className="tile" role="listitem" href={`/product/${p.id}`}>
                     {p.badge === "Top Pick" && <span className="tile__flag tile__flag--hot">Top pick</span>}
@@ -325,11 +328,13 @@ export default async function CatalogPage({
                       <p className="tile__meta">{p.mint}{p.year ? ` · ${p.year}` : ""}</p>
                       <div className="tile__foot">
                         <TilePrice p={p} lp={live.get(p.id)} />
-                        <span className={`tag num ${avail.cls}`}>{avail.label}</span>
+                        <span className={`tag num ${avail.cls}${flagged ? " tag--dupe" : ""}`}>
+                          {avail.label}
+                        </span>
                       </div>
                       <div className="tile__sub num">
-                        <span>SKU {p.sku}</span>
-                        <span>{klass ?? p.metal}</span>
+                        <span className="tile__sku">SKU {p.sku}</span>
+                        <span className="tile__class">{klass ?? p.metal}</span>
                       </div>
                     </div>
                   </a>

@@ -11,10 +11,10 @@ export default function SiteFooter() {
   // flagged "indicative" whenever the feed is down or stale (audit: Medium).
   const indicative = isIndicative(spot);
   const tickers: { sym: string; label: string }[] = [
-    { sym: "XAU", label: "XAU/USD" },
-    { sym: "XAG", label: "XAG/USD" },
-    { sym: "XPT", label: "XPT/USD" },
-    { sym: "XAU", label: "XAU/USD" },
+    { sym: "XAU", label: "Gold" },
+    { sym: "XAG", label: "Silver" },
+    { sym: "XPT", label: "Platinum" },
+    { sym: "XAU", label: "Gold" },
   ];
   return (
     <footer className="footer">
