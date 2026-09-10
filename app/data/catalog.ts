@@ -70,7 +70,6 @@ export const PLATINUM_MINTS = [
   { name: "Platinum Coins", slug: "coins" },
   { name: "PAMP Suisse", slug: "pamp-suisse" },
   { name: "Valcambi", slug: "valcambi" },
-  { name: "APMEX", slug: "apmex" },
   { name: "Credit Suisse", slug: "credit-suisse" },
   { name: "Baird & Co.", slug: "baird-co" },
   { name: "World & Other Mints", slug: "other-mints" },
@@ -115,7 +114,7 @@ export const byMint = (slug: string) => gold.filter((p) => p.mintSlug === slug);
 export const silverByMint = (slug: string) => silver.filter((p) => p.mintSlug === slug);
 export const platinumByMint = (slug: string) => {
   if (slug === "bars-rounds") {
-    return platinum.filter((p) => /\b(bar|bars|ingot|ingots|round|rounds)\b/i.test(p.title) || ["pamp-suisse", "valcambi", "apmex", "credit-suisse", "baird-co", "engelhard", "johnson-matthey", "argor-heraeus", "private-mint"].includes(p.mintSlug));
+    return platinum.filter((p) => /\b(bar|bars|ingot|ingots|round|rounds)\b/i.test(p.title) || ["pamp-suisse", "valcambi", "credit-suisse", "baird-co", "engelhard", "johnson-matthey", "argor-heraeus", "private-mint"].includes(p.mintSlug));
   }
   if (slug === "coins") {
     return platinum.filter((p) => !/\b(bar|bars|ingot|ingots)\b/i.test(p.title));
@@ -123,7 +122,7 @@ export const platinumByMint = (slug: string) => {
   if (slug === "other-mints") {
     return platinum.filter((p) => !["us-mint", "perth-mint", "royal-canadian-mint", "royal-mint", "austrian-mint"].includes(p.mintSlug) && !/\b(bar|bars|ingot)\b/i.test(p.title));
   }
-  return platinum.filter((p) => p.mintSlug === slug || (slug === "pamp-suisse" && /pamp/i.test(p.title)) || (slug === "valcambi" && /valcambi/i.test(p.title)) || (slug === "apmex" && /apmex/i.test(p.title)) || (slug === "credit-suisse" && /credit suisse/i.test(p.title)) || (slug === "baird-co" && /baird/i.test(p.title)));
+  return platinum.filter((p) => p.mintSlug === slug || (slug === "pamp-suisse" && /pamp/i.test(p.title)) || (slug === "valcambi" && /valcambi/i.test(p.title)) || (slug === "credit-suisse" && /credit suisse/i.test(p.title)) || (slug === "baird-co" && /baird/i.test(p.title)));
 };
 
 export const bestSellers = products.filter((p) => p.badge === "Top Pick");
@@ -319,7 +318,6 @@ export const PLATINUM_SERIES: Record<string, SeriesDef[]> = {
   "bars-rounds": [
     { slug: "pamp-suisse", name: "PAMP Suisse", test: (p) => /pamp/i.test(p.title) || p.mintSlug === "pamp-suisse" },
     { slug: "valcambi", name: "Valcambi", test: (p) => /valcambi/i.test(p.title) || p.mintSlug === "valcambi" },
-    { slug: "apmex", name: "APMEX Platinum", test: (p) => /apmex/i.test(p.title) || p.mintSlug === "apmex" },
     { slug: "credit-suisse", name: "Credit Suisse", test: (p) => /credit suisse/i.test(p.title) || p.mintSlug === "credit-suisse" },
     { slug: "baird-co", name: "Baird & Co.", test: (p) => /baird/i.test(p.title) || p.mintSlug === "baird-co" },
     { slug: "cast-minted", name: "Cast & Secondary Market Bars", rest: true },

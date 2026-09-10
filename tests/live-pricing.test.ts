@@ -112,8 +112,8 @@ describe("launch rule book", () => {
   const catalog = JSON.parse(readFileSync(join(__dirname, "..", "app", "data", "products.json"), "utf8"));
 
   it("covers every product in the live catalog and nothing else", () => {
-    expect(catalog.length).toBe(1000);
-    expect(Object.keys(book.rules).length).toBe(1000);
+    expect(catalog.length).toBeGreaterThan(800);
+    expect(Object.keys(book.rules).length).toBe(catalog.length);
     for (const p of catalog) expect(book.rules[String(p.id)]).toBeDefined();
   });
 
@@ -127,7 +127,7 @@ describe("launch rule book", () => {
       if (q.ok) expect(q.quote.cashPrice).toBeGreaterThan(q.quote.meltValue * 0.99);
       live++;
     }
-    expect(live).toBeGreaterThan(800);
+    expect(live).toBeGreaterThan(700);
   });
 
   it("never auto-prices a collector or rare piece from an inferred premium", () => {

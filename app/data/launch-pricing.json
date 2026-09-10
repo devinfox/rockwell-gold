@@ -1475,30 +1475,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "74": {
-      "id": "74",
-      "sku": "RM-AU-KAN-1OZ-RY",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "medium",
-      "premiumPct": 0.06893,
-      "premiumUsd": 334.49,
-      "calibration": {
-        "peers": 15,
-        "family": "gold|product|1oz|BULLION_SPOT",
-        "source": "family-median"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "premium inherited from 15 family peers (gold|product|1oz|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
-    },
     "78": {
       "id": "78",
       "sku": "RM-AG-ASE-1OZ-2026-MS69",
@@ -3041,31 +3017,6 @@
         "premium inherited from 27 family peers (silver|coin|1oz|BULLION_SPOT)"
       ],
       "weightConfidence": "high"
-    },
-    "180": {
-      "id": "180",
-      "sku": "RM-AG-CAN-1OZ-2024",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.20718,
-      "premiumUsd": 13.91,
-      "calibration": {
-        "peers": 2,
-        "family": "silver|bar|1oz|SEMI_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 81.05
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 13.91
     },
     "186": {
       "id": "186",
@@ -4698,60 +4649,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "308": {
-      "id": "308",
-      "sku": "RM-AU-CML-1OZ-2009",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.08323,
-      "premiumUsd": 387.21,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5039.41
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 2653.74 implies -40.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2009 1 oz Canadian Gold Maple Leaf Coin\""
-      ],
-      "weightConfidence": "high"
-    },
-    "313": {
-      "id": "313",
-      "sku": "RM-AU-CML-1OZ-1993",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.08995,
-      "premiumUsd": 418.46,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5070.66
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 2543.17 implies -42.6% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1993 1 oz Canadian Gold Maple Leaf Coin\""
-      ],
-      "weightConfidence": "high"
-    },
     "320": {
       "id": "320",
       "sku": "RM-AG-ASE-3OZ-PF-2006",
@@ -5461,33 +5358,6 @@
       "reviewReasons": [
         "no APMEX ask observed",
         "premium inherited from 34 family peers (gold|bar|1oz|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
-    },
-    "380": {
-      "id": "380",
-      "sku": "RM-AU-RCM-100G-BAR",
-      "live": true,
-      "fineOz": 3.215,
-      "confidence": "high",
-      "premiumPct": 0.06889,
-      "premiumUsd": 1030.39,
-      "calibration": {
-        "peers": 34,
-        "family": "gold|bar|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 15987.21
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 109,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "calibrated from JM Bullion listing \"100 Gram (RCM) Royal Canadian Mint Gold Bar (New w/ Assay)\""
       ],
       "weightConfidence": "high"
     },
@@ -8370,34 +8240,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 333.44
     },
-    "606": {
-      "id": "606",
-      "sku": "RM-AU-LIB-20D-RA",
-      "live": true,
-      "fineOz": 0.9675,
-      "confidence": "high",
-      "premiumPct": 0.06256,
-      "premiumUsd": 281.6,
-      "calibration": {
-        "peers": 6,
-        "family": "gold|coin|1oz|TRUE_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 4782.6
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 269.99 implies -93.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"Pre-33 $20 Liberty Gold Double Eagle Coin (AU)\""
-      ],
-      "merchantAskUsd": 4782.6,
-      "weightConfidence": "high"
-    },
     "610": {
       "id": "610",
       "sku": "RM-AG-LUNAR-1OZ-RANDOM",
@@ -9059,34 +8901,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "660": {
-      "id": "660",
-      "sku": "RM-AG-FIJI-1OZ-2017",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.12855,
-      "premiumUsd": 8.86,
-      "calibration": {
-        "peers": 2,
-        "family": "silver|bar|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 77.78
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 4.18 implies -93.8% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2017 1 oz Proof-like Fiji Hokusai Great Wave Silver Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 8.86
-    },
     "661": {
       "id": "661",
       "sku": "RM-AG-WALKING-LIBERTY-1OZ-BU",
@@ -9281,34 +9095,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "676": {
-      "id": "676",
-      "sku": "RM-AU-LIB-20USD-1903",
-      "live": true,
-      "fineOz": 0.9675,
-      "confidence": "high",
-      "premiumPct": 0.27875,
-      "premiumUsd": 1254.68,
-      "calibration": {
-        "peers": 6,
-        "family": "gold|coin|1oz|TRUE_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5755.68
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 2095 implies -51.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1903 $20 Liberty Gold Double Eagle Coin PCGS MS64\""
-      ],
-      "merchantAskUsd": 5755.68,
-      "weightConfidence": "high"
-    },
     "682": {
       "id": "682",
       "sku": "RM-AU-IND-10D-1908",
@@ -9456,34 +9242,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
     },
-    "711": {
-      "id": "711",
-      "sku": "RM-AG-BVI-5OZ-PF-2021",
-      "live": true,
-      "fineOz": 5,
-      "confidence": "high",
-      "premiumPct": 0.98265,
-      "premiumUsd": 338.62,
-      "calibration": {
-        "peers": 3,
-        "family": "silver|coin|5-50oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 683.22
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.56,
-      "reviewReasons": [
-        "observed ask 249.99 implies -24.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2021 5 oz Proof British Virgin Islands 100th Anniversary Morgan and Peace Dollar Silver Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 338.62
-    },
     "713": {
       "id": "713",
       "sku": "RM-PT-VAL-1G-BU",
@@ -9508,30 +9266,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "714": {
-      "id": "714",
-      "sku": "RM-AG-SM-1OZ-BU",
-      "live": false,
-      "fineOz": 1,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 39,
-        "family": "silver|bar|1oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 268.05 implies 299.2% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
     "715": {
       "id": "715",
       "sku": "RM-AG-KOOK-10OZ-BU-1993",
@@ -9553,30 +9287,6 @@
       "reviewReasons": [
         "no APMEX ask observed",
         "premium inherited from 10 family peers (silver|product|5-50oz|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
-    },
-    "717": {
-      "id": "717",
-      "sku": "RM-AU-KOOK-10OZ-RAND",
-      "live": false,
-      "fineOz": 10,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "observed ask 2695 implies 308.9% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
       ],
       "weightConfidence": "high"
     },
@@ -9658,32 +9368,6 @@
       ],
       "weightConfidence": "medium"
     },
-    "723": {
-      "id": "723",
-      "sku": "RM-AG-WALK-90-SILVER-BAG",
-      "live": true,
-      "fineOz": 71.5,
-      "confidence": "high",
-      "premiumPct": 0.08451,
-      "premiumUsd": 398.26,
-      "calibration": {
-        "peers": 12,
-        "family": "silver|product|100oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 65.91,
-        "competitorPriceUsd": 5110.82
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "title",
-      "minPremiumUsd": 36.58,
-      "reviewReasons": [
-        "fine weight parsed from title (medium confidence)"
-      ],
-      "weightConfidence": "medium"
-    },
     "726": {
       "id": "726",
       "sku": "RM-AG-KANG-1OZ-PROOF-2010",
@@ -9708,108 +9392,6 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 2.5
-    },
-    "727": {
-      "id": "727",
-      "sku": "RM-AU-PHI-1OZ-BU-2024",
-      "live": false,
-      "fineOz": 1,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 7909 implies 79% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
-    "728": {
-      "id": "728",
-      "sku": "RM-AU-KANG-1OZ-PF70-2010",
-      "live": false,
-      "fineOz": 1,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 4939 implies 7393.6% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 2.5
-    },
-    "731": {
-      "id": "731",
-      "sku": "RM-AU-LIB-10D-1878",
-      "live": true,
-      "fineOz": 0.9675,
-      "confidence": "high",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 6,
-        "family": "gold|coin|1oz|TRUE_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 4451.08
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 3169 implies -25.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1878-S Pre-33 $20 Liberty Gold Double Eagle Coin PCGS AU58\""
-      ],
-      "merchantAskUsd": 4451.08,
-      "weightConfidence": "high"
-    },
-    "738": {
-      "id": "738",
-      "sku": "RM-AU-LIB-20D-1861",
-      "live": true,
-      "fineOz": 0.9675,
-      "confidence": "high",
-      "premiumPct": 0.23505,
-      "premiumUsd": 1004.68,
-      "calibration": {
-        "peers": 6,
-        "family": "gold|coin|1oz|TRUE_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 4417.9,
-        "competitorPriceUsd": 5279
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [],
-      "merchantAskUsd": 5279,
-      "weightConfidence": "high"
     },
     "740": {
       "id": "740",
@@ -9859,30 +9441,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "743": {
-      "id": "743",
-      "sku": "RM-AG-SLCQ-7.15OZ-RANDOM",
-      "live": false,
-      "fineOz": 7.15,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 3.66,
-      "reviewReasons": [
-        "observed ask 30495 implies 6371% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
     "749": {
       "id": "749",
       "sku": "RM-AG-KOALA-1KG-2015",
@@ -9905,33 +9463,6 @@
       "weightSource": "troy-oz",
       "minPremiumUsd": 16.45,
       "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "750": {
-      "id": "750",
-      "sku": "RM-AU-ENG-1OZ-1987",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.18008,
-      "premiumUsd": 837.77,
-      "calibration": {
-        "peers": 34,
-        "family": "gold|bar|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5489.97
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "calibrated from JM Bullion listing \"1987 1 oz Engelhard Prospector Gold Round (Eagle Reverse)\""
-      ],
       "weightConfidence": "high"
     },
     "752": {
@@ -10223,30 +9754,6 @@
       "reviewReasons": [
         "no APMEX ask observed",
         "premium inherited from 7 family peers (gold|product|tiny|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
-    },
-    "771": {
-      "id": "771",
-      "sku": "RM-AU-PAMP-10G-BAR-2023",
-      "live": false,
-      "fineOz": 0.3215,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 21,
-        "family": "gold|coin|fractional|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 9099.83 implies 539.2% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
       ],
       "weightConfidence": "high"
     },
@@ -10643,58 +10150,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 2.5
     },
-    "808": {
-      "id": "808",
-      "sku": "RM-AG-CAN-1OZ-PROOF-2027",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.85485,
-      "premiumUsd": 123.44,
-      "calibration": {
-        "peers": 10,
-        "family": "silver|product|1oz|SEMI_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T16:01:47.28274+00:00",
-        "spotAtObservation": 66.55,
-        "competitorPriceUsd": 189.99
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 123.44
-    },
-    "809": {
-      "id": "809",
-      "sku": "RM-AG-CAN-LYNX-1OZ-2017",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.57912,
-      "premiumUsd": 104.08,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 65.91,
-        "competitorPriceUsd": 169.99
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "re-classed SEMI_NUMISMATIC: 2017 issue with 153% premium over melt — collector leg fixed in dollars"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 104.08
-    },
     "811": {
       "id": "811",
       "sku": "RM-AG-CAN-0.6OZ-RANDOM",
@@ -10715,31 +10170,6 @@
       "minPremiumUsd": 2.5,
       "reviewReasons": [
         "observed ask 1095 implies 2642.3% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 2.5
-    },
-    "812": {
-      "id": "812",
-      "sku": "RM-AG-MONGOLIA-1OZ-2026",
-      "live": false,
-      "fineOz": 1,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 1095 implies 1545.4% over melt — outside plausible range (high)",
         "competitor ask far above metal value — needs a desk-set ask, not a default premium"
       ],
       "weightConfidence": "high",
@@ -10791,57 +10221,6 @@
       "weightSource": "troy-oz",
       "minPremiumUsd": 2.56,
       "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "819": {
-      "id": "819",
-      "sku": "RM-AG-CML-1OZ-RY",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.16235,
-      "premiumUsd": 10.9,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 78.04
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "820": {
-      "id": "820",
-      "sku": "RM-AG-BUF-5OZ-BU",
-      "live": true,
-      "fineOz": 5,
-      "confidence": "high",
-      "premiumPct": 0.2105,
-      "premiumUsd": 72.54,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 417.14
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.56,
-      "reviewReasons": [
-        "observed ask 129.99 implies -60.6% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"5 oz SilverTowne Buffalo Silver Bar (New)\""
-      ],
       "weightConfidence": "high"
     },
     "821": {
@@ -10987,30 +10366,6 @@
       "weightSource": "troy-oz",
       "minPremiumUsd": 5.12,
       "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "830": {
-      "id": "830",
-      "sku": "RM-AG-SSG-10OZ-BU",
-      "live": true,
-      "fineOz": 10,
-      "confidence": "medium",
-      "premiumPct": 0.1625,
-      "premiumUsd": 109.1,
-      "calibration": {
-        "peers": 32,
-        "family": "silver|bar|5-50oz|BULLION_SPOT",
-        "source": "family-median"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "premium inherited from 32 family peers (silver|bar|5-50oz|BULLION_SPOT)"
-      ],
       "weightConfidence": "high"
     },
     "833": {
@@ -11401,54 +10756,6 @@
       "reviewReasons": [],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 74.04
-    },
-    "857": {
-      "id": "857",
-      "sku": "RM-AU-BUF-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.3038,
-      "premiumUsd": 1345.2,
-      "calibration": {
-        "peers": 15,
-        "family": "gold|product|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T16:01:47.28274+00:00",
-        "spotAtObservation": 4427.9,
-        "competitorPriceUsd": 5773.1
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "858": {
-      "id": "858",
-      "sku": "RM-AG-BALD-EAGLE-1OZ-2014",
-      "live": false,
-      "fineOz": 1,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 1095 implies 1561.4% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
     },
     "860": {
       "id": "860",
@@ -12060,30 +11367,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "906": {
-      "id": "906",
-      "sku": "RM-PT-PHIL-1OZ-BU-2024",
-      "live": false,
-      "fineOz": 1,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 8,
-        "family": "platinum|product|1oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 45,
-      "reviewReasons": [
-        "observed ask 9439 implies 427.3% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
     "907": {
       "id": "907",
       "sku": "RM-AU-PAMP-1G-2019",
@@ -12503,30 +11786,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "936": {
-      "id": "936",
-      "sku": "RM-AG-KANG-2OZ-BU-2023",
-      "live": true,
-      "fineOz": 2,
-      "confidence": "high",
-      "premiumPct": 0.11699,
-      "premiumUsd": 15.71,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 149.99
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
     "937": {
       "id": "937",
       "sku": "RM-AG-PAN-1OZ-BU",
@@ -12598,33 +11857,6 @@
       "minPremiumUsd": 16.45,
       "reviewReasons": [],
       "weightConfidence": "high"
-    },
-    "942": {
-      "id": "942",
-      "sku": "RM-AG-ENG-1OZ-1987",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.20509,
-      "premiumUsd": 80.91,
-      "calibration": {
-        "peers": 39,
-        "family": "silver|bar|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 148.05
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "re-classed SEMI_NUMISMATIC: 1987 issue with 119% premium over melt — collector leg fixed in dollars"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 80.91
     },
     "943": {
       "id": "943",
@@ -12865,30 +12097,6 @@
       "pricingType": "BULLION_SPOT",
       "weightSource": "troy-oz",
       "minPremiumUsd": 40,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "956": {
-      "id": "956",
-      "sku": "RM-AG-KOO-1OZ-2010",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.13271,
-      "premiumUsd": 8.91,
-      "calibration": {
-        "peers": 39,
-        "family": "silver|bar|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 76.05
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
       "reviewReasons": [],
       "weightConfidence": "high"
     },
@@ -13454,33 +12662,6 @@
       "weightSource": "troy-oz",
       "minPremiumUsd": 2.5,
       "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "997": {
-      "id": "997",
-      "sku": "RM-AU-PAMP-100G-BAR",
-      "live": true,
-      "fineOz": 3.215,
-      "confidence": "high",
-      "premiumPct": 0.08084,
-      "premiumUsd": 1209.16,
-      "calibration": {
-        "peers": 34,
-        "family": "gold|bar|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 16165.98
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 109,
-      "reviewReasons": [
-        "observed ask 192.51 implies -98.6% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"100 Gram PAMP Suisse Fortuna Veriscan Gold Bar (New w/ Assay)\""
-      ],
       "weightConfidence": "high"
     },
     "998": {
@@ -14070,61 +13251,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 345.2
     },
-    "1041": {
-      "id": "1041",
-      "sku": "RM-AG-SCOTTSDALE-10OZ-NEW",
-      "live": true,
-      "fineOz": 10,
-      "confidence": "high",
-      "premiumPct": 0.25493,
-      "premiumUsd": 175.7,
-      "calibration": {
-        "peers": 10,
-        "family": "silver|product|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 864.9
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "observed ask 249.99 implies -62.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"10 oz Scottsdale Stacker Silver Bar (New)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "1042": {
-      "id": "1042",
-      "sku": "RM-AU-PAMP-5G-2024",
-      "live": true,
-      "fineOz": 0.1607,
-      "confidence": "high",
-      "premiumPct": 0.13019,
-      "premiumUsd": 97.33,
-      "calibration": {
-        "peers": 1,
-        "family": "gold|round|tiny|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 844.94
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 180.79 implies -75.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2024 5 Gram PAMP Suisse Lunar Legend Azure Dragon Gold Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 97.33
-    },
     "1046": {
       "id": "1046",
       "sku": "RM-AG-PERTH-100OZ-BU",
@@ -14368,31 +13494,6 @@
       "minPremiumUsd": 2.5,
       "reviewReasons": [],
       "weightConfidence": "high"
-    },
-    "1065": {
-      "id": "1065",
-      "sku": "RM-AU-PERTH-LUNAR-GOAT-1OZ-2003",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.08812,
-      "premiumUsd": 390.2,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|product|1oz|SEMI_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T16:01:47.28274+00:00",
-        "spotAtObservation": 4427.9,
-        "competitorPriceUsd": 4818.1
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 390.2
     },
     "1068": {
       "id": "1068",
@@ -14761,30 +13862,6 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
-    },
-    "1091": {
-      "id": "1091",
-      "sku": "RM-AU-PHILHARMONIC-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "medium",
-      "premiumPct": 0.06666,
-      "premiumUsd": 294.49,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "family-median"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "premium inherited from 25 family peers (gold|coin|1oz|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
     },
     "1095": {
       "id": "1095",
@@ -15441,30 +14518,6 @@
         "observedAt": "2026-08-17T16:01:47.28274+00:00",
         "spotAtObservation": 66.55,
         "competitorPriceUsd": 75.54
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "1221": {
-      "id": "1221",
-      "sku": "RM-AG-PM-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.34123,
-      "premiumUsd": 22.91,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 90.05
       },
       "needsReview": false,
       "premiumMode": "usd",
@@ -16613,78 +15666,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 2.5
     },
-    "1338": {
-      "id": "1338",
-      "sku": "RM-AG-JM-10OZ-NEW",
-      "live": false,
-      "fineOz": 10,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "observed ask 4295 implies 539.7% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
-    "1341": {
-      "id": "1341",
-      "sku": "RM-AU-PAMP-DIWALI-1OZ-2025",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.19256,
-      "premiumUsd": 871.1,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 4523.9,
-        "competitorPriceUsd": 5395
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "1342": {
-      "id": "1342",
-      "sku": "RM-AG-JM-5OZ-BAR",
-      "live": false,
-      "fineOz": 5,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.56,
-      "reviewReasons": [
-        "observed ask 8495 implies 2430.5% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
     "1348": {
       "id": "1348",
       "sku": "RM-AG-MORGAN-0.858OZ-2026",
@@ -16734,84 +15715,6 @@
       "reviewReasons": [],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 352.25
-    },
-    "1359": {
-      "id": "1359",
-      "sku": "RM-AG-GER-1KILO-BAR",
-      "live": false,
-      "fineOz": 32.15,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 16.45,
-      "reviewReasons": [
-        "observed ask 5995 implies 177.7% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
-    "1365": {
-      "id": "1365",
-      "sku": "RM-AU-PLB-1OZ-2020",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.18538,
-      "premiumUsd": 345.18,
-      "calibration": {
-        "peers": 8,
-        "family": "platinum|product|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 1862,
-        "competitorPriceUsd": 2207.18
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 45,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "calibrated from JM Bullion listing \"2020 1 oz British Platinum Britannia Coin (BU)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "1369": {
-      "id": "1369",
-      "sku": "RM-AU-CS-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.09452,
-      "premiumUsd": 439.74,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5091.94
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 119.99 implies -97.3% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1 oz Credit Suisse Gold Bar (Secondary Market w/ Assay)\""
-      ],
-      "weightConfidence": "high"
     },
     "1374": {
       "id": "1374",
@@ -18039,33 +16942,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
     },
-    "1552": {
-      "id": "1552",
-      "sku": "RM-AG-KANG-1/2OZ-2020",
-      "live": true,
-      "fineOz": 0.5,
-      "confidence": "high",
-      "premiumPct": 0.10813,
-      "premiumUsd": 251.51,
-      "calibration": {
-        "peers": 11,
-        "family": "gold|product|fractional|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 2577.61
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "calibrated from JM Bullion listing \"2020 1/2 oz Australian Gold Kangaroo Coin (BU)\""
-      ],
-      "weightConfidence": "high"
-    },
     "1557": {
       "id": "1557",
       "sku": "RM-AG-FHD-1OZ-BU",
@@ -18329,30 +17205,6 @@
       "weightSource": "troy-oz",
       "minPremiumUsd": 40,
       "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "1601": {
-      "id": "1601",
-      "sku": "RM-AU-GB-SOV-1957-1968-BU",
-      "live": false,
-      "fineOz": 0.2354,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 21,
-        "family": "gold|coin|fractional|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 2889 implies 177.2% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
       "weightConfidence": "high"
     },
     "1604": {
@@ -18673,58 +17525,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "1643": {
-      "id": "1643",
-      "sku": "RM-AG-AZCAL-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "medium",
-      "premiumPct": 0.22192,
-      "premiumUsd": 15.9,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "family-median"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 40.01 implies -40.4% over melt — outside plausible range (low)",
-        "premium inherited from 42 family peers (silver|round|1oz|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
-    },
-    "1647": {
-      "id": "1647",
-      "sku": "RM-PT-AE-1-10OZ-RANDOM",
-      "live": true,
-      "fineOz": 0.1,
-      "confidence": "high",
-      "premiumPct": 1.04984,
-      "premiumUsd": 195.48,
-      "calibration": {
-        "peers": 1,
-        "family": "platinum|round|tiny|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 1862,
-        "competitorPriceUsd": 381.68
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 45,
-      "reviewReasons": [
-        "observed ask 85.04 implies -53.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1/10 oz Proof American Platinum Eagle Coin (Random Year, Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 195.48
-    },
     "1648": {
       "id": "1648",
       "sku": "RM-AG-ARCH-1OZ-BU",
@@ -18991,133 +17791,6 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
-    },
-    "1671": {
-      "id": "1671",
-      "sku": "RM-AU-PAMP-20G-2023",
-      "live": true,
-      "fineOz": 0.643,
-      "confidence": "high",
-      "premiumPct": 0.13401,
-      "premiumUsd": 400.89,
-      "calibration": {
-        "peers": 3,
-        "family": "gold|round|fractional|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 3392.25
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "calibrated from JM Bullion listing \"20 Gram PAMP Suisse Fortuna Veriscan Gold Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "1672": {
-      "id": "1672",
-      "sku": "RM-AG-COK-1OZ-2025",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.96286,
-      "premiumUsd": 66.36,
-      "calibration": {
-        "peers": 5,
-        "family": "silver|round|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 135.28
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "no APMEX ask observed",
-        "calibrated from JM Bullion listing \"2025 1 oz Proof Cook Islands Silver Seven Deadly Sins Wrath Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 66.36
-    },
-    "1674": {
-      "id": "1674",
-      "sku": "RM-AG-ZOMB-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.22192,
-      "premiumUsd": 14.9,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 82.04
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "1675": {
-      "id": "1675",
-      "sku": "RM-AG-DRACO-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.20703,
-      "premiumUsd": 13.9,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 81.04
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "1676": {
-      "id": "1676",
-      "sku": "RM-AG-MK-HOMELAND-1OZ-BU",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.20703,
-      "premiumUsd": 13.9,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 81.04
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
     },
     "1677": {
       "id": "1677",
@@ -19486,30 +18159,6 @@
       "reviewReasons": [],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 172.89
-    },
-    "1730": {
-      "id": "1730",
-      "sku": "RM-AG-MON-5OZ-BU",
-      "live": false,
-      "fineOz": 5,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.56,
-      "reviewReasons": [
-        "observed ask 4559 implies 1258.1% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
     },
     "1733": {
       "id": "1733",
@@ -20658,63 +19307,6 @@
       ],
       "weightConfidence": "high"
     },
-    "1973": {
-      "id": "1973",
-      "sku": "RM-AG-CAN-BISON-1.25OZ-2015",
-      "live": true,
-      "fineOz": 1.25,
-      "confidence": "high",
-      "premiumPct": 1.64063,
-      "premiumUsd": 141.34,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 227.49
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 6.7 implies -92% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2015 1.25 oz $8 Canadian Silver Bison Coin NGC MS70\"",
-        "re-classed SEMI_NUMISMATIC: 2015 issue with 166% premium over melt — collector leg fixed in dollars"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 141.34
-    },
-    "1980": {
-      "id": "1980",
-      "sku": "RM-AG-LUNAR-1OZ-2012",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.66265,
-      "premiumUsd": 45.67,
-      "calibration": {
-        "peers": 5,
-        "family": "silver|round|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 114.59
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 6.4 implies -90.5% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2012 1 oz Australian Lunar Dragon Silver Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 45.67
-    },
     "1984": {
       "id": "1984",
       "sku": "RM-AU-GEORGE-1OZ-2005",
@@ -20987,30 +19579,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
     },
-    "2012": {
-      "id": "2012",
-      "sku": "RM-AU-PAMP-5G-NEW",
-      "live": true,
-      "fineOz": 0.1607,
-      "confidence": "high",
-      "premiumPct": 0.48369,
-      "premiumUsd": 344.18,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|coin|tiny|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T16:01:47.28274+00:00",
-        "spotAtObservation": 4427.9,
-        "competitorPriceUsd": 1055.74
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
     "2013": {
       "id": "2013",
       "sku": "RM-AU-SOV-1OZ-2009",
@@ -21279,30 +19847,6 @@
       "merchantAskUsd": 605.38,
       "weightConfidence": "high"
     },
-    "2028": {
-      "id": "2028",
-      "sku": "RM-AG-SOM-2OZ-BU-2026",
-      "live": true,
-      "fineOz": 2,
-      "confidence": "medium",
-      "premiumPct": 0.22539,
-      "premiumUsd": 15.08,
-      "calibration": {
-        "peers": 33,
-        "family": "silver|product|1oz|BULLION_SPOT",
-        "source": "family-median"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 64.99 implies -51.2% over melt — outside plausible range (low)",
-        "premium inherited from 33 family peers (silver|product|1oz|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
-    },
     "2030": {
       "id": "2030",
       "sku": "RM-AU-SOV-1OZ-2023",
@@ -21327,60 +19871,6 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
-    },
-    "2031": {
-      "id": "2031",
-      "sku": "RM-AU-JM-50G-2023",
-      "live": true,
-      "fineOz": 1.6075,
-      "confidence": "high",
-      "premiumPct": 0.11684,
-      "premiumUsd": 873.77,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 8352.18
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 54.5,
-      "reviewReasons": [
-        "observed ask 920.38 implies -87.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"50 Gram Johnson Matthey Gold Bar (Secondary Market)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2037": {
-      "id": "2037",
-      "sku": "RM-AG-CAN-FALCON-1.5OZ-2016",
-      "live": true,
-      "fineOz": 1.5,
-      "confidence": "high",
-      "premiumPct": 0.68295,
-      "premiumUsd": 68.18,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T16:01:47.28274+00:00",
-        "spotAtObservation": 66.55,
-        "competitorPriceUsd": 168
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "re-classed SEMI_NUMISMATIC: 2016 issue with 67% premium over melt — collector leg fixed in dollars"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 68.18
     },
     "2038": {
       "id": "2038",
@@ -21531,34 +20021,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "2057": {
-      "id": "2057",
-      "sku": "RM-AU-PAMP-5G-PL",
-      "live": true,
-      "fineOz": 0.1608,
-      "confidence": "high",
-      "premiumPct": 0.2702,
-      "premiumUsd": 202.13,
-      "calibration": {
-        "peers": 9,
-        "family": "gold|coin|tiny|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 950.2
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 169.99 implies -76.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"5 Gram PAMP Suisse Buddha Gold Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 202.13
-    },
     "2061": {
       "id": "2061",
       "sku": "RM-AG-PD-2OZ-HR",
@@ -21657,31 +20119,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "2086": {
-      "id": "2086",
-      "sku": "RM-PT-APE-1/2OZ-PR-RAND",
-      "live": true,
-      "fineOz": 0.5,
-      "confidence": "high",
-      "premiumPct": 0.29145,
-      "premiumUsd": 252.25,
-      "calibration": {
-        "peers": 6,
-        "family": "platinum|coin|fractional|SEMI_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-18T16:01:45.224034+00:00",
-        "spotAtObservation": 1731,
-        "competitorPriceUsd": 1117.75
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 45,
-      "reviewReasons": [],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 252.25
-    },
     "2115": {
       "id": "2115",
       "sku": "RM-PT-PLE-1.85OZ-RAND",
@@ -21729,170 +20166,6 @@
       "weightSource": "troy-oz",
       "minPremiumUsd": 40,
       "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "2122": {
-      "id": "2122",
-      "sku": "RM-AG-GRACE-10OZ-BU",
-      "live": true,
-      "fineOz": 10,
-      "confidence": "high",
-      "premiumPct": 0.25477,
-      "premiumUsd": 175.59,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 864.79
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "observed ask 99.99 implies -84.8% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"10 oz Great Britain The Great Engravers Collection Three Graces Silver Bar (New)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2126": {
-      "id": "2126",
-      "sku": "RM-AG-RCM-10OZ-VINTAGE",
-      "live": true,
-      "fineOz": 10,
-      "confidence": "high",
-      "premiumPct": 0.079,
-      "premiumUsd": 54.45,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 743.65
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "observed ask 84.99 implies -87.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"10 oz (RCM) Silver Bar (Vintage Design)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2127": {
-      "id": "2127",
-      "sku": "RM-AG-GAM-10OZ-BU",
-      "live": true,
-      "fineOz": 10,
-      "confidence": "high",
-      "premiumPct": 0.0991,
-      "premiumUsd": 68.3,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 757.5
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "observed ask 79.99 implies -87.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"10 oz Great American Mint Silver Bar (New)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2130": {
-      "id": "2130",
-      "sku": "RM-AG-WALKLIB-50OZ-BU",
-      "live": true,
-      "fineOz": 50,
-      "confidence": "high",
-      "premiumPct": 0.17135,
-      "premiumUsd": 590.46,
-      "calibration": {
-        "peers": 3,
-        "family": "silver|coin|100oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 4036.46
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 25.58,
-      "reviewReasons": [
-        "observed ask 79.99 implies -97.6% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"50 oz Silver Bar (Varied Condition, Any Mint)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2133": {
-      "id": "2133",
-      "sku": "RM-AU-IND-5D-1910",
-      "live": true,
-      "fineOz": 0.2418,
-      "confidence": "high",
-      "premiumPct": 0.14838,
-      "premiumUsd": 166.92,
-      "calibration": {
-        "peers": 22,
-        "family": "gold|coin|fractional|TRUE_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 1291.82
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 84.99 implies -92% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1910 Pre-33 $5 Indian Gold Half Eagle Coin (XF)\""
-      ],
-      "merchantAskUsd": 1291.82,
-      "weightConfidence": "high"
-    },
-    "2134": {
-      "id": "2134",
-      "sku": "RM-AU-IND-QUARTER-EAGLE-1910",
-      "live": true,
-      "fineOz": 0.1286,
-      "confidence": "high",
-      "premiumPct": 33.82245,
-      "premiumUsd": 20235.06,
-      "calibration": {
-        "peers": 4,
-        "family": "gold|coin|tiny|TRUE_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 20833.33
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 139.99 implies -75.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1910-P Pre-33 $2.50 Indian Gold Quarter Eagle Coin NGC PF64\""
-      ],
-      "merchantAskUsd": 20833.33,
       "weightConfidence": "high"
     },
     "2141": {
@@ -22116,57 +20389,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "2227": {
-      "id": "2227",
-      "sku": "RM-AG-MON-2OZ-NEW",
-      "live": true,
-      "fineOz": 2,
-      "confidence": "high",
-      "premiumPct": 0.13449,
-      "premiumUsd": 17.9,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T16:01:47.28274+00:00",
-        "spotAtObservation": 66.55,
-        "competitorPriceUsd": 151
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "2241": {
-      "id": "2241",
-      "sku": "RM-PT-PAMP-5G-NEW",
-      "live": true,
-      "fineOz": 0.1608,
-      "confidence": "high",
-      "premiumPct": 0.42691,
-      "premiumUsd": 127.82,
-      "calibration": {
-        "peers": 3,
-        "family": "platinum|coin|tiny|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 1862,
-        "competitorPriceUsd": 427.23
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 45,
-      "reviewReasons": [
-        "observed ask 84.99 implies -70.5% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"5 Gram PAMP Suisse Fortuna Platinum Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
     "2252": {
       "id": "2252",
       "sku": "RM-PT-APE-1/4OZ-1997",
@@ -22216,84 +20438,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "2278": {
-      "id": "2278",
-      "sku": "RM-AU-SCG-2OZ-2020",
-      "live": true,
-      "fineOz": 2,
-      "confidence": "high",
-      "premiumPct": 0.07658,
-      "premiumUsd": 712.49,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 10016.89
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 67.81,
-      "reviewReasons": [
-        "observed ask 879 implies -90.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2020 2 oz Scottsdale COVID Era Hand Poured Gold Round (Box + CoA)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2283": {
-      "id": "2283",
-      "sku": "RM-AG-CAN-TWINMAPLES-2OZ-2021",
-      "live": true,
-      "fineOz": 2,
-      "confidence": "high",
-      "premiumPct": 0.0924,
-      "premiumUsd": 12.18,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 65.91,
-        "competitorPriceUsd": 144
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "2284": {
-      "id": "2284",
-      "sku": "RM-AU-HLM-5G-NEW",
-      "live": true,
-      "fineOz": 0.16075,
-      "confidence": "high",
-      "premiumPct": 0.23497,
-      "premiumUsd": 175.72,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|coin|tiny|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 923.56
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 149.99 implies -78.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"5 Gram The Holy Land Mint Lion of Judah Gold Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
     "2288": {
       "id": "2288",
       "sku": "RM-AG-HOME-5OZ-BU",
@@ -22317,138 +20461,6 @@
       "minPremiumUsd": 2.56,
       "reviewReasons": [],
       "weightConfidence": "high"
-    },
-    "2289": {
-      "id": "2289",
-      "sku": "RM-AG-PSB-100OZ-NEW",
-      "live": true,
-      "fineOz": 100,
-      "confidence": "high",
-      "premiumPct": 0.20248,
-      "premiumUsd": 1395.5,
-      "calibration": {
-        "peers": 3,
-        "family": "silver|coin|100oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 8287.5
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 51.16,
-      "reviewReasons": [
-        "observed ask 469.99 implies -92.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"100 oz Patriot Metals Stacker Silver Bar (New)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2292": {
-      "id": "2292",
-      "sku": "RM-AU-PAMP-5G-2026",
-      "live": true,
-      "fineOz": 0.16075,
-      "confidence": "high",
-      "premiumPct": 0.15827,
-      "premiumUsd": 118.36,
-      "calibration": {
-        "peers": 9,
-        "family": "gold|coin|tiny|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 866.2
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 179.99 implies -74.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2026 5 Gram PAMP Suisse Lunar Legend Mile Horse Gold Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 118.36
-    },
-    "2294": {
-      "id": "2294",
-      "sku": "RM-AG-VSB-100OZ-BU",
-      "live": true,
-      "fineOz": 100,
-      "confidence": "high",
-      "premiumPct": 0.18616,
-      "premiumUsd": 1283,
-      "calibration": {
-        "peers": 3,
-        "family": "silver|coin|100oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 8175
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 51.16,
-      "reviewReasons": [
-        "observed ask 282 implies -95.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"100 oz Vintage Silver Bar (Varied Condition, Any Mint)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2299": {
-      "id": "2299",
-      "sku": "RM-AG-WASH-COMM-0.5OZ-1953",
-      "live": true,
-      "fineOz": 0.3617,
-      "confidence": "high",
-      "premiumPct": 5.29162,
-      "premiumUsd": 126.15,
-      "calibration": {
-        "peers": 21,
-        "family": "silver|coin|fractional|SEMI_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 65.91,
-        "competitorPriceUsd": 149.99
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 126.15
-    },
-    "2300": {
-      "id": "2300",
-      "sku": "RM-AG-WC-0.3617OZ-1952",
-      "live": true,
-      "fineOz": 0.3617,
-      "confidence": "high",
-      "premiumPct": 4.87215,
-      "premiumUsd": 116.15,
-      "calibration": {
-        "peers": 21,
-        "family": "silver|coin|fractional|SEMI_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 65.91,
-        "competitorPriceUsd": 139.99
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 116.15
     },
     "2301": {
       "id": "2301",
@@ -22475,136 +20487,6 @@
       "merchantAskUsd": 223,
       "weightConfidence": "high"
     },
-    "2317": {
-      "id": "2317",
-      "sku": "RM-AU-RAND-1OZ-NEW",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.08677,
-      "premiumUsd": 403.66,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5055.86
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 99.99 implies -97.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1 oz Rand Refinery Gold Bar (New w/ Black Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2319": {
-      "id": "2319",
-      "sku": "RM-AG-SOL-1OZ-2024",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.66879,
-      "premiumUsd": 44.08,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 65.91,
-        "competitorPriceUsd": 109.99
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 44.08
-    },
-    "2320": {
-      "id": "2320",
-      "sku": "RM-AU-VAL-500G-NEW",
-      "live": true,
-      "fineOz": 16.075,
-      "confidence": "high",
-      "premiumPct": 0.07545,
-      "premiumUsd": 5642.71,
-      "calibration": {
-        "peers": 1,
-        "family": "gold|coin|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 80426.82
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 545,
-      "reviewReasons": [
-        "observed ask 89.99 implies -99.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"500 Gram Valcambi Cast Gold Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2321": {
-      "id": "2321",
-      "sku": "RM-AU-CS-2G-NEW",
-      "live": false,
-      "fineOz": 0.0643,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|coin|tiny|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 1395 implies 391.1% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
-    "2323": {
-      "id": "2323",
-      "sku": "RM-AG-AH-1KILO-NEW",
-      "live": true,
-      "fineOz": 32.15,
-      "confidence": "high",
-      "premiumPct": 0.20459,
-      "premiumUsd": 453.33,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 2669.11
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 16.45,
-      "reviewReasons": [
-        "observed ask 259.99 implies -87.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1 Kilo Argor Heraeus Cast Silver Bar (New)\""
-      ],
-      "weightConfidence": "high"
-    },
     "2324": {
       "id": "2324",
       "sku": "RM-AU-HLM-DOVE-1OZ-2025",
@@ -22629,33 +20511,6 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
-    },
-    "2328": {
-      "id": "2328",
-      "sku": "RM-AG-ATL-SKULL-2OZ-BU",
-      "live": true,
-      "fineOz": 2,
-      "confidence": "high",
-      "premiumPct": 0.16773,
-      "premiumUsd": 23.12,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 160.96
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 79.99 implies -39.3% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2 oz Atlantis Skull and Crossbones Hand Poured Silver Round (New)\""
-      ],
-      "weightConfidence": "high"
     },
     "2335": {
       "id": "2335",
@@ -22952,78 +20807,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 1992.65
     },
-    "2484": {
-      "id": "2484",
-      "sku": "RM-AG-CHINESE-1OZ-2025",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.17575,
-      "premiumUsd": 78.94,
-      "calibration": {
-        "peers": 42,
-        "family": "silver|round|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-19T21:00:26.771864+00:00",
-        "spotAtObservation": 67.14,
-        "competitorPriceUsd": 146.08
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "2499": {
-      "id": "2499",
-      "sku": "RM-AG-SWISS-3OZ-BAR",
-      "live": true,
-      "fineOz": 3,
-      "confidence": "high",
-      "premiumPct": 0.09746,
-      "premiumUsd": 19.27,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 65.91,
-        "competitorPriceUsd": 217
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [],
-      "weightConfidence": "high"
-    },
-    "2500": {
-      "id": "2500",
-      "sku": "RM-AG-SB-10OZ-BU",
-      "live": true,
-      "fineOz": 10,
-      "confidence": "medium",
-      "premiumPct": 0.0991,
-      "premiumUsd": 54.45,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "family-median"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 5.12,
-      "reviewReasons": [
-        "observed ask 134.99 implies -79.5% over melt — outside plausible range (low)",
-        "premium inherited from 18 family peers (silver|coin|5-50oz|BULLION_SPOT)"
-      ],
-      "weightConfidence": "high"
-    },
     "2503": {
       "id": "2503",
       "sku": "RM-PT-APE-1.85OZ-2007",
@@ -23120,320 +20903,6 @@
         "premium inherited from 2 family peers (gold|round|tiny|BULLION_SPOT)"
       ],
       "weightConfidence": "high"
-    },
-    "2525": {
-      "id": "2525",
-      "sku": "RM-AG-STAR-0.5OZ-BU",
-      "live": false,
-      "fineOz": 0.5,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 4,
-        "family": "silver|coin|fractional|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 244.99 implies 643.4% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
-    "2534": {
-      "id": "2534",
-      "sku": "RM-AG-SB-100G-VA",
-      "live": false,
-      "fineOz": 3.215,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 939 implies 343.1% over melt — outside plausible range (high)",
-        "competitor ask far above metal value — needs a desk-set ask, not a default premium"
-      ],
-      "weightConfidence": "high"
-    },
-    "2546": {
-      "id": "2546",
-      "sku": "RM-AU-BUF-1OZ-2022",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.18075,
-      "premiumUsd": 840.87,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|product|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5493.07
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 9.99 implies -99.8% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2022-W 1 oz Proof American Gold Buffalo Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 840.87
-    },
-    "2547": {
-      "id": "2547",
-      "sku": "RM-AU-GB-1/2SOV-RND",
-      "live": false,
-      "fineOz": 0.1177,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 0,
-      "reviewReasons": [
-        "unclassified: no grading, age or bullion signal"
-      ],
-      "weightConfidence": "high"
-    },
-    "2548": {
-      "id": "2548",
-      "sku": "RM-AU-GB-SOV-0.2354OZ-RAND",
-      "live": false,
-      "fineOz": 0.2354,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 0,
-      "reviewReasons": [
-        "unclassified: no grading, age or bullion signal"
-      ],
-      "weightConfidence": "high"
-    },
-    "2558": {
-      "id": "2558",
-      "sku": "RM-AG-RED-TAILED-HAWK-1OZ-2015",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.30514,
-      "premiumUsd": 21.03,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 89.95
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 40.99 implies -38.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2015 1 oz Canadian Silver Red-Tailed Hawk Coin\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2559": {
-      "id": "2559",
-      "sku": "RM-AG-CAN-SILVER-1OZ-2015",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.13697,
-      "premiumUsd": 78.36,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 147.28
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 47.99 implies -27.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2015 1 oz Proof Canadian Silver Autumn Express Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 78.36
-    },
-    "2560": {
-      "id": "2560",
-      "sku": "RM-AG-CAN-1OZ-PROOF-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.83474,
-      "premiumUsd": 57.53,
-      "calibration": {
-        "peers": 10,
-        "family": "silver|product|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 126.45
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 13.99 implies -79% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 1 oz Proof Canadian Silver White-Tailed Deer Portrait Coin NGC PF70 ER\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 57.53
-    },
-    "2561": {
-      "id": "2561",
-      "sku": "RM-AG-ARCTIC-1OZ-BU-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.02757,
-      "premiumUsd": 70.82,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 139.74
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 40.99 implies -38.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 1 oz Arctic Fox Northern Lights $25 Canadian Silver Coin (BU)\"",
-        "re-classed SEMI_NUMISMATIC: 2014 issue with 104% premium over melt — collector leg fixed in dollars"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 70.82
-    },
-    "2562": {
-      "id": "2562",
-      "sku": "RM-AG-CML-1OZ-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.88915,
-      "premiumUsd": 61.28,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 130.2
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 37.99 implies -42.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 1 oz Canadian Silver Maple Leaf (ANA Privy Mark, RP)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 61.28
-    },
-    "2564": {
-      "id": "2564",
-      "sku": "RM-AG-LIB-1/2OZ-2026",
-      "live": true,
-      "fineOz": 0.5,
-      "confidence": "high",
-      "premiumPct": 0.0563,
-      "premiumUsd": 1.94,
-      "calibration": {
-        "peers": 2,
-        "family": "silver|product|fractional|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 36.4
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 14.99 implies -55% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2026-P 1/2 oz Proof American Liberty Bell Shaped Silver Medal (Dual Date, Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 2.5
-    },
-    "2566": {
-      "id": "2566",
-      "sku": "RM-AU-LUNAR-1/4OZ-2012",
-      "live": true,
-      "fineOz": 0.25,
-      "confidence": "high",
-      "premiumPct": 0.21744,
-      "premiumUsd": 252.89,
-      "calibration": {
-        "peers": 21,
-        "family": "gold|coin|fractional|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 1415.94
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 47.99 implies -95.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2012 1/4 oz Australian Lunar Dragon Gold Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 252.89
     },
     "2567": {
       "id": "2567",
@@ -23581,34 +21050,6 @@
       "reviewReasons": [],
       "weightConfidence": "high"
     },
-    "2762": {
-      "id": "2762",
-      "sku": "RM-AG-CAN-SKI-1OZ-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.53178,
-      "premiumUsd": 36.65,
-      "calibration": {
-        "peers": 10,
-        "family": "silver|product|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 105.57
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 9.99 implies -85% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 1 oz Proof Canadian Silver Scenic Skiing in Canada Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 36.65
-    },
     "2770": {
       "id": "2770",
       "sku": "RM-AU-HW-1/10OZ-1993-PROOF",
@@ -23633,118 +21074,6 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 40
-    },
-    "2772": {
-      "id": "2772",
-      "sku": "RM-AG-SOM-1OZ-PROOF-2015",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.21198,
-      "premiumUsd": 83.53,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 152.45
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 42.99 implies -35.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2015 1 oz Somalia Silver Elephant Proof Coin (High Relief)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 83.53
-    },
-    "2776": {
-      "id": "2776",
-      "sku": "RM-AG-CASA-1OZ-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.57922,
-      "premiumUsd": 108.84,
-      "calibration": {
-        "peers": 33,
-        "family": "silver|product|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 177.76
-      },
-      "needsReview": true,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 9.99 implies -85% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 1 oz Casa Loma Stained Glass $20 Canadian Silver Coin\"",
-        "re-classed SEMI_NUMISMATIC: 2014 issue with 160% premium over melt — collector leg fixed in dollars"
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 108.84
-    },
-    "2779": {
-      "id": "2779",
-      "sku": "RM-AG-CML-1OZ-2016",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.49216,
-      "premiumUsd": 33.92,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 102.84
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 40.99 implies -38.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2016 1 oz Four Leaf Clover Privy Canadian Silver Maple Leaf Reverse Proof Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 33.92
-    },
-    "2784": {
-      "id": "2784",
-      "sku": "RM-AG-ENG-3OZ-BU",
-      "live": true,
-      "fineOz": 3,
-      "confidence": "high",
-      "premiumPct": 0.47877,
-      "premiumUsd": 98.99,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 305.75
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 64.99 implies -67.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"3 oz Engelhard Silver Cast Bar (New)\""
-      ],
-      "weightConfidence": "high"
     },
     "2787": {
       "id": "2787",
@@ -23771,34 +21100,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 45
     },
-    "2788": {
-      "id": "2788",
-      "sku": "RM-AG-LUNAR-HORSE-2OZ-BU-2014",
-      "live": true,
-      "fineOz": 2,
-      "confidence": "high",
-      "premiumPct": 0.26705,
-      "premiumUsd": 36.81,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 174.65
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 37.99 implies -71.5% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 2 oz Australian Silver Lunar Horse Coin (BU)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 36.81
-    },
     "2830": {
       "id": "2830",
       "sku": "RM-AG-WL-50C-1941",
@@ -23823,144 +21124,6 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 2.5
-    },
-    "2839": {
-      "id": "2839",
-      "sku": "RM-AG-LUNAR-SNAKE-1OZ-2013",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.96953,
-      "premiumUsd": 66.82,
-      "calibration": {
-        "peers": 10,
-        "family": "silver|product|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 135.74
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 9.99 implies -84.8% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2013 1 oz Australian Silver Lunar Snake Coin NGC MS69\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 66.82
-    },
-    "2840": {
-      "id": "2840",
-      "sku": "RM-AU-GER-1/2OZ-2026",
-      "live": true,
-      "fineOz": 0.5,
-      "confidence": "high",
-      "premiumPct": 0.24919,
-      "premiumUsd": 579.65,
-      "calibration": {
-        "peers": 21,
-        "family": "gold|coin|fractional|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 2905.75
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 37.99 implies -98.3% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2026 1/2 oz Germania Gold Round (New, In Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2845": {
-      "id": "2845",
-      "sku": "RM-AU-KOA-1OZ-2025",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.09836,
-      "premiumUsd": 457.59,
-      "calibration": {
-        "peers": 25,
-        "family": "gold|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5109.79
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 37.99 implies -99.1% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2025 1 oz Royal Australian Mint Gold Koala Coin (BU)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2846": {
-      "id": "2846",
-      "sku": "RM-AG-QB-1OZ-2017",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.57414,
-      "premiumUsd": 108.49,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 177.41
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 34.99 implies -46.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2017 1 oz Proof British Silver Queen's Beast Unicorn Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 108.49
-    },
-    "2847": {
-      "id": "2847",
-      "sku": "RM-AU-PERTH-1OZ-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.09164,
-      "premiumUsd": 426.34,
-      "calibration": {
-        "peers": 19,
-        "family": "gold|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5078.54
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 34.99 implies -99.2% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 1 oz Proof Australian Gold Wedge Tailed Eagle Coin (High Relief)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 426.34
     },
     "2849": {
       "id": "2849",
@@ -23987,524 +21150,6 @@
       "weightConfidence": "high",
       "collectiblePremiumUsd": 2.5
     },
-    "2850": {
-      "id": "2850",
-      "sku": "RM-AU-GOLD-1G-ASSAY",
-      "live": true,
-      "fineOz": 0.0321,
-      "confidence": "high",
-      "premiumPct": 0.2711,
-      "premiumUsd": 40.48,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|coin|tiny|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 189.82
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 37.99 implies -73.2% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1 Gram Gold Bar (Any Mint, In Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2851": {
-      "id": "2851",
-      "sku": "RM-AU-CAN-5D-1912",
-      "live": true,
-      "fineOz": 0.2419,
-      "confidence": "high",
-      "premiumPct": 0.18538,
-      "premiumUsd": 208.62,
-      "calibration": {
-        "peers": 1,
-        "family": "gold|product|fractional|TRUE_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 1333.99
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 11.99 implies -98.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1912 $5 Canadian Gold Coin PCGS MS62\""
-      ],
-      "merchantAskUsd": 1333.99,
-      "weightConfidence": "high"
-    },
-    "2852": {
-      "id": "2852",
-      "sku": "RM-AU-QB-1OZ-2017",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.19124,
-      "premiumUsd": 889.69,
-      "calibration": {
-        "peers": 19,
-        "family": "gold|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5541.89
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 47.99 implies -98.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2017 1 oz Proof British Gold Queen's Beast Unicorn Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 889.69
-    },
-    "2853": {
-      "id": "2853",
-      "sku": "RM-AU-ALHR-1OZ-2015",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.24738,
-      "premiumUsd": 1150.88,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|product|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5803.08
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 9.99 implies -99.8% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2015-W 1 oz American Liberty High Relief Gold Coin MS70 (Varied Label, PCGS or NGC)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 1150.88
-    },
-    "2854": {
-      "id": "2854",
-      "sku": "RM-AG-LUNAR-1OZ-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.0991,
-      "premiumUsd": 6.83,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 75.75
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 37.99 implies -42.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 $1 Australian Silver Lunar Series Proof Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 6.83
-    },
-    "2855": {
-      "id": "2855",
-      "sku": "RM-AG-AUS-ORION-1OZ-2014",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.44486,
-      "premiumUsd": 99.58,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 168.5
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 47.99 implies -27.2% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2014 1 oz Australian $5 Silver Orion Proof Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 99.58
-    },
-    "2856": {
-      "id": "2856",
-      "sku": "RM-AG-AUS-MEGA-1OZ-2013",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.99144,
-      "premiumUsd": 68.33,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 137.25
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 37.99 implies -42.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2013 1 oz Australian Silver Megafauna Procoptodon Proof Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 68.33
-    },
-    "2857": {
-      "id": "2857",
-      "sku": "RM-AG-GER-250G-NEW",
-      "live": true,
-      "fineOz": 8.038,
-      "confidence": "high",
-      "premiumPct": 0.27617,
-      "premiumUsd": 152.99,
-      "calibration": {
-        "peers": 18,
-        "family": "silver|coin|5-50oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 706.97
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 4.11,
-      "reviewReasons": [
-        "observed ask 47.99 implies -90.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"250 Gram Germania Mint Cast Silver Bar (New)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2858": {
-      "id": "2858",
-      "sku": "RM-AG-MONARCH-1OZ-HR",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.31892,
-      "premiumUsd": 21.98,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 90.9
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 37.99 implies -42.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1 oz Monarch Humpback Whale High Relief Silver Round (New)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2860": {
-      "id": "2860",
-      "sku": "RM-AG-DRAGON-1OZ-2018",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.62275,
-      "premiumUsd": 42.92,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 111.84
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 40.99 implies -37.8% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2018 1 oz Proof Australian Rectangular Silver Dragon Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 42.92
-    },
-    "2861": {
-      "id": "2861",
-      "sku": "RM-AG-AUS-LUNAR-OX-1OZ-2009",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.20546,
-      "premiumUsd": 14.16,
-      "calibration": {
-        "peers": 41,
-        "family": "silver|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 83.08
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 37.99 implies -42.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2009 1 oz Australian Silver Lunar Ox Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 14.16
-    },
-    "2866": {
-      "id": "2866",
-      "sku": "RM-AG-TUDOR-1OZ-2025",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 1.86811,
-      "premiumUsd": 128.75,
-      "calibration": {
-        "peers": 10,
-        "family": "silver|product|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 197.67
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 10.99 implies -83.3% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2025 1 oz Proof British Silver Tudor Beasts The Greyhound of Richmond Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 128.75
-    },
-    "2869": {
-      "id": "2869",
-      "sku": "RM-AU-QB-GRIFFIN-1OZ-2017",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.06893,
-      "premiumUsd": 320.67,
-      "calibration": {
-        "peers": 15,
-        "family": "gold|product|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 4972.87
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 10.99 implies -99.8% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2017 1 oz British Gold Queen’s Beast Griffin Coin NGC MS69\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2873": {
-      "id": "2873",
-      "sku": "RM-AU-BUF-1OZ-2018",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.17976,
-      "premiumUsd": 836.3,
-      "calibration": {
-        "peers": 19,
-        "family": "gold|coin|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 5488.5
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 74.99 implies -98.3% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2018-W 1 oz Proof American Gold Buffalo Coin (Box + CoA)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 836.3
-    },
-    "2874": {
-      "id": "2874",
-      "sku": "RM-AG-FUNNEL-SPIDER-1OZ-2015",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.45865,
-      "premiumUsd": 31.61,
-      "calibration": {
-        "peers": 33,
-        "family": "silver|product|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 100.53
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 10.99 implies -83.3% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2015 1 oz Australian Silver Funnel-Web Spider Coin PCGS MS69\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2879": {
-      "id": "2879",
-      "sku": "RM-AU-LIB-1OZ-2021",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.49368,
-      "premiumUsd": 2296.71,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|product|1oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 6948.91
-      },
-      "needsReview": false,
-      "premiumMode": "pct",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 14.99 implies -99.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2021 1 oz Reverse Proof Mexican Gold Libertad Coin\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 2296.71
-    },
-    "2880": {
-      "id": "2880",
-      "sku": "RM-CU-1804D-1OZ-NEW",
-      "live": false,
-      "fineOz": 1,
-      "confidence": "low",
-      "premiumPct": 0,
-      "premiumUsd": 0,
-      "calibration": {
-        "source": "none"
-      },
-      "needsReview": true,
-      "premiumMode": "pct",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 0,
-      "reviewReasons": [
-        "no spot for metal 'other'"
-      ],
-      "weightConfidence": "high"
-    },
-    "2892": {
-      "id": "2892",
-      "sku": "RM-AU-PERTH-DUNE-1G",
-      "live": true,
-      "fineOz": 0.03215,
-      "confidence": "high",
-      "premiumPct": 0.04655,
-      "premiumUsd": 6.96,
-      "calibration": {
-        "peers": 18,
-        "family": "gold|coin|tiny|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 4652.2,
-        "competitorPriceUsd": 156.53
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [
-        "observed ask 35.99 implies -74.7% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1 Gram Perth Mint DUNE House Atreides Gold Bar (New w/ Assay)\""
-      ],
-      "weightConfidence": "high"
-    },
-    "2894": {
-      "id": "2894",
-      "sku": "RM-AG-WALT-1OZ-UNC",
-      "live": true,
-      "fineOz": 1,
-      "confidence": "high",
-      "premiumPct": 0.34388,
-      "premiumUsd": 23.7,
-      "calibration": {
-        "peers": 27,
-        "family": "silver|coin|1oz|BULLION_SPOT",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 92.62
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "BULLION_SPOT",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.5,
-      "reviewReasons": [
-        "observed ask 37.99 implies -42.4% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"1 oz Walt Disney Vintage Silver Art Round (Varied Design)\""
-      ],
-      "weightConfidence": "high"
-    },
     "2905": {
       "id": "2905",
       "sku": "RM-AU-SCB-1OZ-BU",
@@ -24528,34 +21173,6 @@
         "premium inherited from 3 family peers (gold|round|1oz|BULLION_SPOT)"
       ],
       "weightConfidence": "high"
-    },
-    "2906": {
-      "id": "2906",
-      "sku": "RM-AG-LUNAR-RABBIT-5OZ-2023",
-      "live": true,
-      "fineOz": 5,
-      "confidence": "high",
-      "premiumPct": 0.14533,
-      "premiumUsd": 50.08,
-      "calibration": {
-        "peers": 1,
-        "family": "silver|round|5-50oz|SEMI_NUMISMATIC",
-        "source": "jm-observed",
-        "observedAt": "2026-08-25T16:00:11.224185+00:00",
-        "spotAtObservation": 68.92,
-        "competitorPriceUsd": 394.68
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "SEMI_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 2.56,
-      "reviewReasons": [
-        "observed ask 168.08 implies -49.9% over melt — outside plausible range (low)",
-        "calibrated from JM Bullion listing \"2023 5 oz Australian Silver Lunar Rabbit Coin (BU)\""
-      ],
-      "weightConfidence": "high",
-      "collectiblePremiumUsd": 50.08
     },
     "2907": {
       "id": "2907",
@@ -24773,31 +21390,6 @@
         "no APMEX ask observed",
         "metal-level default premium — desk should set"
       ],
-      "weightConfidence": "high"
-    },
-    "3312": {
-      "id": "3312",
-      "sku": "RM-AU-LIB-QUARTER-COIN-MS61",
-      "live": true,
-      "fineOz": 0.1209,
-      "confidence": "high",
-      "premiumPct": 10.22398,
-      "premiumUsd": 5460.88,
-      "calibration": {
-        "peers": 4,
-        "family": "gold|coin|tiny|TRUE_NUMISMATIC",
-        "source": "apmex-observed",
-        "observedAt": "2026-08-17T21:00:48.6238+00:00",
-        "spotAtObservation": 4417.9,
-        "competitorPriceUsd": 5995
-      },
-      "needsReview": false,
-      "premiumMode": "usd",
-      "pricingType": "TRUE_NUMISMATIC",
-      "weightSource": "troy-oz",
-      "minPremiumUsd": 40,
-      "reviewReasons": [],
-      "merchantAskUsd": 5995,
       "weightConfidence": "high"
     },
     "3323": {
