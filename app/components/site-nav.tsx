@@ -155,7 +155,6 @@ const PLATINUM_MENU = [
   {
     heading: { href: "/platinum/bars-rounds", label: "Bars & Brands" },
     links: [
-      { href: "/platinum/bars-rounds/pamp-suisse", label: "PAMP Suisse" },
       { href: "/platinum/bars-rounds/valcambi", label: "Valcambi" },
       { href: "/platinum/bars-rounds/credit-suisse", label: "Credit Suisse" },
       { href: "/platinum/bars-rounds/baird-co", label: "Baird & Co." },

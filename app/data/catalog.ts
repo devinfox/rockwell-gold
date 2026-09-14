@@ -68,7 +68,6 @@ export const PLATINUM_MINTS = [
   { name: "Austrian Mint", slug: "austrian-mint" },
   { name: "Bars & Rounds", slug: "bars-rounds" },
   { name: "Platinum Coins", slug: "coins" },
-  { name: "PAMP Suisse", slug: "pamp-suisse" },
   { name: "Valcambi", slug: "valcambi" },
   { name: "Credit Suisse", slug: "credit-suisse" },
   { name: "Baird & Co.", slug: "baird-co" },
@@ -316,7 +315,6 @@ export const PLATINUM_SERIES: Record<string, SeriesDef[]> = {
     { slug: "sets", name: "Proof & Multi-Coin Sets", test: (p) => /set|coin set/i.test(p.title) },
   ],
   "bars-rounds": [
-    { slug: "pamp-suisse", name: "PAMP Suisse", test: (p) => /pamp/i.test(p.title) || p.mintSlug === "pamp-suisse" },
     { slug: "valcambi", name: "Valcambi", test: (p) => /valcambi/i.test(p.title) || p.mintSlug === "valcambi" },
     { slug: "credit-suisse", name: "Credit Suisse", test: (p) => /credit suisse/i.test(p.title) || p.mintSlug === "credit-suisse" },
     { slug: "baird-co", name: "Baird & Co.", test: (p) => /baird/i.test(p.title) || p.mintSlug === "baird-co" },
