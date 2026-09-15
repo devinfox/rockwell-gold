@@ -72,6 +72,8 @@ export interface OrderItem {
   quantity: number;
   unitPriceUsd: number;
   unitPremiumPct: number;
+  /** Fine troy ounces per unit, from the pricing rule at order time. Absent on orders placed before it was recorded. */
+  fineOz?: number;
   allocatedSerials: string[];
   packedSerials: string[];
   tebSeal: string | null;
@@ -98,7 +100,9 @@ export interface Order {
   spotAtLock: number;
   lockedUntil: string;
   payMethod: PayMethod;
-  payRef: string; // tx hash / fedwire ref / stripe charge
+  payRef: string; // fedwire ref, or the Stripe PaymentIntent (pi_…) once a card order is paid
+  /** Hosted Stripe Checkout session (cs_…) opened for a card order; null until one exists. */
+  stripeSessionId?: string | null;
   custody: Custody;
   /** One-line rendering of `shipTo` (kept for shipments, receipts and older orders). */
   address: string | null;

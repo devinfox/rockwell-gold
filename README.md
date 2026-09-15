@@ -105,6 +105,14 @@ required; the server refuses to start in production without it.
 - **First operator:** set `RM_BOOTSTRAP_ADMIN_EMAILS=you@company.com`, then open an account with that
   email at `/auth/sign-up` — it is created as SUPER_ADMIN (an existing customer with that email is
   promoted on the next store open). Further staff: `/admin/customers/<id>` → *Set role*.
+- **Card payments (Stripe):** card orders are placed at `PENDING_PAYMENT`, then the customer is sent to
+  hosted Stripe Checkout for the ledger-priced total; the order settles (PAID → assay → allocation) when
+  Stripe reports the charge to `POST /api/stripe/webhook`, or when the success page confirms the session
+  through `/api/stripe/verify`. Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` (see `.env.example`);
+  without the key the card rail is greyed out and only wire is offered. Locally, run
+  `stripe listen --forward-to localhost:3000/api/stripe/webhook` and paste the printed `whsec_…`.
+  In the Dashboard, the webhook endpoint is `https://<site>/api/stripe/webhook` with the four
+  `checkout.session.*` events listed in `.env.example`. Wire settlement is still confirmed by staff.
 - **Demo accounts** (`customer@rockwell.demo`, `admin@rockwell.demo`, … / `rockwell-demo-2026`) only work
   with `RM_DEMO_MODE=true`, and never in production. Reset demo data as a signed-in SUPER_ADMIN:
   `POST /api/rm {"action":"resetDemo"}`.

@@ -7,16 +7,40 @@
 // to call two staff-only actions from the customer's browser, which 403'd
 // silently and left every order stuck at PAID (audit: Critical).
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import SiteNav from "../../../components/site-nav";
 import SiteFooter from "../../../components/site-footer";
+import StripePayButton from "../../../components/stripe-pay-button";
 import { useRm, usd, fmtDateTime } from "../../../lib/use-rm";
 import { STATUS_LABEL } from "../../../lib/rm-types";
 
-export default function SuccessClient({ orderId }: { orderId: string }) {
-  const { db } = useRm(3000);
+export default function SuccessClient({ orderId, sessionId }: { orderId: string; sessionId?: string }) {
+  const { db, refresh } = useRm(3000);
   const order = db?.orders.find((o) => o.id === orderId);
+
+  // Back from Stripe: confirm the session server-side straight away rather
+  // than waiting on the webhook (which may not be forwarded in development).
+  const [verify, setVerify] = useState<"idle" | "checking" | "paid" | "unpaid" | "error">(sessionId ? "checking" : "idle");
+  const [verifyErr, setVerifyErr] = useState<string | null>(null);
+  useEffect(() => {
+    if (!sessionId) return;
+    let alive = true;
+    fetch(`/api/stripe/verify?session_id=${encodeURIComponent(sessionId)}`, { cache: "no-store" })
+      .then(async (r) => {
+        const j = await r.json().catch(() => ({}));
+        if (!alive) return;
+        if (r.ok && j.ok) {
+          setVerify(j.paid ? "paid" : "unpaid");
+          refresh();
+        } else {
+          setVerify("error");
+          setVerifyErr(j.error || "Could not confirm the payment yet.");
+        }
+      })
+      .catch(() => { if (alive) { setVerify("error"); setVerifyErr("Could not reach the ledger to confirm the payment."); } });
+    return () => { alive = false; };
+  }, [sessionId, refresh]);
 
   if (!db) {
     return (<><SiteNav /><main className="wrap rm-main"><p className="rm-sub num">Reading custody ledger…</p></main></>);
@@ -36,10 +60,16 @@ export default function SuccessClient({ orderId }: { orderId: string }) {
   const serials = order.items.flatMap((i) => i.allocatedSerials);
   const vaulted = order.status === "ALLOCATED";
   const queued = order.status === "FULFILLMENT_QUEUE";
-  const pendingWire = order.status === "PENDING_PAYMENT";
-  const settling = order.status === "PAID" || order.status === "IN_ASSAY";
+  const pendingWire = order.status === "PENDING_PAYMENT" && order.payMethod === "WIRE";
+  const awaitingCard = order.status === "PENDING_PAYMENT" && order.payMethod === "CARD";
+  // A paid session whose webhook has not landed yet reads as "settling" too.
+  const settling = order.status === "PAID" || order.status === "IN_ASSAY" || (awaitingCard && verify === "checking");
 
-  const title = pendingWire
+  const title = awaitingCard && verify === "checking"
+    ? "Confirming your card payment…"
+    : awaitingCard
+      ? "Complete your card payment."
+      : pendingWire
     ? "Allocation reserved."
     : vaulted
       ? "Sealed, vaulted, yours."
@@ -49,7 +79,11 @@ export default function SuccessClient({ orderId }: { orderId: string }) {
           ? "Binding your serials…"
           : "Order settled.";
 
-  const sub = pendingWire
+  const sub = awaitingCard && verify === "checking"
+    ? "Stripe is reporting the charge to the ledger. This takes a moment."
+    : awaitingCard
+      ? (verifyErr ?? "Your serials are reserved on the ledger but the card has not been charged yet. Pay now to bind them, or the reservation lapses.")
+      : pendingWire
     ? "Wire the settlement amount with your reference and the vault binds your serials the moment the Fedwire notice lands — the allocation holds 24 hours."
     : vaulted
       ? "Physical serials are allocated in the ledger and the audit entry is immutable. Lloyd's coverage attached."
@@ -72,13 +106,13 @@ export default function SuccessClient({ orderId }: { orderId: string }) {
         <div className="rm-panel rm-panel--well" style={{ marginBottom: 20 }}>
           <p className="rm-panel__k">
             Cryptographic receipt · {order.id}
-            <span className="st" data-tone={vaulted || queued ? "ok" : pendingWire ? "warn" : "live"}>{STATUS_LABEL[order.status]}</span>
+            <span className="st" data-tone={vaulted || queued ? "ok" : pendingWire || awaitingCard ? "warn" : "live"}>{STATUS_LABEL[order.status]}</span>
           </p>
           <div className="rm-kv num">
             <div><span>Item</span><b>{order.items.map((i) => `${i.title} ×${i.quantity}`).join(" · ")}</b></div>
-            <div><span>{pendingWire ? "Amount due" : "Total settled"}</span><b>{usd(order.totalUsd)}</b></div>
+            <div><span>{pendingWire || awaitingCard ? "Amount due" : "Total settled"}</span><b>{usd(order.totalUsd)}</b></div>
             <div><span>Spot at lock</span><b>{order.spotAtLock ? usd(order.spotAtLock) : "—"}</b></div>
-            <div><span>Rail</span><b>{order.payMethod} · ref {order.payRef}</b></div>
+            <div><span>Rail</span><b>{order.payMethod === "CARD" ? "Card · Stripe" : order.payMethod} · ref {order.payRef}</b></div>
             <div><span>Custody</span><b>{order.custody === "VAULT" ? "Allocated Rockwell vault" : `Armored delivery · ${order.address}`}</b></div>
             <div><span>Insurance</span><b className="ok">Lloyd&apos;s syndicate · policy to $250M</b></div>
             <div><span>Placed</span><b>{fmtDateTime(order.createdAt)}</b></div>
@@ -92,7 +126,10 @@ export default function SuccessClient({ orderId }: { orderId: string }) {
         </div>
 
         <div className="rm-actions" style={{ justifyContent: "center" }}>
-          <a className="btn btn--gold btn--lg" href="/vault">Open vault · live holdings →</a>
+          {awaitingCard && verify !== "checking" && (
+            <StripePayButton orderId={order.id} className="btn btn--gold btn--lg" label={`Pay ${usd(order.totalUsd)} by card →`} />
+          )}
+          <a className={`btn ${awaitingCard ? "btn--ghost" : "btn--gold"} btn--lg`} href="/vault">Open vault · live holdings →</a>
           <a className="btn btn--ghost btn--lg" href={`/orders/${order.id}`}>Track this order</a>
           <button className="btn btn--ghost btn--lg" type="button" onClick={() => window.print()}>Print invoice</button>
         </div>

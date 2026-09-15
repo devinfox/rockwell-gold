@@ -3,6 +3,8 @@
 // The 4-step price-lock settlement flow (blueprint §1.4).
 // Step 1: 120s price freeze · Step 2: custody & delivery ·
 // Step 3: multi-rail settlement · Step 4 hands off to /checkout/success.
+// Card settlement leaves the site for hosted Stripe Checkout and returns to
+// /checkout/success once paid (app/lib/stripe.ts).
 
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import SiteNav from "../../components/site-nav";
 import { useFintech } from "../../components/global-fintech-provider";
+import { startStripeCheckout } from "../../components/stripe-pay-button";
 import { getLock, refreshLock, dropLock, type CheckoutLock } from "../../lib/checkout";
 import { useRm, usd, RmActionError } from "../../lib/use-rm";
 import type { Order, PayMethod, Custody } from "../../lib/rm-types";
@@ -68,6 +71,17 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const placed = useRef(false);
+  // null until known; false greys the card rail out (no STRIPE_SECRET_KEY on this environment).
+  const [cardConfigured, setCardConfigured] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/stripe/checkout", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((j) => { if (alive) setCardConfigured(!!j.configured); })
+      .catch(() => { if (alive) setCardConfigured(false); });
+    return () => { alive = false; };
+  }, []);
 
   useEffect(() => {
     const l = getLock(lockId);
@@ -135,6 +149,7 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
   const verifyHref = `/auth/kyc-verification?next=${encodeURIComponent(`/checkout/${lockId}`)}`;
   const railLocked = (m: PayMethod) => !!tierRules && !tierRules.rails.includes(m);
   const deliveryLocked = !!tierRules && !tierRules.custody.includes("DELIVERY");
+  const cardUnavailable = cardConfigured === false;
 
   const doRefresh = async () => {
     if (!lock) return;
@@ -166,6 +181,10 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
       setErr(kycErr);
       return;
     }
+    if (pay === "CARD" && cardUnavailable) {
+      setErr("Card settlement is not available on this environment. Choose bank wire.");
+      return;
+    }
     if (custody === "DELIVERY") {
       const problem = shipProblem(ship);
       if (problem) {
@@ -189,6 +208,18 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
         lockToken: lock.lockToken ?? null,
       });
       dropLock(lock.id);
+      if (order.payMethod === "CARD") {
+        // The order is on the ledger at PENDING_PAYMENT. Hosted Checkout
+        // collects the card and returns to /checkout/success/{id}?session_id=…
+        try {
+          window.location.assign(await startStripeCheckout(order.id));
+          return;
+        } catch (e) {
+          addToast("Card settlement not started", e instanceof Error ? e.message : "Resume the payment from your order page.", "info");
+          router.push(`/orders/${order.id}?payment=failed`);
+          return;
+        }
+      }
       router.push(`/checkout/success/${order.id}`);
     } catch (e) {
       placed.current = false;
@@ -342,8 +373,8 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
                 <button type="button" className={`seg__opt${pay === "WIRE" ? " is-on" : ""}`} onClick={() => setPay("WIRE")} aria-disabled={railLocked("WIRE")} style={railLocked("WIRE") ? { opacity: 0.55 } : undefined}>
                   Bank Wire <small>{railLocked("WIRE") ? "Locked · verify identity" : "Cash price · Same-day Fedwire"}</small>
                 </button>
-                <button type="button" className={`seg__opt${pay === "CARD" ? " is-on" : ""}`} onClick={() => setPay("CARD")} aria-disabled={railLocked("CARD")} style={railLocked("CARD") ? { opacity: 0.55 } : undefined}>
-                  Card / Apple Pay <small>{railLocked("CARD") ? "Locked · verify identity" : `+${(SURCHARGE.CARD * 100).toFixed(1)}% · 3D Secure`}</small>
+                <button type="button" className={`seg__opt${pay === "CARD" ? " is-on" : ""}`} onClick={() => setPay("CARD")} aria-disabled={railLocked("CARD") || cardUnavailable} style={railLocked("CARD") || cardUnavailable ? { opacity: 0.55 } : undefined}>
+                  Card / Apple Pay <small>{railLocked("CARD") ? "Locked · verify identity" : cardUnavailable ? "Unavailable on this environment" : `+${(SURCHARGE.CARD * 100).toFixed(1)}% · Stripe · 3D Secure`}</small>
                 </button>
               </div>
 
@@ -360,16 +391,18 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
                   </div>
                 )}
                 {pay === "CARD" && (
-                  <div className="rm-form">
-                    <div className="rm-field">
-                      <label className="rm-label" htmlFor="co-card">Card number</label>
-                      <input id="co-card" className="rm-input num" inputMode="numeric" placeholder="4242 •••• •••• 4242" />
+                  <div className="rm-panel rm-panel--well">
+                    <div className="rm-kv num">
+                      <div><span>Processor</span><b>Stripe · PCI DSS Level 1</b></div>
+                      <div><span>Accepted</span><b>Visa · Mastercard · Amex · Apple Pay · Google Pay</b></div>
+                      <div><span>Authentication</span><b>3D Secure where the issuer requires it</b></div>
+                      <div><span>Reference</span><b>{lock.id}</b></div>
                     </div>
-                    <div className="rm-formrow">
-                      <div className="rm-field"><label className="rm-label" htmlFor="co-exp">Expiry</label><input id="co-exp" className="rm-input num" placeholder="MM / YY" /></div>
-                      <div className="rm-field"><label className="rm-label" htmlFor="co-cvc">CVC</label><input id="co-cvc" className="rm-input num" placeholder="CVC" /></div>
-                    </div>
-                    <p className="rm-note">No card processor is connected on this environment — these fields are inert and nothing is charged.</p>
+                    <p className="rm-note" style={{ marginTop: 10 }}>
+                      {cardUnavailable
+                        ? "Card settlement is not enabled on this environment. Choose bank wire, or ask the desk."
+                        : "Execute reserves your serials on the ledger, then you are taken to Stripe's secure checkout to enter your card. Card details never touch Rockwell servers. Your serials bind the moment the charge clears."}
+                    </p>
                   </div>
                 )}
               </div>
@@ -431,7 +464,7 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
 
               <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 8 }}>
                 <button className="btn btn--gold btn--lg btn--block" type="button" disabled={busy || expired || !db || !!kycErr} onClick={execute}>
-                  {busy ? "Processing settlement…" : expired ? "Lock expired — refresh quote" : !db ? "Loading account…" : `Execute · Settle ${usd(total)}`}
+                  {busy ? (pay === "CARD" ? "Reserving serials · opening Stripe…" : "Processing settlement…") : expired ? "Lock expired — refresh quote" : !db ? "Loading account…" : pay === "CARD" ? `Execute · Pay ${usd(total)} by card` : `Execute · Settle ${usd(total)}`}
                 </button>
                 <button className="btn btn--ghost btn--block" type="button" onClick={() => { dropLock(lock.id); router.push("/market"); }}>
                   Cancel order · return stock

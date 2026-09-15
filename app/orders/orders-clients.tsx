@@ -10,6 +10,7 @@ import React from "react";
 import SiteNav from "../components/site-nav";
 import SiteFooter from "../components/site-footer";
 import AccountNav from "../components/account-nav";
+import StripePayButton from "../components/stripe-pay-button";
 import { useRm, usd, fmtDate, fmtDateTime, ago } from "../lib/use-rm";
 import { STATUS_LABEL, CARRIER_LABEL, type OrderStatus } from "../lib/rm-types";
 
@@ -197,6 +198,7 @@ export function OrderDetailClient({ orderId }: { orderId: string }) {
   };
   const currentIdx = FLOW_STEPS.reduce((acc, _, i) => (reached(i) ? i : acc), 0);
   const cancelled = o.status === "CANCELLED";
+  const awaitingCard = o.status === "PENDING_PAYMENT" && o.payMethod === "CARD";
   const serials = o.items.flatMap((i) => i.allocatedSerials);
   const shp = o.shipmentId ? db.shipments.find((s) => s.id === o.shipmentId) : null;
 
@@ -209,6 +211,15 @@ export function OrderDetailClient({ orderId }: { orderId: string }) {
     >
       <div className="rm-grid2">
         <div className="rm-form">
+          {awaitingCard && (
+            <div className="rm-panel" style={{ borderColor: "var(--gold-deep)" }}>
+              <p className="rm-panel__k">Card payment outstanding <span className="st" data-tone="warn">Action needed</span></p>
+              <p className="rm-note">Your serials are reserved but the card has not been charged. Pay through Stripe&apos;s secure checkout to bind them to your order.</p>
+              <div className="rm-actions" style={{ marginTop: 12 }}>
+                <StripePayButton orderId={o.id} label={`Pay ${usd(o.totalUsd)} by card →`} />
+              </div>
+            </div>
+          )}
           <div className="rm-panel">
             <p className="rm-panel__k">Fulfillment stepper</p>
             {cancelled ? (

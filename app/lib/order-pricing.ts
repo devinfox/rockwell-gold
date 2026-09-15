@@ -13,6 +13,7 @@ import "server-only";
 
 import { availOf } from "../data/catalog";
 import { findProduct } from "../data/pdp-fill";
+import { parseFineOzFromTitle } from "./pricing/fine-weight";
 import { priceWithSpot } from "./pricing/live";
 import { PAYMENT_RAILS } from "./pricing/rules";
 import { spotFromClaims, verifyLockToken, LOCK_TTL_S } from "./pricing/lock-token";
@@ -192,6 +193,8 @@ export async function priceOrder(input: PriceOrderInput): Promise<PricedOrder> {
         productId: p.id, sku: p.sku, title: p.title, image: p.image, mint: p.mint,
         quantity: line.quantity, unitPriceUsd: unit,
         unitPremiumPct: round2(lp.premiumPct * 100),
+        // The weight the vault values this line at — the same figure the quote priced it on.
+        fineOz: lp.fineOz > 0 ? lp.fineOz : undefined,
         allocatedSerials: [], packedSerials: [], tebSeal: null,
       });
       if (!spotAtLock) spotAtLock = lp.spotUsed;
@@ -210,6 +213,7 @@ export async function priceOrder(input: PriceOrderInput): Promise<PricedOrder> {
       items.push({
         productId: d.id, sku: "RM-DRP-" + d.id.slice(-3).toUpperCase(), title: d.title, image: d.image, mint: d.mint,
         quantity: line.quantity, unitPriceUsd: unit, unitPremiumPct: round2(d.premiumPct),
+        fineOz: parseFineOzFromTitle(d.title)?.fineOz,
         allocatedSerials: [], packedSerials: [], tebSeal: null,
       });
       if (!spotAtLock) spotAtLock = spot.prices[metalSymbol("gold")];

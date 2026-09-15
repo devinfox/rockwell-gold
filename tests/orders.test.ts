@@ -49,6 +49,14 @@ beforeAll(async () => {
 });
 
 const load = async () => await import("../app/lib/rm-db");
+/** What the Stripe webhook / verify route does once a Checkout session is paid. */
+const settleCard = async (o: Order, overrides: Partial<{ amountCents: number; currency: string }> = {}) => {
+  const { recordCardPayment } = await load();
+  return recordCardPayment({
+    orderId: o.id, paymentIntentId: `pi_test_${o.id}`,
+    amountCents: Math.round(o.totalUsd * 100), currency: "usd", ...overrides,
+  });
+};
 const jonas = { userId: "u-jonas", role: "CUSTOMER" as const };   // TIER_1 · UNVERIFIED
 const adrian = { userId: "u-adrian", role: "CUSTOMER" as const }; // TIER_2 · CLEARED
 
@@ -69,15 +77,26 @@ describe("placeOrder pricing", () => {
     expect(o.totalUsd).toBe(expected);
     expect(o.items[0].unitPriceUsd).toBe(unit);
     expect(o.spotAtLock).toBe(67);
-    // Paid on the card rail → assay → allocation, all server-side.
-    expect(o.status).toBe("ALLOCATED");
-    expect(o.items[0].allocatedSerials).toHaveLength(2);
-    expect(o.history.map((h) => h.status)).toEqual(["LOCK_INITIATED", "PENDING_PAYMENT", "PAID", "IN_ASSAY", "ALLOCATED"]);
-    expect(o.history.at(-1)?.by).toBe("system");
+    // A card order waits for Stripe: nothing is bound until the charge clears.
+    expect(o.status).toBe("PENDING_PAYMENT");
+    expect(o.payRef).toBe("awaiting card");
+    expect(o.items[0].allocatedSerials).toHaveLength(0);
+
+    // Stripe reports the charge → paid → assay → allocation, all server-side.
+    const paid = await settleCard(o);
+    expect(paid.status).toBe("ALLOCATED");
+    expect(paid.payRef).toMatch(/^pi_/);
+    expect(paid.items[0].allocatedSerials).toHaveLength(2);
+    expect(paid.history.map((h) => h.status)).toEqual(["LOCK_INITIATED", "PENDING_PAYMENT", "PAID", "IN_ASSAY", "ALLOCATED"]);
+    expect(paid.history.find((h) => h.status === "PAID")?.by).toBe("stripe");
+    expect(paid.history.at(-1)?.by).toBe("system");
 
     const minted = getDb().holdings.filter((h) => h.orderId === o.id);
     expect(minted).toHaveLength(2);
     expect(minted.every((h) => h.userId === "u-jonas" && h.status === "VAULTED")).toBe(true);
+    // Each passport carries the piece's real fine weight, not a flat ounce.
+    expect(paid.items[0].fineOz).toBe(lp.fineOz);
+    expect(minted.every((h) => h.weightOz === lp.fineOz)).toBe(true);
     expect(getDb().audit.some((a) => a.action === "VAULT_PASSPORT_MINTED" && a.resourceId === o.id)).toBe(true);
   });
 
@@ -150,7 +169,7 @@ describe("placeOrder pricing", () => {
       totalUsd: cardUnit(lp.cashPrice), payMethod: "CARD", custody: "DELIVERY",
       address: "2847 Sutter St, San Francisco, CA 94115", lockToken: token,
     }, adrian);
-    const o = res.result as Order;
+    const o = await settleCard(res.result as Order);
     expect(o.status).toBe("FULFILLMENT_QUEUE");
     expect(o.items[0].allocatedSerials).toHaveLength(1);
     expect(getDb().holdings.some((h) => h.orderId === o.id)).toBe(false);
@@ -175,7 +194,85 @@ describe("placeOrder pricing", () => {
     }, adrian);
     const o = res.result as Order;
     expect(o.items[0].unitPriceUsd).toBe(cardUnit(drop.priceUsd));
-    expect(o.status).toBe("ALLOCATED");
+    expect(o.status).toBe("PENDING_PAYMENT");
+    expect((await settleCard(o)).status).toBe("ALLOCATED");
+  });
+});
+
+describe("recordCardPayment (Stripe settlement)", () => {
+  const placeCard = async () => {
+    const { runAction } = await load();
+    const lp = await price(silver, 1);
+    const res = await runAction("placeOrder", {
+      items: [{ productId: silver.id, quantity: 1 }],
+      totalUsd: cardUnit(lp.cashPrice), payMethod: "CARD", custody: "VAULT", lockToken: token,
+    }, adrian);
+    return res.result as Order;
+  };
+
+  it("is idempotent: a retried webhook does not mint a second passport", async () => {
+    const { getDb } = await load();
+    const o = await placeCard();
+    await settleCard(o);
+    const again = await settleCard(o);
+    expect(again.status).toBe("ALLOCATED");
+    expect(again.history.filter((h) => h.status === "PAID")).toHaveLength(1);
+    expect(getDb().holdings.filter((h) => h.orderId === o.id)).toHaveLength(1);
+  });
+
+  it("refuses a charge that does not match the ledger total or currency", async () => {
+    const o = await placeCard();
+    await expect(settleCard(o, { amountCents: Math.round(o.totalUsd * 100) - 1 })).rejects.toThrow(/AMOUNT|expects/i);
+    await expect(settleCard(o, { currency: "eur" })).rejects.toThrow(/AMOUNT|expects/i);
+    expect(o.status).toBe("PENDING_PAYMENT");
+    expect(o.payRef).toBe("awaiting card");
+  });
+
+  it("refuses to settle a wire order or an unknown order through the card rail", async () => {
+    const { runAction } = await load();
+    const lp = await price(silver, 1);
+    const wire = (await runAction("placeOrder", {
+      items: [{ productId: silver.id, quantity: 1 }],
+      totalUsd: lp.cashPrice, payMethod: "WIRE", custody: "VAULT", lockToken: token,
+    }, adrian)).result as Order;
+    await expect(settleCard(wire)).rejects.toThrow(/not card/i);
+    await expect(settleCard({ ...wire, id: "RM-ORD-0000", payMethod: "CARD" })).rejects.toThrow(/No order/i);
+  });
+
+  it("refuses a cancelled order so the charge is flagged for refund", async () => {
+    const { runAction } = await load();
+    const o = await placeCard();
+    await runAction("cancelOrder", { orderId: o.id }, { userId: "s-admin", role: "SUPER_ADMIN" });
+    await expect(settleCard(o)).rejects.toThrow(/cancelled/i);
+  });
+
+  it("vaults a fractional coin at its fractional weight", async () => {
+    const { runAction, getDb } = await load();
+    const { products, availOf } = await import("../app/data/catalog");
+    const { priceWithSpot } = await import("../app/lib/pricing/live");
+    const { verifyLockToken, spotFromClaims } = await import("../app/lib/pricing/lock-token");
+    const spot = spotFromClaims(verifyLockToken(token)!);
+    const half = products.find((p) => {
+      if (p.metal !== "gold" || availOf(p).key !== "stock") return false;
+      const lp = priceWithSpot(p, spot, 1);
+      return !!lp && lp.mode !== "enquire" && lp.cashPrice > 0 && lp.fineOz === 0.5;
+    })!;
+    expect(half).toBeTruthy();
+    const lp = priceWithSpot(half, spot, 1)!;
+    const o = (await runAction("placeOrder", {
+      items: [{ productId: half.id, quantity: 1 }],
+      totalUsd: cardUnit(lp.cashPrice), payMethod: "CARD", custody: "VAULT", lockToken: token,
+    }, adrian)).result as Order;
+    await settleCard(o);
+    const h = getDb().holdings.find((x) => x.orderId === o.id)!;
+    expect(h.weightOz).toBe(0.5);
+  });
+
+  it("remembers the Checkout session on the order", async () => {
+    const { attachStripeSession } = await load();
+    const o = await placeCard();
+    expect(o.stripeSessionId).toBeNull();
+    expect(attachStripeSession(o.id, "cs_test_abc").stripeSessionId).toBe("cs_test_abc");
   });
 });
 
@@ -209,7 +306,8 @@ describe("placeOrder KYC tier limits", () => {
 
     await runAction("kycSet", { userId: "u-jonas", kycTier: "TIER_2", kycStatus: "CLEARED" }, { userId: compliance.id, role: "COMPLIANCE" });
     const ok = await runAction("placeOrder", order, jonas);
-    expect((ok.result as Order).status).toBe("FULFILLMENT_QUEUE");
+    expect((ok.result as Order).status).toBe("PENDING_PAYMENT");
+    expect((await settleCard(ok.result as Order)).status).toBe("FULFILLMENT_QUEUE");
   });
 });
 

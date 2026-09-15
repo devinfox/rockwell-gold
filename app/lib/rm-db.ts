@@ -15,6 +15,7 @@ import { randomBytes } from "node:crypto";
 import { hashPassword, verifyPassword, isStaff } from "./session-token";
 import { createStore, StoreConflict, StoreUnavailable, FileStore, type StoreAdapter } from "./rm-store";
 import { priceOrder, OrderError, PAY_METHODS, CUSTODIES } from "./order-pricing";
+import { parseFineOzFromTitle } from "./pricing/fine-weight";
 import { tierViolation } from "./kyc-limits";
 import type { PayMethod, Custody } from "./rm-types";
 
@@ -654,13 +655,26 @@ function metalOfSku(sku: string) {
   return "gold";
 }
 
+/**
+ * Fine ounces one unit of an order line represents. Recorded on the line by
+ * priceOrder from the pricing rule; older lines fall back to the title parser.
+ * Every holding used to be minted at a flat 1 oz, so a ½ oz coin showed a
+ * full-ounce "unrealised gain" the moment it was vaulted.
+ */
+function lineFineOz(it: OrderItem): number {
+  if (typeof it.fineOz === "number" && it.fineOz > 0) return it.fineOz;
+  const parsed = parseFineOzFromTitle(it.title)?.fineOz;
+  return parsed && parsed > 0 ? parsed : 1;
+}
+
 function mintHoldings(db: RmDb, o: Order, by: string) {
   for (const it of o.items) {
+    const weightOz = lineFineOz(it);
     for (const serial of it.allocatedSerials) {
       db.holdings.push({
         id: nid("RM-HLD"), userId: o.userId, orderId: o.id, productId: it.productId, title: it.title,
         image: it.image || "/assets/coin-buffalo.png", mint: it.mint, serialNumber: serial,
-        purityPct: 99.99, weightOz: it.quantity >= 1 ? 1 : it.quantity, grade: "BU · Sealed",
+        purityPct: 99.99, weightOz, grade: "BU · Sealed",
         costUsd: it.unitPriceUsd, vaultBay: mkBay(), status: "VAULTED", lastVerifiedAt: iso(), createdAt: iso(),
       });
     }
@@ -869,6 +883,65 @@ function settlePaidOrder(db: RmDb, o: Order) {
   allocate(db, o, "system");
 }
 
+// ————— card rail (Stripe) —————
+//
+// These run outside runAction: the caller is Stripe's signed webhook or the
+// success page's verify call, not a customer session. Both must be wrapped in
+// transact() by the route so the write is committed with the version check.
+
+export interface CardPaymentReceipt {
+  orderId: string;
+  /** Stripe PaymentIntent id (pi_…), stored as the order's payRef. */
+  paymentIntentId: string;
+  /** What Stripe actually collected, in minor units, checked against the ledger total. */
+  amountCents: number;
+  currency: string;
+  by?: string;
+}
+
+/**
+ * Settles a PENDING_PAYMENT card order once Stripe has collected the money.
+ * Idempotent: webhooks are retried and the verify route races them, so an
+ * order that is already past PENDING_PAYMENT is returned untouched. Refuses
+ * (rather than silently settling) when the collected amount or currency does
+ * not match the ledger — that is a bug or tampering, and a human should look.
+ */
+export function recordCardPayment(r: CardPaymentReceipt): Order {
+  const db = getDb();
+  const o = db.orders.find((x) => x.id === r.orderId);
+  if (!o) throw new OrderError("UNKNOWN_ORDER", `No order ${r.orderId} on the ledger.`);
+  if (o.payMethod !== "CARD") throw new OrderError("WRONG_RAIL", `${o.id} settles by ${o.payMethod}, not card.`);
+  if (o.status === "CANCELLED") throw new OrderError("CANCELLED", `${o.id} was cancelled before payment landed — refund required.`);
+  if (o.status !== "PENDING_PAYMENT") return o;
+
+  const expectedCents = Math.round(o.totalUsd * 100);
+  if (r.currency.toLowerCase() !== "usd" || r.amountCents !== expectedCents) {
+    throw new OrderError("AMOUNT_MISMATCH", `${o.id}: Stripe collected ${r.amountCents} ${r.currency}, ledger expects ${expectedCents} usd.`, {
+      amountCents: r.amountCents, currency: r.currency, expectedCents,
+    });
+  }
+
+  const by = r.by || "stripe";
+  const before = { payRef: o.payRef };
+  o.payRef = r.paymentIntentId;
+  log(db, by, "CARD_PAYMENT_RECEIVED", "Order", o.id, before, { payRef: o.payRef, amountCents: r.amountCents });
+  setOrderStatus(db, o, "PAID", by);
+  settlePaidOrder(db, o);
+  saveDb();
+  return o;
+}
+
+/** Remembers the hosted Checkout session so a returning customer resumes it instead of opening another. */
+export function attachStripeSession(orderId: string, sessionId: string): Order {
+  const db = getDb();
+  const o = findOrder(db, orderId);
+  if (o.stripeSessionId !== sessionId) {
+    o.stripeSessionId = sessionId;
+    saveDb();
+  }
+  return o;
+}
+
 function nextOrderId(db: RmDb): string {
   let max = 1000;
   for (const o of db.orders) {
@@ -964,9 +1037,10 @@ export async function runAction(action: string, p: Payload, actor: Actor = null)
         }
       }
 
-      // No payment processor is connected yet: instant rails are recorded as
-      // PAID with a placeholder reference; wire waits for confirmPayment.
-      const status: OrderStatus = priced.payMethod === "WIRE" ? "PENDING_PAYMENT" : "PAID";
+      // Every order waits at PENDING_PAYMENT. Wire is confirmed by staff
+      // (confirmPayment); card is settled by Stripe through recordCardPayment
+      // once the hosted Checkout session is paid (app/lib/stripe.ts).
+      const status: OrderStatus = "PENDING_PAYMENT";
       const now = iso();
       const order: Order = {
         id: nextOrderId(db), userId: p.userId, status, items: priced.items,
@@ -974,14 +1048,14 @@ export async function runAction(action: string, p: Payload, actor: Actor = null)
         payMethod: priced.payMethod, custody: priced.custody, address: priced.address, shipTo: priced.shipTo, shipmentId: null,
         payRef:
           priced.payMethod === "WIRE" ? "FW-2026-" + Math.floor(80000 + Math.random() * 19999)
-          : "ch_3" + Math.random().toString(36).slice(2, 10),
+          : "awaiting card",
+        stripeSessionId: null,
         history: [
           { status: "LOCK_INITIATED", at: now, by: p.userId },
           { status: "PENDING_PAYMENT", at: now, by: p.userId },
         ],
         createdAt: now,
       };
-      if (status === "PAID") order.history.push({ status: "PAID", at: now, by: "system" });
       // Drop allocations are consumed here, atomically with the order — never
       // at "claim" time, so an abandoned checkout cannot strand units.
       for (const it of priced.items) {
@@ -992,7 +1066,6 @@ export async function runAction(action: string, p: Payload, actor: Actor = null)
       log(db, p.userId, "ORDER_PLACED", "Order", order.id, null, {
         total: order.totalUsd, pay: order.payMethod, custody: order.custody, pricedAgainst: priced.pricedAgainst,
       });
-      if (status === "PAID") settlePaidOrder(db, order);
       saveDb();
       return { result: order };
     }
