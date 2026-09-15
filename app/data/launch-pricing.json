@@ -20788,6 +20788,26 @@
       ],
       "weightConfidence": "high",
       "collectiblePremiumUsd": 2.5
+    },
+    "9001": {
+      "id": "9001",
+      "sku": "RM-TEST-1USD",
+      "live": true,
+      "fineOz": 0.001,
+      "confidence": "high",
+      "premiumPct": 0,
+      "premiumUsd": 0.94,
+      "minPremiumUsd": 0.94,
+      "premiumMode": "usd",
+      "pricingType": "BULLION_SPOT",
+      "weightSource": "troy-oz",
+      "weightConfidence": "high",
+      "calibration": {
+        "source": "metal-default",
+        "family": "silver|test-token"
+      },
+      "needsReview": false,
+      "reviewReasons": []
     }
   }
 }
