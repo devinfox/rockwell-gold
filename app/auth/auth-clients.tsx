@@ -56,7 +56,6 @@ function AuthShell({ children, aside, eyebrow, title, sub }: {
 // ————— /auth/sign-in —————
 
 export function SignInClient() {
-  const router = useRouter();
   const params = useSearchParams();
   const { addToast } = useFintech();
   const [email, setEmail] = useState("");
@@ -72,8 +71,11 @@ export function SignInClient() {
       const s = await apiSignIn(email.trim(), password);
       addToast("Signed in", `Welcome back, ${s.name}.`, "gain");
       // Same-origin paths only — `?next=https://evil.example` must never be followed.
-      router.push(safeNext(params.get("next"), s.role === "CUSTOMER" ? "/vault" : "/admin"));
-      router.refresh();
+      // A full navigation, not router.push + router.refresh: the refresh could
+      // cancel the in-flight push and leave the form stuck on "Signing in…"
+      // with the session cookie already set. A document load also guarantees
+      // the proxy and every Server Component see the new cookie.
+      window.location.assign(safeNext(params.get("next"), s.role === "CUSTOMER" ? "/vault" : "/admin"));
     } catch (e2) {
       setErr(e2 instanceof Error ? e2.message : "Sign-in failed");
       setBusy(false);
@@ -141,7 +143,6 @@ export function SignInClient() {
 // ————— /auth/sign-up —————
 
 export function SignUpClient() {
-  const router = useRouter();
   const params = useSearchParams();
   const { addToast } = useFintech();
   const [name, setName] = useState("");
@@ -169,8 +170,8 @@ export function SignUpClient() {
         next ? "Welcome to Rockwell Metals. Verify your identity any time from your vault." : "Welcome to Rockwell Metals. Let's verify your identity.",
         "gain",
       );
-      router.push(next || "/auth/kyc-verification");
-      router.refresh();
+      // Full navigation for the same reason as sign-in (see SignInClient).
+      window.location.assign(next || "/auth/kyc-verification");
     } catch (e2) {
       setErr(e2 instanceof Error ? e2.message : "Sign-up failed");
       setBusy(false);
