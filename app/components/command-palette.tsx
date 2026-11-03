@@ -146,7 +146,7 @@ export default function CommandPalette({ onClose }: { onClose: () => void }) {
                   }}
                 >
                   <div className="fin-cmd__item-left">
-                    {p.image && <Image src={p.image} alt={p.title} className="fin-cmd__item-thumb" width={72} height={72} quality={60} />}
+                    {p.image && <Image src={p.image} alt={p.title} className="fin-cmd__item-thumb" width={72} height={72} quality={70} />}
                     <div>
                       <b className="fin-cmd__item-name">{p.title}</b>
                       <span className="fin-cmd__item-sub num">

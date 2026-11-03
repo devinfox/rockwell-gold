@@ -7,6 +7,11 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://rockwellmetals.com";
 // In Next.js 16 the `id` parameter is async — see the bundled sitemap.md.
 export const SITEMAP_CHUNK = 25_000;
 
+// `lastModified: new Date()` on every entry told crawlers all 25k product pages
+// had changed every time they looked, which invited a full recrawl. Product
+// pages are static per deploy; this timestamp moves only when the build does.
+const BUILT = new Date();
+
 export async function generateSitemaps() {
   const pages = Math.ceil(products.length / SITEMAP_CHUNK);
   return Array.from({ length: pages }, (_, i) => ({ id: i }));
@@ -39,8 +44,8 @@ export default async function sitemap({ id }: { id: Promise<string> }): Promise<
 
   const slice = products.slice(n * SITEMAP_CHUNK, (n + 1) * SITEMAP_CHUNK).map((p) => ({
     url: `${BASE}/product/${p.id}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
+    lastModified: BUILT,
+    changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 

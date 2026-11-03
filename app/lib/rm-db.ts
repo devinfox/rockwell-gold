@@ -475,6 +475,11 @@ export async function openDb(opts: { maxAgeMs?: number } = {}): Promise<RmDb> {
   return s.doc;
 }
 
+/** Version of the document currently held in memory; null before the first open. */
+export function dbVersion(): number | null {
+  return state().version;
+}
+
 /**
  * Synchronous access for the domain functions. In file mode the document is
  * lazily loaded on first use (tests and scripts rely on this); in postgres

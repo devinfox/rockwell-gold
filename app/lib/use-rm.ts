@@ -3,7 +3,7 @@
 // Client bridge to the local store: state fetching, action running,
 // session management (localStorage["rm-session"]), shared formatters.
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { PublicRmDb, Role } from "./rm-types";
 import { useInitialSession } from "./initial-session";
 
@@ -81,68 +81,148 @@ export async function rmAction<T = unknown>(action: string, payload: Record<stri
   return json.result as T;
 }
 
+// ————— shared store poller —————
+//
+// One fetch loop per page, however many components call useRm(). The admin
+// desk mounted eight hooks at 4–6 s each — on the order of a hundred /api/rm
+// invocations a minute from a single open tab. Now every subscriber shares
+// one in-flight request, one timer at the slowest interval anyone asked for
+// (never faster than MIN_POLL_MS), and an ETag so an unchanged ledger costs
+// the server a version probe and an empty 304 rather than a full projection.
+
+const MIN_POLL_MS = 10_000;
+const DEFAULT_POLL_MS = 30_000;
+/** A visibility/mount refresh is skipped when a read landed this recently. */
+const FRESH_MS = 3_000;
+
+type Listener = (db: PublicRmDb | null, error: string | null) => void;
+
+let shared: PublicRmDb | null = null;
+let sharedError: string | null = null;
+let etag: string | null = null;
+let lastReadAt = 0;
+let inflight: Promise<void> | null = null;
+let timer: ReturnType<typeof setInterval> | undefined;
+let timerMs = 0;
+let globalHooked = false;
+/** listener → requested poll interval (0 = this subscriber does not poll). */
+const listeners = new Map<Listener, number>();
+
 export async function rmFetch(): Promise<PublicRmDb> {
-  const res = await fetch("/api/rm", { cache: "no-store" });
+  const headers: Record<string, string> = {};
+  if (etag) headers["If-None-Match"] = etag;
+  const res = await fetch("/api/rm", { cache: "no-store", headers });
+  if (res.status === 304 && shared) return shared;
+  if (!res.ok) throw new Error(`store ${res.status}`);
+  etag = res.headers.get("ETag");
   return (await res.json()) as PublicRmDb;
 }
 
-/** Live view of the store + the current session. Polls softly so the
- *  customer and admin realms stay in sync across tabs. */
-export function useRm(pollMs = 6000) {
-  const [db, setDb] = useState<PublicRmDb | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const alive = useRef(true);
-  // Seeded by the root layout from the cookie, so the first paint already knows
-  // who is signed in. Once the store has answered, the store wins — including
-  // a null after sign-out, which `db?.session ?? initial` would wrongly mask.
+function broadcast() {
+  for (const l of listeners.keys()) l(shared, sharedError);
+}
+
+/** Re-read the store once for every subscriber on the page; concurrent calls share one request. */
+export function refreshRm(): Promise<void> {
+  if (!inflight) {
+    inflight = rmFetch()
+      .then((next) => {
+        shared = next;
+        sharedError = null;
+        lastReadAt = Date.now();
+      })
+      .catch(() => {
+        sharedError = "Store unreachable";
+      })
+      .finally(() => {
+        inflight = null;
+        broadcast();
+      });
+  }
+  return inflight;
+}
+
+/** A read that is guaranteed to start after now — used after an action so the caller sees its own write. */
+async function refreshRmAfterWrite(): Promise<void> {
+  if (inflight) await inflight;
+  return refreshRm();
+}
+
+function rearm() {
+  const wanted = [...listeners.values()].filter((ms) => ms > 0);
+  const ms = wanted.length ? Math.max(MIN_POLL_MS, Math.min(...wanted)) : 0;
+  if (ms === timerMs) return;
+  if (timer) clearInterval(timer);
+  timer = undefined;
+  timerMs = ms;
+  if (ms > 0) {
+    // Only poll while the tab is actually being looked at.
+    timer = setInterval(() => {
+      if (document.visibilityState === "visible") refreshRm();
+    }, ms);
+  }
+}
+
+function hookGlobal() {
+  if (globalHooked || typeof window === "undefined") return;
+  globalHooked = true;
+  // Re-read after a sign-in/out, and when the tab returns to the foreground.
+  window.addEventListener("rm-session", () => {
+    etag = null; // the projection is per actor; never answer a new actor from the old tag
+    refreshRm();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && listeners.size && Date.now() - lastReadAt > FRESH_MS) refreshRm();
+  });
+}
+
+function subscribe(l: Listener, pollMs: number): () => void {
+  hookGlobal();
+  listeners.set(l, pollMs);
+  rearm();
+  return () => {
+    listeners.delete(l);
+    rearm();
+  };
+}
+
+/** Live view of the store + the current session, shared with every other
+ *  useRm() on the page. `pollMs` is a request, floored at MIN_POLL_MS; 0 means
+ *  this component is content to ride on whatever the others poll. */
+export function useRm(pollMs = DEFAULT_POLL_MS) {
+  const [db, setDb] = useState<PublicRmDb | null>(shared);
+  const [error, setError] = useState<string | null>(sharedError);
+  // Seed from the layout (always null now that public pages are cached; kept so
+  // a future server seed drops straight back in). Once the store has answered,
+  // the store wins — including a null after sign-out.
   const initialSession = useInitialSession();
 
-  const refresh = useCallback(async () => {
-    try {
-      const next = await rmFetch();
-      if (alive.current) {
-        setDb(next);
-        setError(null);
-      }
-    } catch {
-      if (alive.current) setError("Store unreachable");
-    }
-  }, []);
-
   useEffect(() => {
-    alive.current = true;
-    // The store is an external source; the first read has to happen after mount.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    refresh();
-    // Re-read after a sign-in/out, and when the tab returns to the foreground.
-    const onSession = () => refresh();
-    const onVisible = () => {
-      if (document.visibilityState === "visible") refresh();
+    const listener: Listener = (next, err) => {
+      setDb(next);
+      setError(err);
     };
-    window.addEventListener("rm-session", onSession);
-    document.addEventListener("visibilitychange", onVisible);
-    // Only poll while the tab is actually being looked at.
-    const t = pollMs > 0
-      ? setInterval(() => {
-          if (document.visibilityState === "visible") refresh();
-        }, pollMs)
-      : undefined;
-    return () => {
-      alive.current = false;
-      window.removeEventListener("rm-session", onSession);
-      document.removeEventListener("visibilitychange", onVisible);
-      if (t) clearInterval(t);
-    };
-  }, [refresh, pollMs]);
+    const unsubscribe = subscribe(listener, pollMs);
+    // The store is an external source; the first read has to happen after
+    // mount. A read that just landed for another subscriber is reused as-is.
+    if (shared && Date.now() - lastReadAt < FRESH_MS) {
+      listener(shared, sharedError);
+    } else {
+      refreshRm();
+    }
+    return unsubscribe;
+  }, [pollMs]);
+
+  const refresh = useCallback(() => refreshRm(), []);
 
   const act = useCallback(
     async <T = unknown>(action: string, payload: Record<string, unknown> = {}) => {
       // No actorId: the server derives the actor from the signed session.
       const result = await rmAction<T>(action, payload);
-      await refresh();
+      await refreshRmAfterWrite();
       return result;
     },
-    [refresh],
+    [],
   );
 
   const session: RmSession | null = db ? db.session : initialSession;

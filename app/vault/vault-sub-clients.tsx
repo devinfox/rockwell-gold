@@ -61,7 +61,7 @@ export function HoldingPassportClient({ serial }: { serial: string }) {
         <div className="rm-form">
           <div className="droproom__media" style={{ minHeight: 260 }}>
             <span className="tag tag--scarce num" style={{ position: "absolute", top: 14, right: 14 }}>sealed · {h.grade}</span>
-            <Image src={h.image} alt={h.title} width={280} height={280} quality={75} />
+            <Image src={h.image} alt={h.title} width={280} height={280} quality={70} />
           </div>
           <div className="rm-panel">
             <p className="rm-panel__k">Assay record · XRF spectrometer</p>
@@ -203,7 +203,7 @@ export function SellBackTerminalClient() {
                   </td>
                   <td>
                     <div className="rm-cellrow">
-                      <span className="rm-thumb"><Image src={h.image} alt="" width={72} height={72} quality={60} /></span>
+                      <span className="rm-thumb"><Image src={h.image} alt="" width={72} height={72} quality={70} /></span>
                       <div className="rm-cellmain"><b>{h.title}</b><span className="num">{h.vaultBay}</span></div>
                     </div>
                   </td>
@@ -361,7 +361,7 @@ export function WithdrawalClient() {
                   </td>
                   <td>
                     <div className="rm-cellrow">
-                      <span className="rm-thumb"><Image src={h.image} alt="" width={72} height={72} quality={60} /></span>
+                      <span className="rm-thumb"><Image src={h.image} alt="" width={72} height={72} quality={70} /></span>
                       <div className="rm-cellmain"><b>{h.title}</b><span className="num">{h.grade}</span></div>
                     </div>
                   </td>

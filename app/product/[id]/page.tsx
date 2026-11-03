@@ -13,14 +13,30 @@ import { symbolForMetal } from "../../lib/spot";
 import { TilePrice } from "../../components/catalog-page";
 import "../product.css";
 
-// Quotes are computed against the shared spot mark on every request (the mark
-// itself is memoised for 60s server-side), so this page cannot be static.
-export const dynamic = "force-dynamic";
+// Incremental static regeneration. The page is rendered once per product on
+// first request, served from the edge cache, and regenerated in the background
+// when older than this. The spot read inside getSpot() carries its own
+// 60-second revalidate, which is the effective floor for the route, and the
+// buy box re-quotes through /api/quote on the client anyway — so a cached page
+// never settles an order at a stale mark. Nothing here reads cookies or
+// headers; keep it that way or the route silently goes dynamic again.
+export const revalidate = 300;
+
+// Nothing is prerendered at build time (25k products); each page is rendered
+// on its first visit and then cached. Without this export Next treats a
+// dynamic segment as fully dynamic and `revalidate` is ignored.
+export function generateStaticParams() {
+  return [];
+}
 
 export async function generateMetadata({ params }: PageProps<"/product/[id]">): Promise<Metadata> {
   const { id } = await params;
   const p = findProduct(id);
-  if (!p) return { title: "Product — Rockwell Metals" };
+  // Reject unknown ids here as well as in the page body. The page streams
+  // behind app/loading.tsx, so by the time the body calls notFound() the 200
+  // status has already been sent; crawlers block on metadata, so this is what
+  // makes a delisted product a real 404 to them rather than a soft one.
+  if (!p) notFound();
 
   // The live price is in the card image (opengraph-image.tsx); the text stays
   // price-free so a cached description never contradicts the mark.
@@ -167,8 +183,7 @@ export default async function Page({ params }: PageProps<"/product/[id]">) {
                 alt={p.title}
                 width={720}
                 height={720}
-                sizes="(max-width: 900px) 92vw, 560px"
-                quality={80}
+                quality={70}
                 priority
                 data-stage-img=""
               />
@@ -191,7 +206,7 @@ export default async function Page({ params }: PageProps<"/product/[id]">) {
                       aria-label={`Show view ${idx + 1} of ${gallery.length}`}
                       aria-pressed={idx === 0 ? "true" : "false"}
                     >
-                      <Image src={imgUrl} alt="" width={72} height={72} quality={60} />
+                      <Image src={imgUrl} alt="" width={72} height={72} quality={70} />
                     </button>
                   </li>
                 ))}

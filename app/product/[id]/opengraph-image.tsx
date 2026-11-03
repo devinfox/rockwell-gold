@@ -9,8 +9,13 @@ import { OG, OG_SIZE, ogFonts, usd, remoteImageDataUrl, BrandRow, Chip, IngotMar
 
 export const size = OG_SIZE;
 export const contentType = "image/png";
-// Carries the live cash price; rendered per request (see app/opengraph-image.tsx).
-export const dynamic = "force-dynamic";
+// Rendering a card costs a fetch of the full product photo from Supabase plus a
+// sharp resize and a Satori rasterise — far more than the page itself. With
+// 25k products in the sitemap and every crawler and chat app fetching cards,
+// doing that per request was the largest single CPU and egress line. The card
+// is regenerated at most hourly per product and otherwise served from cache.
+export const revalidate = 3600;
+export const dynamic = "force-static";
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

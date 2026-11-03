@@ -30,7 +30,7 @@ function DropCard({ d, now, onEnter }: { d: Drop; now: number; onEnter: (d: Drop
           <span className="tag tag--live num"><span className="tag__pulse" aria-hidden="true"></span> {d.auctionStyle === "DUTCH" ? "Dutch · live" : "Live auction"}</span>
         ) : null}
         <span className="tag tag--scarce num">{d.remaining} left</span>
-        <Image src={d.image} alt={d.title} width={420} height={420} quality={75} />
+        <Image src={d.image} alt={d.title} width={420} height={420} quality={70} />
       </div>
       <div className="drop__body">
         <h3 className="drop__name">{d.title}</h3>

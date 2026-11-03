@@ -112,13 +112,16 @@ type Row = {
   source: string; fetched_at: string;
 };
 
+// Every fetch below uses `next.revalidate` rather than `cache: "no-store"`.
+// A no-store fetch during a page render forces that whole route dynamic, which
+// is what kept every product page off the cache. 60s matches MEMORY_TTL_MS.
 async function readLatestRow(): Promise<Snapshot | null> {
   const { url, readKey } = supabaseEnv();
   if (!url || !readKey) return null;
   try {
     const res = await fetch(
       `${url}/rest/v1/metal_prices?select=gold,silver,platinum,palladium,changes_percent,source,fetched_at&order=fetched_at.desc&limit=1`,
-      { headers: { apikey: readKey, Authorization: `Bearer ${readKey}` }, cache: "no-store", signal: AbortSignal.timeout(6000) },
+      { headers: { apikey: readKey, Authorization: `Bearer ${readKey}` }, next: { revalidate: 60 }, signal: AbortSignal.timeout(6000) },
     );
     if (!res.ok) throw new Error(`metal_prices read ${res.status}`);
     const rows = (await res.json()) as Row[];
@@ -167,7 +170,7 @@ async function fromGoldApi(): Promise<Snapshot | null> {
     const out = {} as Record<MetalSymbol, number>;
     let newest = 0;
     await Promise.all(SYMBOLS.map(async (sym) => {
-      const r = await fetch(`https://api.gold-api.com/price/${sym}`, { cache: "no-store", signal: AbortSignal.timeout(6000) });
+      const r = await fetch(`https://api.gold-api.com/price/${sym}`, { next: { revalidate: 60 }, signal: AbortSignal.timeout(6000) });
       const j = (await r.json()) as { price?: number; updatedAt?: string };
       out[sym] = Number(j.price);
       newest = Math.max(newest, Date.parse(j.updatedAt ?? "") || 0);
@@ -186,7 +189,7 @@ async function fromMetalsApi(): Promise<Snapshot | null> {
   try {
     const r = await fetch(
       `https://metals-api.com/api/latest?access_key=${key}&base=USD&symbols=XAU,XAG,XPT,XPD`,
-      { cache: "no-store", signal: AbortSignal.timeout(8000) },
+      { next: { revalidate: 60 }, signal: AbortSignal.timeout(8000) },
     );
     const j = (await r.json()) as { success?: boolean; rates?: Record<string, number>; timestamp?: number };
     if (!j.success || !j.rates) return null;

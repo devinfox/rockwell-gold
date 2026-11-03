@@ -10,9 +10,11 @@ import { OG, OG_SIZE, assetDataUrl, ogFonts, BrandRow, Chip, SpotStrip } from ".
 export const alt = "Rockwell Metals — physical gold, silver and platinum, traded like a digital asset";
 export const size = OG_SIZE;
 export const contentType = "image/png";
-// The card carries live spot, and getSpot() reads uncached, so the route is
-// rendered per request rather than baked at build time with fallback marks.
-export const dynamic = "force-dynamic";
+// Rasterising the card (sharp + Satori + PNG encode) is the most CPU-expensive
+// request in the app, and link-preview bots fetch it constantly. A mark that is
+// a few minutes old is fine on a social card, so it is regenerated at most
+// every 15 minutes and served from the ISR cache in between.
+export const revalidate = 900;
 
 export default async function Image() {
   const [fonts, spot, buffalo, maple, eagle] = await Promise.all([

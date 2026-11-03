@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./styles.css";
 import "./rm.css";
 import GlobalFintechProvider from "./components/global-fintech-provider";
-import { readSession } from "./lib/session";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://rockwellmetals.com";
 const DESCRIPTION =
@@ -61,15 +60,13 @@ const themeInit = `try{
   document.documentElement.setAttribute("data-theme","light");
 }`;
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  // Resolve the session once on the server so the client tree renders the
-  // signed-in state on first paint (audit: Low — "Sign in" flashed until
-  // /api/auth answered). Reading the cookie here makes the whole tree
-  // dynamic; the site is already cookie-personalised, so that is the intent.
-  const claims = await readSession();
-  const initialSession = claims
-    ? { userId: claims.uid, name: claims.name, email: claims.email, role: claims.role }
-    : null;
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  // The session is deliberately NOT read here. Reading the cookie in the root
+  // layout made every route dynamic — home, catalog and all 25k product pages
+  // were rendered by a function on every hit. Public pages are now cacheable;
+  // SiteNav and useRm resolve the session client-side from /api/auth and
+  // /api/rm, and the nav holds a neutral placeholder until it knows.
+  const initialSession = null;
   return (
     <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>

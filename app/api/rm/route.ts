@@ -11,7 +11,7 @@
 // instances (or two tabs) can never overwrite each other's orders.
 
 import type { NextRequest } from "next/server";
-import { getDb, openDb, projectDb, runAction, transact, AuthError, type Actor } from "../../lib/rm-db";
+import { dbVersion, getDb, openDb, projectDb, runAction, transact, AuthError, type Actor } from "../../lib/rm-db";
 import { OrderError } from "../../lib/order-pricing";
 import { StoreConflict, StoreUnavailable } from "../../lib/rm-store";
 import { readSession } from "../../lib/session";
@@ -28,16 +28,23 @@ async function currentActor(): Promise<Actor> {
   return { userId: user.id, role: user.role };
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await openDb({ maxAgeMs: 1500 });
   } catch (e) {
     return storeFailure(e);
   }
   const actor = await currentActor();
-  return Response.json(projectDb(actor), {
-    headers: { "Cache-Control": "private, no-store" },
-  });
+  // The projection depends only on the ledger version and who is asking, so
+  // that pair is the ETag. The client poller sends it back; when nothing has
+  // changed the answer is an empty 304 instead of re-projecting and
+  // re-serialising the whole document every few seconds.
+  const tag = `"${dbVersion() ?? 0}:${actor?.userId ?? "anon"}:${actor?.role ?? "-"}"`;
+  const headers = { "Cache-Control": "private, no-store", ETag: tag };
+  if (request.headers.get("if-none-match") === tag) {
+    return new Response(null, { status: 304, headers });
+  }
+  return Response.json(projectDb(actor), { headers });
 }
 
 export async function POST(request: NextRequest) {

@@ -318,7 +318,6 @@ export default async function CatalogPage({
                         alt={p.title}
                         width={280}
                         height={280}
-                        sizes="(max-width: 640px) 45vw, (max-width: 1100px) 30vw, 220px"
                         quality={70}
                         loading="lazy"
                       />

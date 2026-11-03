@@ -29,7 +29,7 @@ export async function GET(req: Request) {
   try {
     const res = await fetch(
       `${url}/rest/v1/metal_prices?select=gold,silver,platinum,palladium,fetched_at&fetched_at=gte.${encodeURIComponent(since)}&order=fetched_at.asc&limit=2000`,
-      { headers: { apikey: key, Authorization: `Bearer ${key}` }, cache: "no-store", signal: AbortSignal.timeout(8000) },
+      { headers: { apikey: key, Authorization: `Bearer ${key}` }, next: { revalidate: 120 }, signal: AbortSignal.timeout(8000) },
     );
     if (!res.ok) throw new Error(`metal_prices history ${res.status}`);
     const rows = (await res.json()) as Row[];
@@ -39,7 +39,7 @@ export async function GET(req: Request) {
       .filter((_, i) => i % step === 0 || i === rows.length - 1)
       .map((r) => ({ t: new Date(r.fetched_at).toISOString(), XAU: Number(r.gold), XAG: Number(r.silver), XPT: Number(r.platinum), XPD: Number(r.palladium) }));
     return Response.json({ range, points, live: true, from: points[0]?.t ?? null, to: points[points.length - 1]?.t ?? null }, {
-      headers: { "Cache-Control": "public, max-age=120, stale-while-revalidate=600" },
+      headers: { "Cache-Control": "public, max-age=120, s-maxage=120, stale-while-revalidate=600" },
     });
   } catch (err) {
     console.error("[spot/history] unavailable:", err);

@@ -14,7 +14,9 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Account, staff and API surfaces should never be indexed.
-      disallow: ["/admin", "/api", "/vault", "/orders", "/checkout", "/tax-center", "/auth"],
+      // Query-string views (catalog filters, pagination) are rendered per
+      // request; every product is already discoverable through the sitemap.
+      disallow: ["/admin", "/api", "/vault", "/orders", "/checkout", "/tax-center", "/auth", "/*?*"],
     },
     sitemap: Array.from({ length: chunks }, (_, i) => `${BASE}/sitemap/${i}.xml`),
   };

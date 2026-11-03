@@ -46,6 +46,16 @@ function redirectToSignIn(request: NextRequest) {
 }
 
 export const config = {
-  // Exclude static assets and image optimisation so the guard can never block CSS/JS.
-  matcher: ["/((?!_next/static|_next/image|assets|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js)$).*)"],
+  // Only the guarded prefixes. Proxy runs as a function in front of the cache,
+  // so matching every path meant an invocation on each public page view even
+  // when the page itself was served from the edge. Public routes never reach
+  // this file now; /api/rm and the account pages re-check the session anyway.
+  matcher: [
+    "/vault/:path*",
+    "/orders/:path*",
+    "/tax-center/:path*",
+    "/checkout/:path*",
+    "/auth/kyc-status/:path*",
+    "/admin/:path*",
+  ],
 };

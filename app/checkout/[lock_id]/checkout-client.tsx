@@ -424,7 +424,7 @@ export default function CheckoutClient({ lockId }: { lockId: string }) {
             <div className="rm-panel">
               <p className="rm-panel__k">Order Summary <span className="st" data-tone="live">live quote</span></p>
               <div className="co-summary__item">
-                <span className="rm-thumb"><Image src={lock.image} alt="" width={72} height={72} quality={60} /></span>
+                <span className="rm-thumb"><Image src={lock.image} alt="" width={72} height={72} quality={70} /></span>
                 <div>
                   <span className="co-summary__name">{lock.title}</span>
                   <span className="co-summary__meta num" style={{ display: "block" }}>{lock.mint} · SKU {lock.sku}</span>

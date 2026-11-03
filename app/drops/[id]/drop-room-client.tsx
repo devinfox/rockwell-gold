@@ -97,7 +97,7 @@ export default function DropRoomClient({ dropId }: { dropId: string }) {
             <div className="droproom__media">
               {isAuction && <span className="tag tag--live num" style={{ position: "absolute", top: 14, left: 14 }}><span className="tag__pulse" aria-hidden="true"></span> {closed ? "Hammer down" : "Bidding open"}</span>}
               <span className="tag tag--scarce num" style={{ position: "absolute", top: 14, right: 14 }}>{d.remaining} of {d.supply} left</span>
-              <Image src={d.image} alt={d.title} width={640} height={640} quality={80} priority />
+              <Image src={d.image} alt={d.title} width={640} height={640} quality={70} priority />
             </div>
             <div className="rm-panel" style={{ marginTop: 20 }}>
               <p className="rm-panel__k">Lot Specifications</p>

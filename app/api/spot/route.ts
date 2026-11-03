@@ -16,7 +16,9 @@ export async function GET() {
     return Response.json(quote, {
       headers: {
         // Fresh marks may be cached briefly; indicative ones must not be.
-        "Cache-Control": quote.live && !quote.stale ? "public, max-age=30, stale-while-revalidate=120" : "no-store",
+        // s-maxage lets the edge serve every ticker on the site from one
+        // function run per 30s instead of one per visitor per minute.
+        "Cache-Control": quote.live && !quote.stale ? "public, max-age=30, s-maxage=30, stale-while-revalidate=120" : "no-store",
       },
     });
   } catch (err) {

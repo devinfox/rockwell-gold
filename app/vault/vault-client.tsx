@@ -279,7 +279,7 @@ export default function VaultClient() {
                 return (
                   <div className="hold" role="row" key={g.key}>
                     <div className="hold__coin" role="cell">
-                      <Image src={g.image} alt="" width={96} height={96} quality={60} />
+                      <Image src={g.image} alt="" width={96} height={96} quality={70} />
                       <div className="hold__id">
                         <b>{g.title}</b>
                         <span className="num">

@@ -35,7 +35,7 @@ export async function GET(req: Request) {
         asOf: lp?.asOf ?? null, indicative: lp?.indicative ?? true,
       };
     });
-    return Response.json({ items }, { headers: { "Cache-Control": "public, max-age=15, stale-while-revalidate=60" } });
+    return Response.json({ items }, { headers: { "Cache-Control": "public, max-age=15, s-maxage=15, stale-while-revalidate=60" } });
   }
   const id = url.searchParams.get("id") ?? "";
   const qty = Math.max(1, Math.min(999, parseInt(url.searchParams.get("qty") ?? "1", 10) || 1));

@@ -73,13 +73,20 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.jmbullion.com" },
       { protocol: "https", hostname: "**.supabase.co" },
     ],
-    formats: ["image/avif", "image/webp"],
-    // Tile widths actually used by the catalog grid and PDP, so the optimizer
-    // isn't asked to generate sizes nothing requests.
-    imageSizes: [72, 96, 128, 220, 280],
-    deviceSizes: [640, 828, 1080, 1200, 1920],
-    qualities: [60, 70, 80],
-    minimumCacheTTL: 2678400, // 31 days — product imagery is immutable
+    // One output format. Every extra format is a second cache entry, a second
+    // billed transformation and a second pull of the original from Supabase
+    // per variant; the sources are already WebP, so AVIF bought nothing.
+    formats: ["image/webp"],
+    // Exactly the rendered widths and their 2x versions. No <Image> carries a
+    // `sizes` prop, so each image resolves to two variants at most (1x / 2x)
+    // instead of one per breakpoint in a ten-entry list.
+    imageSizes: [72, 144, 280, 560],
+    deviceSizes: [720, 1440],
+    // A single quality: a second quality is another full set of variants.
+    qualities: [70],
+    // Product imagery is immutable (content hash in the path), so a variant is
+    // transformed once and then served from cache for a year.
+    minimumCacheTTL: 31536000,
 
   },
 
@@ -97,11 +104,9 @@ const nextConfig: NextConfig = {
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
         ],
       },
-      {
-        // Never let an intermediary cache an authenticated payload.
-        source: "/api/:path*",
-        headers: [{ key: "Vary", value: "Cookie" }],
-      },
+      // Authenticated API routes send `Cache-Control: private, no-store`
+      // themselves. A blanket `Vary: Cookie` here fragmented the edge cache of
+      // the public ones (/api/spot, /api/quote?ids, /api/search) per visitor.
     ];
   },
 };

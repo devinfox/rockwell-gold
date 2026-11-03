@@ -30,10 +30,25 @@ export const OG = {
 const ROOT = process.cwd();
 const cache = new Map<string, Promise<Buffer>>();
 
+// Every path is a literal so the bundler's file tracing picks up exactly these
+// seven files. `readFile(join(ROOT, rel))` with a variable `rel` made it trace
+// (and deploy) the whole project with every function.
+const LOCAL_FILES: Record<string, () => Promise<Buffer>> = {
+  "fonts/PlusJakartaSans-700.ttf": () => readFile(join(ROOT, "fonts/PlusJakartaSans-700.ttf")),
+  "fonts/PlusJakartaSans-400.ttf": () => readFile(join(ROOT, "fonts/PlusJakartaSans-400.ttf")),
+  "fonts/JetBrainsMono-600.ttf": () => readFile(join(ROOT, "fonts/JetBrainsMono-600.ttf")),
+  "fonts/JetBrainsMono-400.ttf": () => readFile(join(ROOT, "fonts/JetBrainsMono-400.ttf")),
+  "public/assets/coin-buffalo.png": () => readFile(join(ROOT, "public/assets/coin-buffalo.png")),
+  "public/assets/coin-maple.png": () => readFile(join(ROOT, "public/assets/coin-maple.png")),
+  "public/assets/coin-eagle-ms.png": () => readFile(join(ROOT, "public/assets/coin-eagle-ms.png")),
+};
+
 function file(rel: string): Promise<Buffer> {
   let p = cache.get(rel);
   if (!p) {
-    p = readFile(join(ROOT, rel));
+    const load = LOCAL_FILES[rel];
+    if (!load) return Promise.reject(new Error(`[og] ${rel} is not a registered local asset`));
+    p = load();
     cache.set(rel, p);
   }
   return p;
@@ -79,7 +94,7 @@ async function toPngDataUrl(key: string, load: () => Promise<Buffer>, maxPx: num
 
 /** A public/ asset as a static PNG data URL. */
 export function assetDataUrl(rel: string, maxPx = 900): Promise<string> {
-  return toPngDataUrl(`asset:${rel}`, () => file(join("public", rel)), maxPx);
+  return toPngDataUrl(`asset:${rel}`, () => file(`public/${rel}`), maxPx);
 }
 
 /** A remote product image (WebP on the Rockwell bucket) as a static PNG data URL; null if unreachable. */

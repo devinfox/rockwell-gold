@@ -143,7 +143,7 @@ export function OrdersClient() {
                 <td><b className="num"><Link href={`/orders/${o.id}`} style={{ color: "inherit" }} onClick={(e) => e.stopPropagation()} aria-label={`Open order ${o.id}`}>{o.id}</Link></b></td>
                 <td>
                   <div className="rm-cellrow">
-                    <span className="rm-thumb">{o.items[0]?.image && <Image src={o.items[0].image} alt="" width={72} height={72} quality={60} />}</span>
+                    <span className="rm-thumb">{o.items[0]?.image && <Image src={o.items[0].image} alt="" width={72} height={72} quality={70} />}</span>
                     <div className="rm-cellmain">
                       <b>{o.items[0]?.title}</b>
                       <span className="num">×{o.items.reduce((a, i) => a + i.quantity, 0)}</span>

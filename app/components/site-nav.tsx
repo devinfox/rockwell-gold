@@ -196,7 +196,10 @@ export default function SiteNav({
   // Seeded from the server-resolved session so the first paint is already
   // signed-in (audit: auth-state flash); the fetch below re-confirms it.
   const initialSession = useInitialSession();
-  const [session, setSession] = useState<RmSession | null>(initialSession);
+  // `undefined` = not yet known. The root layout no longer reads the cookie
+  // (that made every public page dynamic), so the first paint shows a blank
+  // slot of the same size instead of flashing "Sign in" at a signed-in user.
+  const [session, setSession] = useState<RmSession | null | undefined>(initialSession ?? undefined);
   const [menuOpen, setMenuOpen] = useState(false);
   const spot = useSpot();
 
@@ -461,6 +464,8 @@ export default function SiteNav({
                 </Link>
               </div>
             </div>
+          ) : session === undefined ? (
+            <span className="btn btn--ghost nav__cta" aria-hidden="true" style={{ visibility: "hidden" }}>Sign in</span>
           ) : (
             <Link className="btn btn--ghost nav__cta" href="/auth/sign-in">Sign in</Link>
           )}
